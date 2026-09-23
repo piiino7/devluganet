@@ -1,0 +1,28 @@
+{
+    "name": "scoren/luganet-shop",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+	        "Database\\": "database/"
+        }
+    },
+    "authors": [
+        {
+            "name": "scoren",
+            "email": "scoren_7@mail.ru"
+        }
+    ],
+    "scripts": {
+        "create": "php vendor/bin/phinx create",
+        "migrate": "php vendor/bin/phinx migrate",
+        "rollback": "php vendor/bin/phinx rollback -t 0",
+        "test models": "php tests/test_models.php"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.11",
+        "robmorgan/phinx": "^0.16.12",
+        "illuminate/database": "^10.49",
+	    "vlucas/phpdotenv": "^5.7",
+        "firebase/php-jwt": "^7.2"
+    }
+}

@@ -1,0 +1,166 @@
+[2026-09-23 12:49:33] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:49:34] auth ok
+[2026-09-23 12:49:34] catalog mode=checkauth
+[2026-09-23 12:49:34] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:49:34] auth ok
+[2026-09-23 12:49:34] catalog mode=checkauth
+[2026-09-23 12:49:34] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:49:34] auth ok
+[2026-09-23 12:49:34] catalog mode=init
+[2026-09-23 12:49:34] === request === {"type":"catalog","mode":"file","file":"import0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:49:35] auth ok
+[2026-09-23 12:49:35] catalog mode=file
+[2026-09-23 12:49:35] file saved {"name":"import0_1.xml","bytes":14257,"written":14257,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml"}
+[2026-09-23 12:49:35] === request === {"type":"catalog","mode":"import","file":"import0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:49:35] auth ok
+[2026-09-23 12:49:35] catalog mode=import
+[2026-09-23 12:49:35] import FAILED {"file":"import0_1.xml","seconds":0,"error":"Class \"DB\" not found","file_at":"\/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php:33","trace":"#0 \/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php(140): importFile()\n#1 \/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php(173): handleCatalog()\n#2 {main}"}
+[2026-09-23 12:49:35] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:49:36] auth ok
+[2026-09-23 12:49:36] catalog mode=checkauth
+[2026-09-23 12:49:36] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:49:36] auth ok
+[2026-09-23 12:49:36] catalog mode=init
+[2026-09-23 12:49:36] === request === {"type":"catalog","mode":"file","file":"offers0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:49:36] auth ok
+[2026-09-23 12:49:36] catalog mode=file
+[2026-09-23 12:49:36] file saved {"name":"offers0_1.xml","bytes":8454,"written":8454,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml"}
+[2026-09-23 12:49:36] === request === {"type":"catalog","mode":"import","file":"offers0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:49:36] auth ok
+[2026-09-23 12:49:36] catalog mode=import
+[2026-09-23 12:49:36] import FAILED {"file":"offers0_1.xml","seconds":0,"error":"Class \"DB\" not found","file_at":"\/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php:33","trace":"#0 \/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php(140): importFile()\n#1 \/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php(173): handleCatalog()\n#2 {main}"}
+[2026-09-23 12:52:03] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:52:03] auth ok
+[2026-09-23 12:52:03] catalog mode=checkauth
+[2026-09-23 12:52:04] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:52:04] auth ok
+[2026-09-23 12:52:04] catalog mode=checkauth
+[2026-09-23 12:52:04] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:52:04] auth ok
+[2026-09-23 12:52:04] catalog mode=init
+[2026-09-23 12:52:04] === request === {"type":"catalog","mode":"file","file":"import0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:52:04] auth ok
+[2026-09-23 12:52:04] catalog mode=file
+[2026-09-23 12:52:04] file saved {"name":"import0_1.xml","bytes":14257,"written":14257,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml"}
+[2026-09-23 12:52:04] === request === {"type":"catalog","mode":"import","file":"import0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:52:05] auth ok
+[2026-09-23 12:52:05] catalog mode=import
+[2026-09-23 12:52:05] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml","size":14257}
+[2026-09-23 12:52:05] detected type: products
+[2026-09-23 12:52:05] saveProduct OK {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa","id":1,"name":"Предоставление доступа к сети Интернет"}
+[2026-09-23 12:52:05] import FAILED {"file":"import0_1.xml","seconds":0.018,"error":"Call to undefined method App\\Models\\Product::groups()","file_at":"\/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/support\/Traits\/ForwardsCalls.php:67","trace":"#0 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/support\/Traits\/ForwardsCalls.php(36): Illuminate\\Database\\Eloquent\\Model::throwBadMethodCallException()\n#1 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Eloquent\/Model.php(2335): Illuminate\\Database\\Eloquent\\Model->forwardCallTo()\n#2 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(250): Illuminate\\Database\\Eloquent\\Model->__call()\n#3 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(171): syncGroups()\n#4 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(93): saveProduct()\n#5 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(70): importProducts()\n#6 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Concerns\/ManagesTransactions.php(30): {closure:importFile():63}()\n#7 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(63): Illuminate\\Database\\Connection->transaction()\n#8 \/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php(126): importFile()\n#9 \/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php(159): handleCatalog()\n#10 {main}"}
+[2026-09-23 12:52:05] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:52:05] auth ok
+[2026-09-23 12:52:05] catalog mode=checkauth
+[2026-09-23 12:52:05] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:52:06] auth ok
+[2026-09-23 12:52:06] catalog mode=init
+[2026-09-23 12:52:06] === request === {"type":"catalog","mode":"file","file":"offers0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:52:06] auth ok
+[2026-09-23 12:52:06] catalog mode=file
+[2026-09-23 12:52:06] file saved {"name":"offers0_1.xml","bytes":8454,"written":8454,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml"}
+[2026-09-23 12:52:06] === request === {"type":"catalog","mode":"import","file":"offers0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:52:06] auth ok
+[2026-09-23 12:52:06] catalog mode=import
+[2026-09-23 12:52:06] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml","size":8454}
+[2026-09-23 12:52:06] detected type: offers
+[2026-09-23 12:52:06] saveOffer: product not found {"external_id":"8da367a8-6b09-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:52:06] saveOffer: product not found {"external_id":"34c91119-b1b0-11f1-996a-d2f96f1c535d"}
+[2026-09-23 12:52:06] saveOffer: product not found {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:52:06] saveOffer: product not found {"external_id":"4bf0107b-6b09-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:52:06] saveOffer: product not found {"external_id":"8791b86c-6b09-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:52:06] saveOffer: product not found {"external_id":"6c3f3034-6b09-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:52:06] importOffers done {"offers":6,"skipped_products":6}
+[2026-09-23 12:52:06] import success {"file":"offers0_1.xml","seconds":0.018}
+[2026-09-23 12:55:12] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:55:13] auth ok
+[2026-09-23 12:55:13] catalog mode=checkauth
+[2026-09-23 12:55:13] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:55:13] auth ok
+[2026-09-23 12:55:13] catalog mode=checkauth
+[2026-09-23 12:55:13] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:55:13] auth ok
+[2026-09-23 12:55:13] catalog mode=init
+[2026-09-23 12:55:13] === request === {"type":"catalog","mode":"file","file":"import0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:55:14] auth ok
+[2026-09-23 12:55:14] catalog mode=file
+[2026-09-23 12:55:14] file saved {"name":"import0_1.xml","bytes":14257,"written":14257,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml"}
+[2026-09-23 12:55:14] === request === {"type":"catalog","mode":"import","file":"import0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:55:14] auth ok
+[2026-09-23 12:55:14] catalog mode=import
+[2026-09-23 12:55:14] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml","size":14257}
+[2026-09-23 12:55:14] detected type: products
+[2026-09-23 12:55:14] saveProduct OK {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa","id":2,"name":"Предоставление доступа к сети Интернет"}
+[2026-09-23 12:55:14] import FAILED {"file":"import0_1.xml","seconds":0.034,"error":"SQLSTATE[42S02]: Base table or view not found: 1146 Table 'c1scoren.product_attributes' doesn't exist (Connection: default, SQL: delete from `product_attributes` where `product_attributes`.`product_id` = 2 and `product_attributes`.`product_id` is not null)","file_at":"\/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Connection.php:829","trace":"#0 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Connection.php(783): Illuminate\\Database\\Connection->runQueryCallback()\n#1 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Connection.php(600): Illuminate\\Database\\Connection->run()\n#2 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Connection.php(564): Illuminate\\Database\\Connection->affectingStatement()\n#3 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Query\/Builder.php(3796): Illuminate\\Database\\Connection->delete()\n#4 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Eloquent\/Builder.php(1273): Illuminate\\Database\\Query\\Builder->delete()\n#5 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/support\/Traits\/ForwardsCalls.php(23): Illuminate\\Database\\Eloquent\\Builder->delete()\n#6 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/support\/Traits\/ForwardsCalls.php(52): Illuminate\\Database\\Eloquent\\Relations\\Relation->forwardCallTo()\n#7 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Eloquent\/Relations\/Relation.php(517): Illuminate\\Database\\Eloquent\\Relations\\Relation->forwardDecoratedCallTo()\n#8 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(255): Illuminate\\Database\\Eloquent\\Relations\\Relation->__call()\n#9 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(172): syncAttributes()\n#10 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(93): saveProduct()\n#11 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(70): importProducts()\n#12 \/var\/www\/clients\/client1\/web1\/web\/vendor\/illuminate\/database\/Concerns\/ManagesTransactions.php(30): {closure:importFile():63}()\n#13 \/var\/www\/clients\/client1\/web1\/web\/import_functions.php(63): Illuminate\\Database\\Connection->transaction()\n#14 \/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php(126): importFile()\n#15 \/var\/www\/clients\/client1\/web1\/web\/1c_exchange.php(159): handleCatalog()\n#16 {main}"}
+[2026-09-23 12:55:15] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:55:15] auth ok
+[2026-09-23 12:55:15] catalog mode=checkauth
+[2026-09-23 12:55:15] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:55:15] auth ok
+[2026-09-23 12:55:15] catalog mode=init
+[2026-09-23 12:55:15] === request === {"type":"catalog","mode":"file","file":"offers0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:55:15] auth ok
+[2026-09-23 12:55:15] catalog mode=file
+[2026-09-23 12:55:15] file saved {"name":"offers0_1.xml","bytes":8454,"written":8454,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml"}
+[2026-09-23 12:55:15] === request === {"type":"catalog","mode":"import","file":"offers0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:55:15] auth ok
+[2026-09-23 12:55:15] catalog mode=import
+[2026-09-23 12:55:15] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml","size":8454}
+[2026-09-23 12:55:15] detected type: offers
+[2026-09-23 12:55:15] saveOffer: product not found {"external_id":"8da367a8-6b09-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:55:15] saveOffer: product not found {"external_id":"34c91119-b1b0-11f1-996a-d2f96f1c535d"}
+[2026-09-23 12:55:15] saveOffer: product not found {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:55:15] saveOffer: product not found {"external_id":"4bf0107b-6b09-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:55:15] saveOffer: product not found {"external_id":"8791b86c-6b09-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:55:15] saveOffer: product not found {"external_id":"6c3f3034-6b09-11f1-9962-e4b7433508aa"}
+[2026-09-23 12:55:15] importOffers done {"offers":6,"skipped_products":6}
+[2026-09-23 12:55:15] import success {"file":"offers0_1.xml","seconds":0.004}
+[2026-09-23 12:57:51] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:57:51] auth ok
+[2026-09-23 12:57:51] catalog mode=checkauth
+[2026-09-23 12:57:52] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:57:52] auth ok
+[2026-09-23 12:57:52] catalog mode=checkauth
+[2026-09-23 12:57:52] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:57:52] auth ok
+[2026-09-23 12:57:52] catalog mode=init
+[2026-09-23 12:57:52] === request === {"type":"catalog","mode":"file","file":"import0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:57:52] auth ok
+[2026-09-23 12:57:52] catalog mode=file
+[2026-09-23 12:57:52] file saved {"name":"import0_1.xml","bytes":14257,"written":14257,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml"}
+[2026-09-23 12:57:52] === request === {"type":"catalog","mode":"import","file":"import0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:57:53] auth ok
+[2026-09-23 12:57:53] catalog mode=import
+[2026-09-23 12:57:53] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml","size":14257}
+[2026-09-23 12:57:53] detected type: products
+[2026-09-23 12:57:53] saveProduct OK {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa","id":1,"name":"Предоставление доступа к сети Интернет"}
+[2026-09-23 12:57:53] saveProduct OK {"external_id":"4bf0107b-6b09-11f1-9962-e4b7433508aa","id":2,"name":"Абонентский терминал XDT ONT xPON T51X (GEPON\/GPON, 1xGE RJ45,SC\/UPC"}
+[2026-09-23 12:57:53] saveProduct OK {"external_id":"6c3f3034-6b09-11f1-9962-e4b7433508aa","id":3,"name":"Кабель витая пара indoor UTP cat-5 \"MaxiLink\" (CCA 4х2x0.5mm) 305 м"}
+[2026-09-23 12:57:53] saveProduct OK {"external_id":"8791b86c-6b09-11f1-9962-e4b7433508aa","id":4,"name":"Услуги изменения с тарифом"}
+[2026-09-23 12:57:53] saveProduct OK {"external_id":"8da367a8-6b09-11f1-9962-e4b7433508aa","id":5,"name":"Вызов специалиста"}
+[2026-09-23 12:57:53] saveProduct OK {"external_id":"34c91119-b1b0-11f1-996a-d2f96f1c535d","id":6,"name":"Монтаж оборудования"}
+[2026-09-23 12:57:53] importProducts done {"groups":2,"products":6}
+[2026-09-23 12:57:53] import success {"file":"import0_1.xml","seconds":0.107}
+[2026-09-23 12:57:53] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:57:53] auth ok
+[2026-09-23 12:57:53] catalog mode=checkauth
+[2026-09-23 12:57:53] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:57:54] auth ok
+[2026-09-23 12:57:54] catalog mode=init
+[2026-09-23 12:57:54] === request === {"type":"catalog","mode":"file","file":"offers0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:57:54] auth ok
+[2026-09-23 12:57:54] catalog mode=file
+[2026-09-23 12:57:54] file saved {"name":"offers0_1.xml","bytes":8454,"written":8454,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml"}
+[2026-09-23 12:57:54] === request === {"type":"catalog","mode":"import","file":"offers0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-09-23 12:57:54] auth ok
+[2026-09-23 12:57:54] catalog mode=import
+[2026-09-23 12:57:54] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml","size":8454}
+[2026-09-23 12:57:54] detected type: offers
+[2026-09-23 12:57:54] saveOffer OK {"external_id":"8da367a8-6b09-11f1-9962-e4b7433508aa","offer_id":1}
+[2026-09-23 12:57:54] saveOffer OK {"external_id":"34c91119-b1b0-11f1-996a-d2f96f1c535d","offer_id":2}
+[2026-09-23 12:57:54] saveOffer OK {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa","offer_id":3}
+[2026-09-23 12:57:54] saveOffer OK {"external_id":"4bf0107b-6b09-11f1-9962-e4b7433508aa","offer_id":4}
+[2026-09-23 12:57:54] saveOffer OK {"external_id":"8791b86c-6b09-11f1-9962-e4b7433508aa","offer_id":5}
+[2026-09-23 12:57:54] saveOffer OK {"external_id":"6c3f3034-6b09-11f1-9962-e4b7433508aa","offer_id":6}
+[2026-09-23 12:57:54] importOffers done {"offers":6,"skipped_products":0}
+[2026-09-23 12:57:54] import success {"file":"offers0_1.xml","seconds":0.025}

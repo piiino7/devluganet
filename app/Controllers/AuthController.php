@@ -59,7 +59,7 @@ class AuthController extends BaseController
         }
     }
 
-    public function register(): void
+   /* public function register(): void
     {
         try {
             $data = (new Validator($this->body()))
@@ -101,7 +101,7 @@ class AuthController extends BaseController
         } catch (\Throwable $error) {
             throw $error;
         }
-    }
+    }*/
 
     public function me(): void
     {

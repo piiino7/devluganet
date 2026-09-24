@@ -1,6 +1,6 @@
 <?php
 
-//use App\Controllers\AdminController;
+use App\Controllers\AdminController;
 use App\Controllers\AuthController;
 //use App\Controllers\SellerController;
 
@@ -18,12 +18,14 @@ return [
 
     // Авторизованные
     ['GET',  '/auth/me',          AuthController::class, 'me',        true],
-    /*['GET',  '/seller/dashboard', SellerController::class, 'dashboard', true],
-    ['GET',  '/seller/products',  SellerController::class, 'products',  true],
+    //['GET',  '/seller/dashboard', SellerController::class, 'dashboard', true],
+    //['GET',  '/seller/products',  SellerController::class, 'products',  true],
 
     // Только admin
-    ['GET',    '/admin/users',       AdminController::class, 'users',       ['admin']],
-    ['POST',   '/admin/users',       AdminController::class, 'createUser',  ['admin']],
-    ['PATCH',  '/admin/users/{id}',  AdminController::class, 'updateUser',  ['admin']],
-    ['DELETE', '/admin/users/{id}',  AdminController::class, 'deleteUser',  ['admin']],*/
+    ['GET',     '/admin/getMe',             AdminController::class,     'me',                   ['admin']],
+    ['POST',    '/admin/registerEmployer',  AdminController::class,     'register_employer',    ['admin']],
+    ['POST',    '/admin/blockEmployers',    AdminController::class,     'block_employer',       ['admin']],
+    ['POST',    '/admin/restoreEmployers',  AdminController::class,     'restore_employer',     ['admin']],
+    ['POST',    '/admin/deleteEmployers',   AdminController::class,     'remove_employer',      ['admin']],
+    ['GET',     '/admin/getEmployers',      AdminController::class,     'list_of_employers',    ['admin']],
 ];

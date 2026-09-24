@@ -9,6 +9,7 @@ use App\Services\JwtService;
 use App\Support\AuthUser;
 use App\Support\HttpException;
 use App\Support\Validator;
+use Illuminate\Database\Capsule\Manager as DB;
 
 class AuthController extends BaseController
 {
@@ -38,12 +39,11 @@ class AuthController extends BaseController
                 throw HttpException::unauthorized('Invalid credentials');
             }
 
-            $user->load('roles');
-            $roles = $user->roles->pluck('name')->all();
+            $role = $user->role()?->name;
 
             $token = $this->jwt->issue($user->id, [
                 'email' => $user->email,
-                'roles' => $roles,
+                'role' => $role,
             ]);
 
             $this->json([
@@ -59,7 +59,7 @@ class AuthController extends BaseController
         }
     }
 
-   /* public function register(): void
+    public function register(): void
     {
         try {
             $data = (new Validator($this->body()))
@@ -71,23 +71,35 @@ class AuthController extends BaseController
                 ])
                 ->validate();
 
-            $new_user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => $data['password']
-            ]);
+            if (User::where('email', $data['email'])->exists()) {
+                throw HttpException::validation(['email' => ['Email already taken']]);
+            }
 
             $role = Role::where('name', $data['role'])->first();
             if (!$role) {
                 throw HttpException::validation(['role' => ['Unknown role: ' . $data['role']]]);
             }
-            $new_user->roles()->attach($role->id);
-            $new_user->setRelation('roles', collect([$role]));
-            $roles = $new_user->roles->pluck('name')->all();
+
+            try {
+                $new_user = DB::connection()->transaction(function () use ($data, $role) {
+                    $new_user = User::create([
+                        'name' => $data['name'],
+                        'email' => $data['email'],
+                        'password' => $data['password']
+                    ]);
+
+                    $new_user->roles()->sync([$role->id]);
+                    $new_user->setRelation('roles', collect([$role]));
+
+                    return $new_user;
+                });
+            } catch (\Exception $e) {
+                throw HttpException::validation(['email' => ['Email already taken']]);
+            }
 
             $token = $this->jwt->issue($new_user->id, [
                 'email' => $new_user->email,
-                'roles' => $roles,
+                'role' => $role->name,
             ]);
 
             $this->json([
@@ -101,7 +113,7 @@ class AuthController extends BaseController
         } catch (\Throwable $error) {
             throw $error;
         }
-    }*/
+    }
 
     public function me(): void
     {

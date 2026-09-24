@@ -18,6 +18,11 @@ class Validator
     public function rules(array $rules): self
     {
         foreach ($rules as $field => $ruleString) {
+            if (str_contains($field, '.*')) {
+                $this->checkWildcard($field, $ruleString);
+                continue;
+            }
+
             $value = $this->data[$field] ?? null;
 
             foreach (explode('|', $ruleString) as $rule) {
@@ -124,6 +129,36 @@ class Validator
     {
         if ($v !== null && !is_array($v)) {
             $this->addErrors($f, 'must be an array');
+        }
+    }
+
+    private function checkWildcard(string $field, string $ruleString): void
+    {
+        [$base] = explode('.', $field, 2);
+        $items = $this->data[$base] ?? null;
+
+        if (!is_array($items)) {
+            return; 
+        }
+
+        foreach ($items as $index => $value) {
+            $itemField = "$base.$index";
+
+            foreach (explode('|', $ruleString) as $rule) {
+                [$name, $param] = array_pad(explode(':', $rule, 2), 2, null);
+                match ($name) {
+                    'required' => $this->checkRequired($itemField, $value),
+                    'string'   => $this->checkString($itemField, $value),
+                    'int'      => $this->checkInt($itemField, $value),
+                    'email'    => $this->checkEmail($itemField, $value),
+                    'min'      => $this->checkMin($itemField, $value, (int)$param),
+                    'max'      => $this->checkMax($itemField, $value, (int)$param),
+                    'in'       => $this->checkIn($itemField, $value, explode(',', (string)$param)),
+                    'bool'     => $this->checkBool($itemField, $value),
+                    'array'    => $this->checkArray($itemField, $value),
+                    default    => null,
+                };
+            }
         }
     }
 

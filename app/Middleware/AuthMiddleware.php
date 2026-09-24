@@ -24,8 +24,8 @@ class AuthMiddleware
         $payload = $this->jwt->decode($m[1]);
 
         if ($this->requiredRoles !== null) {
-            $userRoles = (array)($payload['roles'] ?? []);
-            if (array_intersect($userRoles, $this->requiredRoles) === []) {
+            $userRole = ($payload['role'] ?? []);
+            if (!in_array($userRole, $this->requiredRoles, true)) {
                 throw HttpException::forbidden();
             }
         }

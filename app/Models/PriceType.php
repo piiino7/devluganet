@@ -10,7 +10,7 @@ class PriceType extends Model
     protected $table = 'price_types';
     protected $guarded = [];
 
-    protected function tax_included(): Attribute
+    protected function taxIncluded(): Attribute
     {
         return Attribute::make(
             get: fn($value) => (bool)$value,

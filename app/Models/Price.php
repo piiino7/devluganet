@@ -29,7 +29,7 @@ class Price extends Model
         return $this->belongsTo(Offer::class);
     }
 
-    public function price_type()
+    public function priceType()
     {
         return $this->belongsTo(PriceType::class);
     }

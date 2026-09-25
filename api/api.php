@@ -7,6 +7,7 @@ require dirname(__DIR__) . '/database/db_init.php';
 require __DIR__ . '/api_functions.php';
 
 use App\Controllers\AuthController;
+use App\Controllers\AdminController;
 use App\Middleware\AuthMiddleware;
 use App\Services\JwtService;
 use App\Support\HttpException;
@@ -96,7 +97,8 @@ try {
     exit;
 
 } catch (\Throwable $e) {
-    http_response_code(500);
+    //http_response_code(500);
+    //echo $e;
     echo json_encode([
         'error' => [
             'message' => 'Internal server error',

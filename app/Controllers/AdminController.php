@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use App\Resources\UserResource;
-use App\Services\JwtService;
 use App\Support\AuthUser;
 use App\Support\HttpException;
 use App\Support\Validator;
@@ -15,7 +14,7 @@ use Illuminate\Database\Capsule\Manager as DB;
 
 class AdminController extends BaseController
 {
-    public function __construct(private JwtService $jwt) {}
+    public function __construct() {}
 
     public function register_employer(): void
     {
@@ -100,7 +99,6 @@ class AdminController extends BaseController
                 $skipped[] = ['id' => $user->id, 'reason' => 'Already blocked'];
                 continue;
             }
-
             $user->update(['is_active' => false]);
             $blocked[] = $user;
         }
@@ -139,7 +137,7 @@ class AdminController extends BaseController
         $restored = [];
         $skipped = [];
 
-        foreach ($restored_users as $key => $user) {
+        foreach ($restored_users as $user) {
             if (!UserPolicy::restore($admin, $user)) {
                 $skipped[] = ['id' => $user->id, 'reason' => 'Cannot restore this user'];
                 continue;
@@ -156,7 +154,7 @@ class AdminController extends BaseController
 
         $this->json([
             'data' => [
-                '$restored' => UserResource::collection($restored_users),
+                '$restored' => UserResource::collection($restored),
                 'skipped' => $skipped,
                 'restored_by' => (new UserResource($admin))->toArray()
             ],
@@ -174,15 +172,31 @@ class AdminController extends BaseController
             ])
             ->validate();
 
+        $ids   = $data['id'];
+        $deleted_users = User::with('roles')->find($ids);
+
+        if (count($deleted_users) !== count($ids)) {
+            $found   = $deleted_users->pluck('id')->all();
+            $missing = array_diff($ids, $found);
+            throw HttpException::validation([
+                'id' => ['Users not found: ' . implode(', ', $missing)],
+            ]);
+        }
+
         $deleted = [];
         $skipped = [];
 
-        $deleted_users = User::findOrFail($data['id']);
         foreach ($deleted_users as $user) {
             if (!UserPolicy::remove($admin, $user)) {
                 $skipped[] = ['id' => $user->id, 'reason' => 'Cannot remove this user'];
                 continue;
             }
+
+            if ($user->deleted_at) {
+                $skipped[] = ['id' => $user->id, 'reason' => 'Already deleted'];
+                continue;
+            }
+
             $user->roles()->detach();
             $user->update(['is_active' => false]);
             $user->delete(); // SoftDelete
@@ -215,6 +229,87 @@ class AdminController extends BaseController
         } catch (\Throwable $error) {
             throw $error;
         }
+    }
+
+    public function get_employer(): void
+    {
+        try {
+            $admin = AuthUser::requireUser();
+
+            $data = (new Validator($this->body()))
+                ->rules([
+                    'id'    => 'required|int',
+                ])
+                ->validate();
+
+            $finded_user = User::with('roles')->find($data['id']);
+
+            $this->json([
+                'data' => [
+                    'worker' => (new UserResource($finded_user))->toArray(),
+                    'asked_by' => (new UserResource($admin))->toArray()
+                ],
+            ]);
+        } catch (\Throwable $e) {
+            throw HttpException::validation([
+                'id' => ['User not found: ' . $data['id']],
+            ]);
+        }
+    }
+
+    public function update_employer(): void
+    {
+        $admin = AuthUser::requireUser();
+
+        $data = (new Validator($this->body()))
+            ->rules([
+                'id'    => 'required|int',
+                'name' => 'max:255|min:2|string',
+                'password' => 'string|min:5',
+                'role' => 'string|in:seller,operator',
+                'is_active' => 'int|in:0,1'
+            ])
+            ->validate();
+
+        $updated_user = User::with('roles')->find($data['id']);
+
+        if (!$updated_user) {
+            throw HttpException::notFound('User not found');
+        }
+
+        if (!UserPolicy::update($admin, $updated_user)) {
+            throw HttpException::forbidden('Cannot update this user');
+        }
+
+        try {
+            DB::connection()->transaction(function () use ($updated_user, $data) {
+                $new_role = $data['role'] ?? null;
+                unset($data['role']);
+
+                if ($data !== []) {
+                    $updated_user->update($data);
+                }
+
+                if ($new_role !== null) {
+                    $role = Role::where('name', $new_role)->first();
+                    if (!$role) {
+                        throw HttpException::validation(['role' => ['Unknown role: ' . $new_role]]);
+                    }
+                    $updated_user->roles()->sync([$role->id]);
+                }
+
+                $updated_user->refresh();
+            });
+        } catch (\Throwable $e) {
+            throw HttpException::forbidden('Cannot update this user');
+        }
+
+        $this->json([
+            'data' => [
+                'updated_employer' => (new UserResource($updated_user))->toArray(),
+                'asked_by' => (new UserResource($admin))->toArray()
+            ],
+        ]);
     }
 
     public function report(): void

@@ -10,7 +10,7 @@ class Product extends Model
     protected $table = 'products';
     protected $guarded = [];
 
-    protected function is_active(): Attribute
+    protected function isActive(): Attribute
     {
         return Attribute::make(
             get: fn($value) => (bool)$value,
@@ -22,12 +22,12 @@ class Product extends Model
         return $this->belongsTo(Unit::class);
     }
 
-    public function tax_rate()
+    public function taxRate()
     {
         return $this->belongsTo(TaxRate::class, 'tax_rate_id');
     }
 
-    public function product_groups()
+    public function groups()
     {
         return $this->belongsToMany(
             ProductGroup::class,

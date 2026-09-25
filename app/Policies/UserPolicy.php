@@ -33,4 +33,9 @@ class UserPolicy
     {
         return self::manage($actor, $target);
     }
+
+    public static function update(User $actor, User $target): bool
+    {
+        return self::manage($actor, $target);
+    }
 }

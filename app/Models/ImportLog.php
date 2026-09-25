@@ -10,14 +10,14 @@ class ImportLog extends Model
     protected $table = 'import_logs';
     protected $guarded = [];
 
-    protected function started_at(): Attribute
+    protected function startedAt(): Attribute
     {
         return Attribute::make(
             get: fn($value) => $value ? new \DateTime($value) : null,
         );
     }
 
-    protected function finished_at(): Attribute
+    protected function finishedAt(): Attribute
     {
         return Attribute::make(
             get: fn($value) => $value ? new \DateTime($value) : null,

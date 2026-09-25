@@ -12,17 +12,17 @@ class User extends Model
     use SoftDeletes;
 
     protected $table      = 'users';
-    protected $fillable   = ['name', 'email', 'password'];
+    protected $fillable   = ['name', 'email', 'password', 'is_active'];
     protected $hidden     = ['password'];
 
-    protected function is_active(): Attribute
+    protected function isActive(): Attribute
     {
         return Attribute::make(
             get: fn($value) => (bool)$value,
         );
     }
 
-    protected function deleted_at(): Attribute
+    protected function deletedAt(): Attribute
     {
         return Attribute::make(
             get: fn($value) => $value ? new \DateTime($value) : null,

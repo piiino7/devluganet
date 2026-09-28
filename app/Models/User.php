@@ -53,6 +53,11 @@ class User extends Model
             ->withTimestamps();
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function role(): ?Role
     {
         return $this->roles->first();

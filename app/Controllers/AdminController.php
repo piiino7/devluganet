@@ -231,12 +231,15 @@ class AdminController extends BaseController
         }
     }
 
-    public function get_employer(): void
+    public function get_employer(string $employerId): void
     {
         try {
             $admin = AuthUser::requireUser();
 
-            $data = (new Validator($this->body()))
+            $body = $this->body();
+            $body['id'] = $employerId;
+
+            $data = (new Validator($body))
                 ->rules([
                     'id'    => 'required|int',
                 ])
@@ -257,11 +260,14 @@ class AdminController extends BaseController
         }
     }
 
-    public function update_employer(): void
+    public function update_employer(string $employerId): void
     {
         $admin = AuthUser::requireUser();
 
-        $data = (new Validator($this->body()))
+        $body = $this->body();
+        $body['id'] = $employerId;
+
+        $data = (new Validator($body))
             ->rules([
                 'id'    => 'required|int',
                 'name' => 'max:255|min:2|string',

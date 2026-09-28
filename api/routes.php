@@ -18,28 +18,24 @@ return [
 
     // Авторизованные
     ['GET',  '/auth/me',          AuthController::class, 'me',        true],
-    //['GET',  '/seller/dashboard', SellerController::class, 'dashboard', true],
-    //['GET',  '/seller/products',  SellerController::class, 'products',  true],
 
     // Только seller
-    ['GET',     '/getGroups',               SellerController::class,    'getGroups',            true],
-    //['GET',     '/getGroup',                SellerController::class,    'getGroup',             true],
-    ['GET',     '/getProducts',             SellerController::class,    'getProducts',          true],
-    //['GET',     '/getProduct',              SellerController::class,    'getProduct',           true],
-    //GET /seller/categories                       — список категорий
-    //GET /seller/categories/{id}                  — одна категория
-    //GET /seller/categories/{id}/products         — товары в категории (пагинация)
-    //GET /seller/products                         — все товары (фильтры, поиск, пагинация)
-    //GET /seller/products/{id}                    — карточка товара
+    ['GET',     '/groups',                          SellerController::class,    'getGroups',         true], // — список категорий
+    ['GET',     '/groups/{groupId}/products',       SellerController::class,    'getProducts',       true], // — товары в категории (добавить пагинацию)
+    ['GET',     '/products',                        SellerController::class,    'getProducts',       true], // — все товары (фильтры, поиск, пагинация)
+    ['GET',     '/products/{productId}',            SellerController::class,    'getProduct',        true], // — один товар
+    // КОРЗИНА
+    // СОЗДАНИЕ ЗАКАЗА
+
 
     // Только admin
-    ['GET',     '/admin/getMe',             AdminController::class,     'me',                   ['admin']],
-    ['POST',    '/admin/registerEmployer',  AdminController::class,     'register_employer',    ['admin']],
-    ['POST',    '/admin/blockEmployers',    AdminController::class,     'block_employer',       ['admin']],
-    ['POST',    '/admin/restoreEmployers',  AdminController::class,     'restore_employer',     ['admin']],
-    ['POST',    '/admin/deleteEmployers',   AdminController::class,     'remove_employer',      ['admin']],
-    ['POST',    '/admin/updateEmployer',    AdminController::class,     'update_employer',      ['admin']],
-    ['GET',     '/admin/getEmployers',      AdminController::class,     'list_of_employers',    ['admin']],
-    ['GET',     '/admin/getEmployer',       AdminController::class,     'get_employer',         ['admin']],
+    ['GET',     '/admin/getMe',                          AdminController::class,     'me',                   ['admin']],
+    ['POST',    '/admin/registerEmployer',               AdminController::class,     'register_employer',    ['admin']],
+    ['POST',    '/admin/blockEmployers',                 AdminController::class,     'block_employer',       ['admin']],
+    ['POST',    '/admin/restoreEmployers',               AdminController::class,     'restore_employer',     ['admin']],
+    ['POST',    '/admin/deleteEmployers',                AdminController::class,     'remove_employer',      ['admin']],
+    ['POST',    '/admin/updateEmployer/{employerId}',    AdminController::class,     'update_employer',      ['admin']],
+    ['GET',     '/admin/getEmployers',                   AdminController::class,     'list_of_employers',    ['admin']],
+    ['GET',     '/admin/getEmployer/{employerId}',       AdminController::class,     'get_employer',         ['admin']],
     //['GET',     '/admin/getReport',         AdminController::class,     'report',               ['admin']],
 ];

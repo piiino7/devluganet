@@ -16,7 +16,7 @@ class AdminController extends BaseController
 {
     public function __construct() {}
 
-    public function register_employer(): void
+    public function registerEmployer(): void
     {
         $admin = AuthUser::requireUser();
 
@@ -63,7 +63,7 @@ class AdminController extends BaseController
         ]);
     }
 
-    public function block_employer(): void
+    public function blockEmployer(): void
     {
         $admin = AuthUser::requireUser();
         $admin->load('roles');
@@ -112,7 +112,7 @@ class AdminController extends BaseController
         ]);
     }
 
-    public function restore_employer(): void
+    public function restoreEmployer(): void
     {
         $admin = AuthUser::requireUser();
 
@@ -161,7 +161,7 @@ class AdminController extends BaseController
         ]);
     }
 
-    public function remove_employer(): void
+    public function removeEmployer(): void
     {
         $admin = AuthUser::requireUser();
 
@@ -213,25 +213,21 @@ class AdminController extends BaseController
         ]);
     }
 
-    public function list_of_employers(): void
+    public function listOfEmployers(): void
     {
-        try {
-            $admin = AuthUser::requireUser();
+        $admin = AuthUser::requireUser();
 
-            $workers = User::whereHas('roles', fn($q) => $q->whereIn('name', ['operator', 'seller']))->get();
+        $workers = User::whereHas('roles', fn($q) => $q->whereIn('name', ['operator', 'seller']))->get();
 
-            $this->json([
-                'data' => [
-                    'all_workers' => UserResource::collection($workers),
-                    'asked_by' => (new UserResource($admin))->toArray()
-                ],
-            ]);
-        } catch (\Throwable $error) {
-            throw $error;
-        }
+        $this->json([
+            'data' => [
+                'all_workers' => UserResource::collection($workers),
+                'asked_by' => (new UserResource($admin))->toArray()
+            ],
+        ]);
     }
 
-    public function get_employer(string $employerId): void
+    public function getEmployer(string $employerId): void
     {
         try {
             $admin = AuthUser::requireUser();
@@ -260,7 +256,7 @@ class AdminController extends BaseController
         }
     }
 
-    public function update_employer(string $employerId): void
+    public function updateEmployer(string $employerId): void
     {
         $admin = AuthUser::requireUser();
 

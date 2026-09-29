@@ -2,11 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Models\User;
-use App\Models\Role;
 use App\Models\Product;
 use App\Models\ProductGroup;
 use App\Models\Offer;
+use App\Models\Cart;
 
 use App\Resources\UserResource;
 use App\Resources\GroupResource;
@@ -167,30 +166,120 @@ class SellerController extends BaseController {
         ]);
     }
 
-    /*public function addToCard(): void
+    public function ListOfClients(): void
     {
+        $seller = AuthUser::requireUser();
 
+        $clients = $this->billingService->getClients();
+
+        // НАСТРОИТЬ ПОИСК, ФИЛЬТРЫ
+
+        if ($clients === null) {
+            throw HttpException::notFound('Clients not found in billing');
+        }
+
+        $this->json([
+            'data' => $clients,
+        ]);
     }
 
-    public function removeFromCart(): void
+    public function addToCart(): void
     {
+        $seller = AuthUser::requireUser();
 
+        $data = (new Validator($this->body()))
+            ->rules([
+                'client_id'      => 'required|string',
+                'product_id'     => 'required|int',
+                'quantity'       => 'required|int|min:1',
+            ])
+            ->validate();
+
+        $product = Product::find((int)$data['product_id']) ?? throw HttpException::notFound('Product not found');;
+
+        $cart = Cart::updateOrCreate(
+            [
+                'seller_id'          => $seller->id,
+                'client_external_id' => $data['client_id'],
+                'product_id'         => $product->id,
+            ],
+            [
+                'quantity' => $data['quantity'],
+            ]
+        );
+
+        $this->json([
+            'data' => $cart,
+        ]);
     }
 
-    public function clearCart(): void
+    public function GetCart(string $clientId): void
     {
+        $seller = AuthUser::requireUser();
 
-    }*/
+        $data = (new Validator(['client_id' => $clientId]))
+            ->rules([
+                'client_id'      => 'required|string',
+            ])
+            ->validate();
 
+        $items = Cart::where('seller_id', $seller->id)
+            ->where('client_external_id', (int)$clientId)
+            ->with(['product.unit', 'product.taxRate', 'product.offers.prices'])
+            ->get();
 
-    public function makeAnOrder(): void
+        $this->json([
+            'data' => $items,
+        ]);
+    }
+
+    public function RemoveFromCart(): void
     {
-        //получать клиента, оффер
-        //формировать заказ
-        //отправлять запрос банку на оплату
-        //охранять чеки, qr, статусы оплаты в БД
-        //формировать orders.xml
-        //после отправки orders.xml в 1С, обновить время отправки
+        $seller = AuthUser::requireUser();
+
+        $data = (new Validator($this->body()))
+            ->rules([
+                'client_id'      => 'required|string',
+                'product_id'     => 'required|int',
+                'quantity'       => 'required|int|min:1',
+            ])
+            ->validate();
+
+        $affected = Cart::where('seller_id', $seller->id)
+            ->where('client_external_id', (int)$data['client_id'])
+            ->where('product_id', (int)$data['product_id'])
+            ->where('quantity', '>=', (int)$data['quantity'])
+            ->decrement('quantity', (int)$data['quantity']);
+
+        if ($affected === 0) {
+            import_log('decrement elements from cart error', [
+                'client_id'   => $data['client_id'],
+                'product_id' => $data['product_id'],
+            ]);
+        }
+
+        $this->json([
+            'data' => [],
+        ]);
+    }
+
+    public function ClearCart(): void
+    {
+        $seller = AuthUser::requireUser();
+
+        $data = (new Validator($this->body()))
+            ->rules([
+                'client_id'      => 'required|string',
+            ])
+            ->validate();
+
+        Cart::where('seller_id', $seller->id)
+            ->where('client_external_id', (int)$data['client_id'])
+            ->delete();
+
+        $this->json([
+            'data' => [],
+        ]);
     }
 
     public function report(): void

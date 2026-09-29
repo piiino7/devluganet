@@ -14,6 +14,7 @@ class UserResource extends Resource
             'id'         => $this->user->id,
             'name'       => $this->user->name,
             'email'      => $this->user->email,
+            'is_active'  => $this->user->is_active,
             'created_at' => $this->user->created_at,
             'roles'      => $this->user->relationLoaded('roles')
                 ? RoleResource::collection($this->user->roles)

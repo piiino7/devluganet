@@ -98,7 +98,7 @@ try {
 
 } catch (\Throwable $e) {
     //http_response_code(500);
-    //echo $e;
+    echo $e;
     echo json_encode([
         'error' => [
             'message' => 'Internal server error',

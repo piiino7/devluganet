@@ -13,7 +13,8 @@ class Order extends Model
     protected $table = 'orders';
     protected $fillable = [
         'external_id', 'number', 'seller_id',
-        'client_external_id', 'client_name', /* ... */
+        'client_external_id', 'client_name', 'client_full_name',
+        'client_inn', 'client_phone', 'client_email', 'client_payload',
         'status', 'total', 'currency',
         'payment_provider', 'payment_qr_id', 'payment_qr_url',
         'payment_qr_expires_at', 'payment_status', 'payment_payload',

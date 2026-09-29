@@ -58,6 +58,11 @@ class User extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function cartItems()
+    {
+        return $this->hasMany(Cart::class, 'seller_id');
+    }
+
     public function role(): ?Role
     {
         return $this->roles->first();

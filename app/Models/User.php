@@ -15,7 +15,12 @@ class User extends Model
     protected $fillable   = ['name', 'email', 'password', 'is_active'];
     protected $hidden     = ['password'];
 
-    protected function isActive(): Attribute
+    protected $casts = [
+      'is_active' => 'boolean',
+      'deleted_at' => 'datetime'
+    ];
+
+    /*protected function isActive(): Attribute
     {
         return Attribute::make(
             get: fn($value) => (bool)$value,
@@ -27,7 +32,7 @@ class User extends Model
         return Attribute::make(
             get: fn($value) => $value ? new \DateTime($value) : null,
         );
-    }
+    }*/
 
     protected function password(): Attribute
     {

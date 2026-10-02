@@ -30,11 +30,23 @@ class AdminController extends BaseController
             ->validate();
 
         if (User::where('email', $data['email'])->exists()) {
+            import_log('register failed', [
+                'error' => 'Email already taken',
+                'email' => $data['email'],
+                'registered_by' => $admin->id
+            ]);
+
             throw HttpException::validation(['email' => ['Email already taken']]);
         }
 
         $role = Role::where('name', $data['role'])->first();
         if (!$role) {
+            import_log('register failed', [
+                'error' => 'Unknown role',
+                'role' => $data['role'],
+                'registered_by' => $admin->id
+            ]);
+
             throw HttpException::validation(['role' => ['Unknown role: ' . $data['role']]]);
         }
 
@@ -51,14 +63,23 @@ class AdminController extends BaseController
 
                 return $new_user;
             });
-        } catch (\Exception $e) {
-            throw HttpException::validation(['email' => ['Email already taken']]);
+        } catch (\Throwable $e) {
+            import_log('register new employer failed', [
+                'error' => $e->getMessage(),
+                'status' => $e->status,
+                'registered_by' => $admin->id,
+            ]);
+
+            throw $e;
         }
 
+        import_log('register new employer success', [
+            'user' => $new_user->id,
+            'registered_by' => $admin->id,
+        ]);
         $this->json([
             'data' => [
-                'user' => (new UserResource($new_user))->toArray(),
-                'created_by' => (new UserResource($admin))->toArray()
+                'user' => (new UserResource($new_user))->toArray()
             ],
         ]);
     }
@@ -81,6 +102,13 @@ class AdminController extends BaseController
         if (count($users) !== count($ids)) {
             $found   = $users->pluck('id')->all();
             $missing = array_diff($ids, $found);
+
+            import_log('blocking employers failed', [
+                'error' => 'Users not found',
+                'missing_users' => $missing,
+                'blocked_by' => $admin->id,
+            ]);
+
             throw HttpException::validation([
                 'id' => ['Users not found: ' . implode(', ', $missing)],
             ]);
@@ -103,11 +131,15 @@ class AdminController extends BaseController
             $blocked[] = $user;
         }
 
+        import_log('blocking employers success', [
+            'blocked_users' => $blocked->pluck('id')->toArray(),
+            'skipped_users' => $skipped,
+            'blocked_by' => $admin->id,
+        ]);
         $this->json([
             'data' => [
                 'blocked_users' => UserResource::collection($blocked),
-                'skipped'       => $skipped,
-                'blocked_by'    => (new UserResource($admin))->toArray(),
+                'skipped'       => $skipped
             ],
         ]);
     }
@@ -129,6 +161,12 @@ class AdminController extends BaseController
         if (count($restored_users) !== count($ids)) {
             $found   = $restored_users->pluck('id')->all();
             $missing = array_diff($ids, $found);
+
+            import_log('restoring employers failed', [
+                'error' => 'Users not found',
+                'missing_users' => $missing,
+                'restored_by' => $admin->id,
+            ]);
             throw HttpException::validation([
                 'id' => ['Users not found: ' . implode(', ', $missing)],
             ]);
@@ -152,11 +190,15 @@ class AdminController extends BaseController
             $restored[] = $user;
         }
 
+        import_log('blocking employers success', [
+            'restored_users' => $restored->pluck('id')->toArray(),
+            'skipped_users' => $skipped,
+            'restored_by' => $admin->id,
+        ]);
         $this->json([
             'data' => [
                 '$restored' => UserResource::collection($restored),
-                'skipped' => $skipped,
-                'restored_by' => (new UserResource($admin))->toArray()
+                'skipped' => $skipped
             ],
         ]);
     }
@@ -178,6 +220,12 @@ class AdminController extends BaseController
         if (count($deleted_users) !== count($ids)) {
             $found   = $deleted_users->pluck('id')->all();
             $missing = array_diff($ids, $found);
+
+            import_log('deleting employers failed', [
+                'error' => 'Users not found',
+                'missing_users' => $missing,
+                'deleted_by' => $admin->id,
+            ]);
             throw HttpException::validation([
                 'id' => ['Users not found: ' . implode(', ', $missing)],
             ]);
@@ -204,11 +252,15 @@ class AdminController extends BaseController
             $deleted[] = $user->id;
         }
 
+        import_log('deleting employers success', [
+            'deleted_users' => $deleted,
+            'skipped_users' => $skipped,
+            'deleted_by' => $admin->id,
+        ]);
         $this->json([
             'data' => [
                 'deleted_users' => $deleted,
-                'skipped'       => $skipped,
-                'deleted_by' => (new UserResource($admin))->toArray()
+                'skipped'       => $skipped
             ],
         ]);
     }
@@ -221,8 +273,7 @@ class AdminController extends BaseController
 
         $this->json([
             'data' => [
-                'all_workers' => UserResource::collection($workers),
-                'asked_by' => (new UserResource($admin))->toArray()
+                'all_workers' => UserResource::collection($workers)
             ],
         ]);
     }
@@ -245,8 +296,7 @@ class AdminController extends BaseController
 
             $this->json([
                 'data' => [
-                    'worker' => (new UserResource($finded_user))->toArray(),
-                    'asked_by' => (new UserResource($admin))->toArray()
+                    'worker' => (new UserResource($finded_user))->toArray()
                 ],
             ]);
         } catch (\Throwable $e) {
@@ -276,10 +326,22 @@ class AdminController extends BaseController
         $updated_user = User::with('roles')->find($data['id']);
 
         if (!$updated_user) {
+            import_log('updating employer failed', [
+                'error' => 'user not found',
+                'updated_user' => $data['id'],
+                'updated_by' => $admin->id,
+            ]);
+
             throw HttpException::notFound('User not found');
         }
 
         if (!UserPolicy::update($admin, $updated_user)) {
+            import_log('updating employer failed', [
+                'error' => 'forbidden',
+                'updated_user' => $updated_user->id,
+                'updated_by' => $admin->id,
+            ]);
+
             throw HttpException::forbidden('Cannot update this user');
         }
 
@@ -303,13 +365,22 @@ class AdminController extends BaseController
                 $updated_user->refresh();
             });
         } catch (\Throwable $e) {
-            throw HttpException::forbidden('Cannot update this user');
+            import_log('updating employer failed', [
+                'error' => $e->getMessage(),
+                'status' => $e->status,
+                'updated_by' => $admin->id,
+            ]);
+
+            throw $e;
         }
 
+        import_log('updating employer success', [
+            'updated_employer' => $updated_user->id,
+            'updated_by' => $admin->id,
+        ]);
         $this->json([
             'data' => [
-                'updated_employer' => (new UserResource($updated_user))->toArray(),
-                'asked_by' => (new UserResource($admin))->toArray()
+                'updated_employer' => (new UserResource($updated_user))->toArray()
             ],
         ]);
     }

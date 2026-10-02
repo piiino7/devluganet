@@ -34,6 +34,7 @@ class SellerController extends BaseController {
             'items'                  => 'required|array',
             'items.*.product_id'     => 'required|int',
             'items.*.quantity'       => 'required|int|min:1',
+            'items.*.service_date'   => 'date',
             'comment'                => 'string|max:1000',
         ])->validate();
 

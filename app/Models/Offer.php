@@ -10,12 +10,16 @@ class Offer extends Model
     protected $table = 'offers';
     protected $guarded = [];
 
-    protected function quantity(): Attribute
+    protected $casts = [
+        'quantity'    => 'decimal:3'
+    ];
+
+    /*protected function quantity(): Attribute
     {
         return Attribute::make(
             get: fn($value) => (float)$value,
         );
-    }
+    }*/
 
     public function package()
     {

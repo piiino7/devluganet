@@ -10,12 +10,16 @@ class Product extends Model
     protected $table = 'products';
     protected $guarded = [];
 
-    protected function isActive(): Attribute
+    protected $casts = [
+        'is_active' => 'boolean'
+    ];
+
+    /*protected function isActive(): Attribute
     {
         return Attribute::make(
             get: fn($value) => (bool)$value,
         );
-    }
+    }*/
 
     public function unit()
     {

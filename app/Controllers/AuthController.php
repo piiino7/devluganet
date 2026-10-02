@@ -13,7 +13,9 @@ use Illuminate\Database\Capsule\Manager as DB;
 
 class AuthController extends BaseController
 {
-    public function __construct(private JwtService $jwt) {}
+    private $logfile = 'auth.log';
+
+    public function __construct(private JwtService $jwt, private array $client) {}
 
     public function welcome(): void
     {
@@ -36,6 +38,13 @@ class AuthController extends BaseController
             $user = User::where('email', $data['email'])->first();
 
             if (!$user || !$user->verifyPassword($data['password'])) {
+                import_log('login failed', [
+                    'error' => 'Invalid credentials',
+                    'email' => $data['email'],
+                    'login' => $data['login'],
+                    'client_info' => $this->client,
+                ], $this->logfile);
+
                 throw HttpException::unauthorized('Invalid credentials');
             }
 
@@ -46,6 +55,11 @@ class AuthController extends BaseController
                 'role' => $role,
             ]);
 
+            import_log('login success', [
+                'user' => $user->id,
+                'role' => $role,
+                'client_info' => $this->client,
+            ], $this->logfile);
             $this->json([
                 'data' => [
                     'token'      => $token,
@@ -72,11 +86,23 @@ class AuthController extends BaseController
                 ->validate();
 
             if (User::where('email', $data['email'])->exists()) {
+                import_log('register failed', [
+                    'error' => 'Email already taken',
+                    'email' => $data['email'],
+                    'client_info' => $this->client,
+                ], $this->logfile);
+
                 throw HttpException::validation(['email' => ['Email already taken']]);
             }
 
             $role = Role::where('name', $data['role'])->first();
             if (!$role) {
+                import_log('register failed', [
+                    'error' => 'Unknown role',
+                    'role' => $data['role'],
+                    'client_info' => $this->client,
+                ], $this->logfile);
+
                 throw HttpException::validation(['role' => ['Unknown role: ' . $data['role']]]);
             }
 
@@ -93,8 +119,14 @@ class AuthController extends BaseController
 
                     return $new_user;
                 });
-            } catch (\Exception $e) {
-                throw HttpException::validation(['email' => ['Email already taken']]);
+            } catch (\Throwable $e) {
+                import_log('register failed', [
+                    'error' => $e->getMessage(),
+                    'status' => $e->status,
+                    'client_info' => $this->client,
+                ], $this->logfile);
+
+                throw $e;
             }
 
             $token = $this->jwt->issue($new_user->id, [
@@ -102,6 +134,10 @@ class AuthController extends BaseController
                 'role' => $role->name,
             ]);
 
+            import_log('register success', [
+                'user' => $new_user->id,
+                'client_info' => $this->client,
+            ], $this->logfile);
             $this->json([
                 'data' => [
                     'token'      => $token,

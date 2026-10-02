@@ -22,12 +22,13 @@ class OrderItem extends Model
         'total',
     ];
     protected $casts = [
-        'price'      => 'decimal:2',
-        'quantity'   => 'decimal:3',
-        'tax_rate'   => 'decimal:2',
-        'total'      => 'decimal:2',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'price'         => 'decimal:2',
+        'quantity'      => 'decimal:3',
+        'tax_rate'      => 'decimal:2',
+        'total'         => 'decimal:2',
+        'service_date'  => 'datetime',
+        'created_at'    => 'datetime',
+        'updated_at'    => 'datetime',
     ];
 
     public function order()

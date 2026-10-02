@@ -16,6 +16,7 @@ class ShortProductResource extends Resource
         return [
             'id'           => $this->product->id,
             'name'         => $this->product->name,
+            'kind'         => $this->product->kind,
             'unit'         => $this->product->unit->name,
             'offer'        => $offer,
             'price'        => $price ? (float)$price->price : null,

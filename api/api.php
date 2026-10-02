@@ -11,6 +11,7 @@ use App\Controllers\AdminController;
 use App\Middleware\AuthMiddleware;
 use App\Services\JwtService;
 use App\Support\HttpException;
+use App\Support\ClientInfo;
 
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable(dirname(__DIR__));
 $dotenv->load();
@@ -29,9 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 $jwt = JwtService::fromConfig();
+$client = ClientInfo::getInfo();
 
 $controllers = [
-    AuthController::class   => new AuthController($jwt),
+    AuthController::class   => new AuthController($jwt, $client),
 ];
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -98,6 +100,10 @@ try {
 
 } catch (\Throwable $e) {
     //http_response_code(500);
+    import_log('Internal Server Error', [
+        'status'    => $e->status,
+        'message'   => $e->getMessage(),
+    ]);
     echo $e;
     echo json_encode([
         'error' => [

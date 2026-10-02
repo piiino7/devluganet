@@ -10,7 +10,12 @@ class ImportLog extends Model
     protected $table = 'import_logs';
     protected $guarded = [];
 
-    protected function startedAt(): Attribute
+    protected $casts = [
+        'started_at'    => 'datetime',
+        'finished_at'   => 'datetime'
+    ];
+
+    /*protected function startedAt(): Attribute
     {
         return Attribute::make(
             get: fn($value) => $value ? new \DateTime($value) : null,
@@ -22,5 +27,5 @@ class ImportLog extends Model
         return Attribute::make(
             get: fn($value) => $value ? new \DateTime($value) : null,
         );
-    }
+    }*/
 }

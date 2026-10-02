@@ -25,11 +25,11 @@ return [
     ['GET',     '/groups/{groupId}/products',  ProductController::class,        'getProducts',       true], // — товары в категории (добавить пагинацию)
     ['GET',     '/products',                   ProductController::class,        'getProducts',       true], // — все товары (фильтры, поиск, пагинация)
     ['GET',     '/products/{productId}',       ProductController::class,        'getProduct',        true], // — один товар
-    //['GET',     '/clients',                    ProductController::class,        'ListOfClients',     true], // — список клиентов (обавить поиск, фильтры)
-    //['GET',     '/cart/{clientId}',            ProductController::class,        'GetCart',           true], // — посмотреть корзину
-    //['POST',    '/addToCart',                  ProductController::class,        'AddToCart',         true], // — добавить в корзину
-    //['POST',    '/removeFromCart',             ProductController::class,        'RemoveFromCart',    true], // — удалить из корзины
-    //['POST',    '/clearCart',                  ProductController::class,        'ClearCart',         true], // — удалить из корзины
+    //['GET',     '/clients',                    ProductController::class,        'listOfClients',     true], // — список клиентов (добавить поиск, фильтры)
+    ['GET',     '/cart',                       ProductController::class,        'getCart',           true], // — посмотреть корзину
+    ['POST',    '/addToCart',                  ProductController::class,        'addToCart',         true], // — добавить в корзину
+    ['POST',    '/removeFromCart',             ProductController::class,        'removeFromCart',    true], // — удалить из корзины
+    ['DELETE',  '/cart',                       ProductController::class,        'clearCart',         true], // — удалить из корзины
     //['POST',    '/order',                      OrderController::class,          'makeAnOrder',       true], // — создание заказа в БД
     //['POST',    '/order/qr',                   OrderController::class,          'QRpayment',         true], // — создание и получение QR для оплаты
     //['POST',    '/webhooks/bank',              OrderController::class,          'webhook',           false], // — роут для банка

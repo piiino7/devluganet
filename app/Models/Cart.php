@@ -10,9 +10,10 @@ class Cart extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'quantity'   => 'decimal:3',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'quantity'      => 'decimal:3',
+        'service_date'  => 'datetime',
+        'created_at'    => 'datetime',
+        'updated_at'    => 'datetime',
     ];
 
     public function seller()

@@ -1,0 +1,66 @@
+[2026-10-02 10:05:28] method ProductController->getGroups() returns {"groups":[{"id":1,"name":"Акт оказания услуг (ТОЛЬКО последний день м-ца)","parent_id":null,"products_count":4},{"id":2,"name":"Оборудование к установке","parent_id":null,"products_count":2}],"asked_by":{"id":3,"name":"scoren","email":"scoren_7@mail.ru","is_active":true,"created_at":"2026-09-24T13:48:01.000000Z","roles":null}}
+[2026-10-02 10:34:57] method ProductController->GetCart() returns {"products":[],"asked_by":3}
+[2026-10-02 10:35:35] method ProductController->addToCart() returns {"cart":4,"added_by":3}
+[2026-10-02 10:35:46] method ProductController->GetCart() returns {"products":[4],"asked_by":3}
+[2026-10-02 10:36:27] Internal Server Error {"status":null,"message":"Call to a member function decrement() on null"}
+[2026-10-02 10:38:48] method ProductController->RemoveFromCart() returns {"error":"Call to a member function decrement() on null","status":null,"product_id":2,"removed_by":3}
+[2026-10-02 10:38:48] Internal Server Error {"status":null,"message":"App\\Resources\\CartResource::__construct(): Argument #1 ($cart) must be of type App\\Models\\Cart, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/ProductController.php on line 330"}
+[2026-10-02 10:41:48] method ProductController->RemoveFromCart() returns {"error":"Call to a member function decrement() on null","status":null,"product_id":2,"removed_by":3}
+[2026-10-02 10:41:51] method ProductController->RemoveFromCart() returns {"error":"Call to a member function decrement() on null","status":null,"product_id":2,"removed_by":3}
+[2026-10-02 10:42:26] method ProductController->RemoveFromCart() returns {"error":"Call to a member function decrement() on null","status":null,"product_id":2,"removed_by":3}
+[2026-10-02 10:42:26] Internal Server Error {"status":null,"message":"Call to a member function decrement() on null"}
+[2026-10-02 10:44:19] method ProductController->RemoveFromCart() returns {"error":"Call to a member function decrement() on null","status":null,"product_id":2,"removed_by":3}
+[2026-10-02 10:44:19] Internal Server Error {"status":null,"message":"Call to a member function decrement() on null"}
+[2026-10-02 10:46:16] method ProductController->RemoveFromCart() returns {"error":"Item 2 not found in cart in this quantity: 10","status":404,"product_id":2,"removed_by":3}
+[2026-10-02 10:46:30] method ProductController->RemoveFromCart() returns {"error":"App\\Support\\HttpException::validation(): Argument #1 ($errors) must be of type array, string given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/ProductController.php on line 303","status":null,"product_id":2,"removed_by":3}
+[2026-10-02 10:46:30] Internal Server Error {"status":null,"message":"App\\Support\\HttpException::validation(): Argument #1 ($errors) must be of type array, string given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/ProductController.php on line 303"}
+[2026-10-02 10:47:43] method ProductController->RemoveFromCart() returns {"error":"Call to a member function decrement() on null","status":null,"product_id":2,"removed_by":3}
+[2026-10-02 10:47:43] Internal Server Error {"status":null,"message":"Call to a member function decrement() on null"}
+[2026-10-02 10:55:51] method ProductController->RemoveFromCart() returns {"error":"item not found","product_id":2,"quantity_for_remove":10,"removed_by":3}
+[2026-10-02 11:00:37] method ProductController->GetCart() returns {"products":[4],"asked_by":3}
+[2026-10-02 11:00:47] method ProductController->GetCart() returns {"products":[],"asked_by":3}
+[2026-10-02 11:01:01] method ProductController->addToCart() returns {"cart":5,"added_by":3}
+[2026-10-02 11:01:31] method ProductController->GetCart() returns {"products":[5],"asked_by":3}
+[2026-10-02 11:01:42] method ProductController->RemoveFromCart() returns {"error":"item not found","product_id":2,"quantity_for_remove":10,"removed_by":3}
+[2026-10-02 11:02:22] method ProductController->GetCart() returns {"products":[5],"asked_by":3}
+[2026-10-02 11:03:05] method ProductController->RemoveFromCart() returns {"error":"item not found","product_id":2,"quantity_for_remove":9,"removed_by":3}
+[2026-10-02 11:10:01] method ProductController->RemoveFromCart() returns {"error":"item not found","product_id":2,"quantity_for_remove":9,"removed_by":3}
+[2026-10-02 11:15:57] method ProductController->RemoveFromCart() returns {"quantity_before_decrement":"9.000","quantity_after_decrement":"9.000","product_id":2,"removed_by":3}
+[2026-10-02 11:16:57] method ProductController->RemoveFromCart() returns {"quantity_before_decrement":"9.000","quantity_after_decrement":"8.000","product_id":2,"removed_by":3}
+[2026-10-02 11:33:59] method ProductController->getCart() returns {"products":[],"asked_by":3}
+[2026-10-02 11:34:14] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-02 12:23:03] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-02 12:23:07] method ProductController->getCart() returns {"products":[],"asked_by":3}
+[2026-10-02 12:24:19] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-02 12:24:44] method ProductController->addToCart() returns {"item_in_cart":6,"added_by":3}
+[2026-10-02 12:24:51] method ProductController->getCart() returns {"products":[6],"asked_by":3}
+[2026-10-02 12:24:57] method ProductController->removeFromCart() returns {"error":"item not found","product_id":5,"quantity_for_remove":8,"removed_by":3}
+[2026-10-02 13:02:05] method ProductController->getCart() returns {"products":[6],"asked_by":3}
+[2026-10-02 13:02:14] method ProductController->removeFromCart() returns {"error":"item not found","product_id":5,"quantity_for_remove":10,"removed_by":3}
+[2026-10-02 13:02:43] method ProductController->removeFromCart() returns {"error":"item not found","product_id":5,"quantity_for_remove":10,"removed_by":3}
+[2026-10-02 13:02:43] Internal Server Error {"status":null,"message":"Can only throw objects"}
+[2026-10-02 13:03:19] method ProductController->removeFromCart() returns {"error":"item not found","product_id":5,"quantity_for_remove":10,"removed_by":3}
+[2026-10-02 13:03:19] Internal Server Error {"status":null,"message":"Item 5 not found in cart in this quantity: 10"}
+[2026-10-02 13:07:01] method ProductController->removeFromCart() returns {"message":"decrement success, item was removed from cart","product_id":5,"removed_by":3}
+[2026-10-02 13:07:04] method ProductController->removeFromCart() returns {"error":"item not found","product_id":5,"quantity_for_remove":1,"removed_by":3}
+[2026-10-02 13:09:37] Internal Server Error {"status":null,"message":"Call to a member function where() on null"}
+[2026-10-02 13:09:55] method ProductController->getCart() returns {"products":[],"asked_by":3}
+[2026-10-02 13:09:57] method ProductController->addToCart() returns {"item_in_cart":7,"added_by":3}
+[2026-10-02 13:10:00] method ProductController->getCart() returns {"products":[7],"asked_by":3}
+[2026-10-02 13:14:13] method ProductController->removeFromCart() returns {"error":"not enough quantity","product_id":5,"quantity_for_remove":10,"quantity_in_cart":"1.000","removed_by":3}
+[2026-10-02 13:14:13] Internal Server Error {"status":null,"message":"App\\Support\\HttpException::validation(): Argument #1 ($errors) must be of type array, string given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/ProductController.php on line 322"}
+[2026-10-02 13:16:10] method ProductController->removeFromCart() returns {"error":"not enough quantity","product_id":5,"quantity_for_remove":10,"quantity_in_cart":"1.000","removed_by":3}
+[2026-10-02 13:16:40] method ProductController->removeFromCart() returns {"error":"not enough quantity","product_id":5,"quantity_for_remove":10,"quantity_in_cart":"1.000","removed_by":3}
+[2026-10-02 13:17:17] method ProductController->removeFromCart() returns {"error":"not enough quantity","product_id":5,"quantity_for_remove":10,"quantity_in_cart":"1.000","removed_by":3}
+[2026-10-02 13:17:20] method ProductController->removeFromCart() returns {"message":"decrement success, item was removed from cart","product_id":5,"removed_by":3}
+[2026-10-02 13:17:22] method ProductController->removeFromCart() returns {"error":"item not found","product_id":5,"removed_by":3}
+[2026-10-02 13:18:05] method ProductController->addToCart() returns {"item_in_cart":8,"added_by":3}
+[2026-10-02 13:18:11] method ProductController->removeFromCart() returns {"message":"decrement success, item was removed from cart","product_id":5,"removed_by":3}
+[2026-10-02 13:35:10] method ProductController->addToCart() returns {"error":"Service date is required for services","asked_by":3}
+[2026-10-02 13:35:23] method ProductController->addToCart() returns {"error":"Service date is required for services","asked_by":3}
+[2026-10-02 13:35:31] method ProductController->addToCart() returns {"error":"Service date is required for services","asked_by":3}
+[2026-10-02 13:35:45] method ProductController->addToCart() returns {"item_in_cart":9,"added_by":3}
+[2026-10-02 13:35:51] method ProductController->getCart() returns {"products":[9],"asked_by":3}
+[2026-10-02 13:36:54] Internal Server Error {"status":null,"message":"Unclosed '{' on line 208 does not match ')'"}
+[2026-10-02 13:37:03] method ProductController->addToCart() returns {"item_in_cart":9,"added_by":3}
+[2026-10-02 13:37:34] method ProductController->addToCart() returns {"item_in_cart":9,"added_by":3}

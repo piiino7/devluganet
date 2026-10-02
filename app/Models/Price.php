@@ -10,7 +10,12 @@ class Price extends Model
     protected $table = 'prices';
     protected $guarded = [];
 
-    protected function price(): Attribute
+    protected $casts = [
+        'price'         => 'decimal:2',
+        'coefficient'   => 'decimal:4'
+    ];
+
+    /*protected function price(): Attribute
     {
         return Attribute::make(
             get: fn($value) => (float)$value,
@@ -22,7 +27,7 @@ class Price extends Model
         return Attribute::make(
             get: fn($value) => (float)$value,
         );
-    }
+    }*/
 
     public function offer()
     {

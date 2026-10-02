@@ -119,7 +119,7 @@ class OrderService
 
             if (!$price) {
                 throw HttpException::validation([
-                    'items' => ["Product {$product->id} has no site price"],
+                    'items' => ["Product {$product->id} has no price"],
                 ]);
             }
 

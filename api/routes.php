@@ -15,10 +15,15 @@ return [
     // Авторизация
     ['GET', '/welcome',         AuthController::class,      'welcome',      false], // — проверка доступности api
     ['POST', '/auth/login',     AuthController::class,      'login',        false], // — логин
-    ['POST', '/auth/register',  AuthController::class,      'register',     false], // — тестовая регистрация
+    //['POST', '/auth/register',  AuthController::class,      'register',     false], // — тестовая регистрация
+    ['POST', '/auth/refresh',   AuthController::class,      'refresh',      false], // — рефреш access-токена
+    ['POST',  '/auth/logout',    AuthController::class,      'logout',      false], // — логаут
 
     // Авторизованные
     ['GET',  '/auth/me',        AuthController::class,      'me',           true], // — данные о себе
+    ['GET',  '/auth/devices',   AuthController::class,      'devices',      true], // — данные о залогиненных устройствах
+    ['POST', '/auth/logoutAll', AuthController::class,      'logoutAll',    true], // — логаут со всех устройств
+
 
     // Продажа
     ['GET',     '/groups',                     ProductController::class,        'getGroups',         true], // — список категорий

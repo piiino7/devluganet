@@ -6,6 +6,6 @@ $dotenv->load();
 return [
     'secret' => $_ENV['JWT_SECRET'],
     'algo'   => 'HS256',
-    'ttl'    => 86400,
+    'ttl'    => 900,
     'issuer' => 'c1scoren-api',
 ];

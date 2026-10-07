@@ -46,6 +46,9 @@ class AuthUser
         if (!$user) {
             throw \App\Support\HttpException::unauthorized();
         }
+        if (!$user->is_active) {
+            throw \App\Support\HttpException::forbidden('Account is blocked');
+        }
         return $user;
     }
 }

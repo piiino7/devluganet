@@ -22,21 +22,20 @@ class AdminController extends BaseController
 
         $data = (new Validator($this->body()))
             ->rules([
-                'email'    => 'required|email',
-                'name' => 'required|max:255|min:2|string',
+                'name' => 'required|max:255|min:5|string',
                 'password' => 'required|string|min:5',
                 'role' => 'required|string|in:seller,operator'
             ])
             ->validate();
 
-        if (User::where('email', $data['email'])->exists()) {
+        if (User::where('name', $data['name'])->exists()) {
             import_log('register failed', [
-                'error' => 'Email already taken',
-                'email' => $data['email'],
+                'error' => 'Name already taken',
+                'name' => $data['name'],
                 'registered_by' => $admin->id
             ]);
 
-            throw HttpException::validation(['email' => ['Email already taken']]);
+            throw HttpException::validation(['name' => ['This name already taken']]);
         }
 
         $role = Role::where('name', $data['role'])->first();
@@ -54,7 +53,6 @@ class AdminController extends BaseController
             $new_user = DB::connection()->transaction(function () use ($data, $role) {
                 $new_user = User::create([
                     'name'     => $data['name'],
-                    'email'    => $data['email'],
                     'password' => $data['password'],
                 ]);
 

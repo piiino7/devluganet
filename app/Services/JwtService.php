@@ -13,7 +13,7 @@ class JwtService
     public function __construct(
         private string $secret,
         private string $algo = 'HS256',
-        private int $ttl = 3600,
+        private int $ttl = 900,
         private string $issuer = 'api',
     ) {}
 
@@ -55,7 +55,7 @@ class JwtService
             $decoded = JWT::decode($token, new Key($this->secret, $this->algo));
             return (array)$decoded;
         } catch (ExpiredException $e) {
-            throw new RuntimeException('Token expired', 401, $e);
+            throw new RuntimeException('Token expired', 410, $e);
         } catch (SignatureInvalidException $e) {
             throw new RuntimeException('Invalid signature', 401, $e);
         } catch (\Throwable $e) {

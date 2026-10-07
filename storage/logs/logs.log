@@ -64,3 +64,71 @@
 [2026-10-02 13:36:54] Internal Server Error {"status":null,"message":"Unclosed '{' on line 208 does not match ')'"}
 [2026-10-02 13:37:03] method ProductController->addToCart() returns {"item_in_cart":9,"added_by":3}
 [2026-10-02 13:37:34] method ProductController->addToCart() returns {"item_in_cart":9,"added_by":3}
+[2026-10-07 09:00:31] register new employer success {"user":9,"registered_by":3}
+[2026-10-07 09:30:31] Internal Server Error {"status":null,"message":"Call to a member function issue() on null"}
+[2026-10-07 09:30:38] Internal Server Error {"status":null,"message":"Call to a member function issue() on null"}
+[2026-10-07 09:59:50] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 10:00:01] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 10:00:31] method ProductController->getProducts() returns {"groupId":1,"products":[5,6,1,4],"asked_by":3}
+[2026-10-07 10:02:40] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 10:02:41] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 10:03:50] method ProductController->getProducts() returns {"groupId":1,"products":[5,6,1,4],"asked_by":3}
+[2026-10-07 10:07:02] method ProductController->getProducts() returns {"groupId":1,"products":[5,6,1,4],"asked_by":3}
+[2026-10-07 10:08:02] method ProductController->getProducts() returns {"groupId":1,"products":[5,6,1,4],"asked_by":3}
+[2026-10-07 10:10:38] Internal Server Error {"status":null,"message":"Invalid signature"}
+[2026-10-07 10:18:28] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 10:20:21] Internal Server Error {"status":null,"message":"Call to a member function rotate() on null"}
+[2026-10-07 11:16:38] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:16:46] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:16:47] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:27:11] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:32:14] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:32:16] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:32:26] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:35:09] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:38:01] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:39:16] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:39:25] Internal Server Error {"status":null,"message":"Token expired"}
+[2026-10-07 11:45:00] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:45:13] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:45:13] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:45:25] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:45:32] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:45:43] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:45:50] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:45:53] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:46:00] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:49:31] Runtime Exception {"status":null,"message":"Invalid token"}
+[2026-10-07 11:49:35] Runtime Exception {"status":null,"message":"Invalid token"}
+[2026-10-07 11:50:50] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:53:33] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:53:38] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:53:44] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:53:58] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:53:59] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:54:32] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:56:10] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 11:58:35] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:00:18] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:00:52] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:02:57] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:03:57] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:04:19] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:04:58] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:05:05] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:05:59] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:07:07] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:07:09] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:07:13] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 12:08:41] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 13:01:51] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 13:02:34] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-07 13:02:39] Internal Server Error {"status":null,"message":"Call to undefined function App\\Services\\now()"}
+[2026-10-07 13:03:21] Internal Server Error {"status":null,"message":"Call to undefined function App\\Services\\now()"}
+[2026-10-07 13:04:05] Internal Server Error {"status":null,"message":"Call to undefined function App\\Services\\now()"}
+[2026-10-07 13:06:39] Internal Server Error {"status":null,"message":"App\\Services\\RefreshTokenService::revokeAllForUser(): Argument #1 ($user) must be of type App\\Models\\User, int given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/AuthController.php on line 190"}
+[2026-10-07 13:09:54] Internal Server Error {"status":null,"message":"Call to undefined function App\\Services\\now()"}
+[2026-10-07 13:10:31] Internal Server Error {"status":null,"message":"Call to undefined function App\\Services\\now()"}
+[2026-10-07 13:16:39] Runtime Exception {"status":null,"message":"Handler not found: App\\Controllers\\AuthController::device"}
+[2026-10-07 13:17:44] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\RefreshToken\" not found"}
+[2026-10-07 13:20:40] Internal Server Error {"status":null,"message":"App\\Services\\RefreshTokenService::devices(): Return value must be of type array, none returned"}

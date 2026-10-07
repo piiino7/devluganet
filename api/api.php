@@ -10,6 +10,7 @@ use App\Controllers\AuthController;
 use App\Controllers\AdminController;
 use App\Middleware\AuthMiddleware;
 use App\Services\JwtService;
+use App\Services\RefreshTokenService;
 use App\Support\HttpException;
 use App\Support\ClientInfo;
 
@@ -20,9 +21,9 @@ header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, no-cache, must-revalidate');
 
 // CORS
-// header('Access-Control-Allow-Origin: *');
-// header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
-// header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Device-Id, X-Device-Name');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
@@ -31,9 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 $jwt = JwtService::fromConfig();
 $client = ClientInfo::getInfo();
+$refreshToken = new RefreshTokenService();
 
 $controllers = [
-    AuthController::class   => new AuthController($jwt, $client),
+    AuthController::class   => new AuthController($jwt, $client, $refreshToken),
 ];
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -91,13 +93,31 @@ try {
 
 } catch (HttpException $e) {
     http_response_code($e->status);
-    $payload = ['error' => ['message' => $e->getMessage()]];
+    $payload = ['error' => [
+        'code' => $e->getCode(),
+        'message' => $e->getMessage()
+    ]];
     if ($e->errors !== []) {
         $payload['error']['errors'] = $e->errors;
     }
     echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
 
+} catch (RuntimeException $e) {
+    http_response_code($e->status);
+    import_log('Runtime Exception', [
+        'status'    => $e->status,
+        'message'   => $e->getMessage(),
+    ]);
+    $payload = ['error' => [
+        'code' => $e->getCode(),
+        'message' => $e->getMessage()
+    ]];
+    if ($e->errors !== []) {
+        $payload['error']['errors'] = $e->errors;
+    }
+    echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    exit;
 } catch (\Throwable $e) {
     //http_response_code(500);
     import_log('Internal Server Error', [
@@ -107,6 +127,7 @@ try {
     echo $e;
     echo json_encode([
         'error' => [
+            'code' => $e->getCode(),
             'message' => 'Internal server error',
             'debug'   => $_ENV['APP_DEBUG'] === 'true' ? $e->getMessage() : null,
         ],

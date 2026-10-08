@@ -26,12 +26,10 @@ final class CartMigration extends AbstractMigration
         $table->addColumn('id', 'biginteger', ['identity' => true, 'signed' => false])
             ->addColumn('seller_id', 'biginteger', ['signed' => false, 'null' => false])
             ->addColumn('product_id', 'biginteger', ['signed' => false, 'null' => false])
-            //->addColumn('client_external_id', 'string', ['limit' => 50])
             ->addColumn('quantity', 'decimal', ['precision' => 15, 'scale' => 3, 'default' => 1])
             ->addTimestamps()
             ->addIndex(['seller_id'], ['name' => 'idx_cart_seller'])
             ->addIndex(['product_id'], ['name' => 'idx_cart_product'])
-            //->addIndex(['client_external_id'], ['name' => 'idx_cart_client'])
             ->addForeignKey('seller_id', 'users', 'id', [
                 'delete' => 'CASCADE',
                 'update' => 'CASCADE',

@@ -9,6 +9,7 @@ class Product extends Model
 {
     protected $table = 'products';
     protected $guarded = [];
+    protected $fillable = ['alias'];
 
     protected $casts = [
         'is_active' => 'boolean'

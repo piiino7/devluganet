@@ -93,6 +93,10 @@ try {
 
 } catch (HttpException $e) {
     http_response_code($e->status);
+    import_log('HTTP Exception', [
+        'status'    => $e->status,
+        'message'   => $e->getMessage(),
+    ]);
     $payload = ['error' => [
         'code' => $e->getCode(),
         'message' => $e->getMessage()

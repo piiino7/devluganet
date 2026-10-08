@@ -26,11 +26,12 @@ return [
 
 
     // Продажа
-    ['GET',     '/groups',                     ProductController::class,        'getGroups',         true], // — список категорий
-    ['GET',     '/groups/{groupId}/products',  ProductController::class,        'getProducts',       true], // — товары в категории (добавить пагинацию)
-    ['GET',     '/products',                   ProductController::class,        'getProducts',       true], // — все товары (фильтры, поиск, пагинация)
-    ['GET',     '/products/{productId}',       ProductController::class,        'getProduct',        true], // — один товар
-    //['GET',     '/clients',                    ProductController::class,        'listOfClients',     true], // — список клиентов (добавить поиск, фильтры)
+    ['GET',     '/groups',                     ProductController::class,   'getGroups',    true], // — список категорий
+    ['GET',     '/groups/{groupId}/products',  ProductController::class,   'getProducts',  true], // — товары в категории (добавить пагинацию)
+    ['GET',     '/products',                   ProductController::class,   'getProducts',  true], // — все товары (фильтры, поиск, пагинация)
+    ['GET',     '/products/{productId}',       ProductController::class,   'getProduct',   true], // — один товар (подробно со всеми предложениями)
+    ['GET',     '/offer/{offerId}',            ProductController::class,   'getOffer',     true], // — одно конкретное предложение
+
     ['GET',     '/cart',                       ProductController::class,        'getCart',           true], // — посмотреть корзину
     ['POST',    '/addToCart',                  ProductController::class,        'addToCart',         true], // — добавить в корзину
     ['POST',    '/removeFromCart',             ProductController::class,        'removeFromCart',    true], // — удалить из корзины

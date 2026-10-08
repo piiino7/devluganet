@@ -11,6 +11,7 @@ use App\Resources\UserResource;
 use App\Resources\GroupResource;
 use App\Resources\ShortProductResource;
 use App\Resources\DetailProductResource;
+use App\Resources\OfferResource;
 use App\Resources\CartResource;
 
 use App\Support\AuthUser;
@@ -182,25 +183,29 @@ class ProductController extends BaseController {
         ]);
     }
 
-    public function listOfClients(): void
+    public function getOffer(string $offerId): void
     {
         $seller = AuthUser::requireUser();
 
-        $clients = $this->billingService->getClients();
+        $data = (new Validator(['offerId' => $offerId]))
+            ->rules([
+                'offerId'    => 'required|int',
+            ])
+            ->validate();
 
-        // НАСТРОИТЬ ПОИСК, ФИЛЬТРЫ
-
-        if ($clients === null) {
-            import_log('method ProductController->listOfClients() returns', [
-                'error' => 'Clients not found in billing',
-                'asked_by' => $seller->id,
-            ]);
-
-            throw HttpException::notFound('Clients not found in billing');
-        }
+        $offer = Offer::whereHas('prices.priceType', fn($q) => $q->where('name', getenv('SITE_PRICE_TYPE_ID')))
+            ->with([
+                'package',
+                'prices' => fn($q) => $q
+                    ->whereHas('priceType', fn($q) => $q->where('name', getenv('SITE_PRICE_TYPE_ID')))
+                    ->with('priceType'),
+            ])
+            ->find($data['offerId']);
 
         $this->json([
-            'data' => $clients,
+            'data' => [
+                'offerResource' => (new OfferResource($offer))->toArray()
+            ],
         ]);
     }
 
@@ -210,50 +215,41 @@ class ProductController extends BaseController {
 
         $data = (new Validator($this->body()))
             ->rules([
-                'product_id'     => 'required|int',
-                'quantity'       => 'required|int|min:1',
-                'service_date'   => 'date'
+                'offer_id'     => 'required|int',
+                'quantity'     => 'required|float|min:1',
             ])
             ->validate();
 
-        $product = Product::find((int)$data['product_id']);
+        $productOffer = Offer::find((int)$data['offer_id']);
+        $cart = Cart::where('offer_id',$productOffer->id)->first();
+        $totalCartQuantity = ($cart->quantity ?? 0.00) + $data['quantity'];
 
-        if ($product === null) {
+        if ($productOffer === null) {
             import_log('method ProductController->addToCart() returns', [
-                'error' => 'Product not found',
+                'error' => 'Offer for product '. $data['offer_id'] .' not found',
                 'asked_by' => $seller->id,
             ]);
 
-            throw HttpException::notFound('Product not found');
+            throw HttpException::notFound('Offer not found');
         }
 
-        $isService = $product->kind === 'Услуга';
-        if ($isService && empty($data['service_date'])) {
-            import_log('method ProductController->addToCart() returns', [
-                'error' => 'Service date is required for services',
-                'asked_by' => $seller->id,
-            ]);
+        $isService = $productOffer->product->kind === 'Услуга';
 
+        if (!$isService AND (float)$productOffer->quantity < (float)$totalCartQuantity) {
             throw HttpException::validation([
-                'service_date' => ['Service date is required for services'],
-            ]);
-        }
-
-        if (!$isService AND (int)$product->quantity < (int)$data['quantity']) {
-            throw HttpException::validation([
-                'quantity' => ['Asking for ' . $data['quantity'] . '. Not enough products on warehouse: ' . $product->quantity],
+                'quantity' => ['Asking for ' . $data['quantity'] . '. Already in cart: '. ($cart->quantity ?? 0.00) .'. Not enough products on warehouse: ' . $productOffer->quantity],
             ]);
         }
 
         try {
             $item = Cart::updateOrCreate(
                 [
-                    'seller_id'          => $seller->id,
-                    'product_id'         => $product->id,
+                    'seller_id'  => $seller->id,
+                    'offer_id'   => $productOffer->id,
                 ],
                 [
-                    'quantity' => 1,
-                    'service_date' => $isService ? $data['service_date'] : null,
+                    'quantity' => $isService ? 1 : $totalCartQuantity,
+                    'service_date' => $isService ? date('Y-m-d H:i:s', time()) : null,
                 ]
             );
 
@@ -283,11 +279,11 @@ class ProductController extends BaseController {
         $seller = AuthUser::requireUser();
 
         $items = Cart::where('seller_id', $seller->id)
-            ->with(['product.unit', 'product.taxRate', 'product.offers.prices'])
+            ->with(['offer.product.unit', 'offer.product.taxRate', 'offer.prices'])
             ->get();
 
         import_log('method ProductController->getCart() returns', [
-            'products' => $items->pluck('id')->toArray(),
+            'items' => $items->pluck('id')->toArray(),
             'asked_by' => $seller->id,
         ]);
         $this->json([

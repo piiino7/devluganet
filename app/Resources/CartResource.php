@@ -10,10 +10,12 @@ class CartResource extends Resource
 
     public function toArray(): array
     {
+        $this->cart->offer->load('package');
+
         return [
             'id'                => $this->cart->id,
-            'product'           => (new ShortProductResource($this->cart->product))->toArray(),
-            'tax_rate'          => $this->cart->product->rate,
+            'offer'             => (new OfferResource($this->cart->offer))->toArray(),
+            'tax_rate'          => $this->cart->offer->product->rate,
             'quantity'          => $this->cart->quantity
         ];
     }

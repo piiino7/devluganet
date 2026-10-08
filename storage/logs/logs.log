@@ -132,3 +132,57 @@
 [2026-10-07 13:16:39] Runtime Exception {"status":null,"message":"Handler not found: App\\Controllers\\AuthController::device"}
 [2026-10-07 13:17:44] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\RefreshToken\" not found"}
 [2026-10-07 13:20:40] Internal Server Error {"status":null,"message":"App\\Services\\RefreshTokenService::devices(): Return value must be of type array, none returned"}
+[2026-10-08 06:03:42] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-08 06:25:07] HTTP Exception {"status":403,"message":"Forbidden"}
+[2026-10-08 06:25:13] method ProductController->getCart() returns {"products":[],"asked_by":9}
+[2026-10-08 06:25:20] method ProductController->getProduct() returns {"product":1,"asked_by":9}
+[2026-10-08 06:25:29] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":9}
+[2026-10-08 06:25:54] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 06:30:37] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 06:30:49] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 06:30:57] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 06:40:45] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 06:54:28] Internal Server Error {"status":null,"message":"syntax error, unexpected token \",\""}
+[2026-10-08 06:55:04] method ProductController->getProduct() returns {"product":2,"asked_by":9}
+[2026-10-08 06:55:51] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 06:55:57] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\OfferResource\" not found"}
+[2026-10-08 07:12:05] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 07:28:48] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 07:29:05] method ProductController->getProduct() returns {"product":2,"asked_by":9}
+[2026-10-08 07:29:15] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:33:48] Internal Server Error {"status":null,"message":"syntax error, unexpected token \",\""}
+[2026-10-08 07:34:02] Internal Server Error {"status":null,"message":"Property [quantity] does not exist on the Eloquent builder instance."}
+[2026-10-08 07:35:31] Internal Server Error {"status":null,"message":"Property [quantity] does not exist on the Eloquent builder instance."}
+[2026-10-08 07:39:49] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:39:55] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:39:55] method ProductController->addToCart() returns {"status":null,"message":"App\\Resources\\OfferResource::__construct(): Argument #1 ($offer) must be of type App\\Models\\Offer, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Resources\/CartResource.php on line 15","added_by":9}
+[2026-10-08 07:39:55] Internal Server Error {"status":null,"message":"App\\Resources\\OfferResource::__construct(): Argument #1 ($offer) must be of type App\\Models\\Offer, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Resources\/CartResource.php on line 15"}
+[2026-10-08 07:41:51] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:42:06] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:42:12] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:42:13] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:42:14] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:42:15] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:42:16] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:42:17] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:42:18] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:42:22] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:42:23] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:43:13] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:43:48] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:44:06] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 07:44:19] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:44:33] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:45:01] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:45:17] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:45:22] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:45:53] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 07:45:58] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":9}
+[2026-10-08 07:46:32] method ProductController->getProduct() returns {"product":5,"asked_by":9}
+[2026-10-08 07:46:40] method ProductController->addToCart() returns {"item_in_cart":2,"added_by":9}
+[2026-10-08 07:46:52] method ProductController->addToCart() returns {"item_in_cart":2,"added_by":9}
+[2026-10-08 07:47:36] Runtime Exception {"status":null,"message":"Call to undefined relationship [product] on model [App\\Models\\Cart]."}
+[2026-10-08 07:49:12] method ProductController->getCart() returns {"items":[1,2],"asked_by":9}
+[2026-10-08 07:56:45] method ProductController->getCart() returns {"items":[1,2],"asked_by":9}
+[2026-10-08 07:58:13] method ProductController->getCart() returns {"items":[1,2],"asked_by":9}
+[2026-10-08 07:58:43] method ProductController->getCart() returns {"items":[1,2],"asked_by":9}

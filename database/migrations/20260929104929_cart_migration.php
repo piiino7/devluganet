@@ -25,20 +25,21 @@ final class CartMigration extends AbstractMigration
         ]);
         $table->addColumn('id', 'biginteger', ['identity' => true, 'signed' => false])
             ->addColumn('seller_id', 'biginteger', ['signed' => false, 'null' => false])
-            ->addColumn('product_id', 'biginteger', ['signed' => false, 'null' => false])
+            ->addColumn('offer_id', 'biginteger', ['signed' => false, 'null' => false])
             ->addColumn('quantity', 'decimal', ['precision' => 15, 'scale' => 3, 'default' => 1])
+            ->addColumn('service_date', 'date', ['null' => true])
             ->addTimestamps()
             ->addIndex(['seller_id'], ['name' => 'idx_cart_seller'])
-            ->addIndex(['product_id'], ['name' => 'idx_cart_product'])
+            ->addIndex(['offer_id'], ['name' => 'idx_cart_offer'])
             ->addForeignKey('seller_id', 'users', 'id', [
                 'delete' => 'CASCADE',
                 'update' => 'CASCADE',
                 'constraint' => 'fk_carts_seller',
             ])
-            ->addForeignKey('product_id', 'products', 'id', [
+            ->addForeignKey('offer_id', 'offers', 'id', [
                 'delete' => 'RESTRICT',
                 'update' => 'CASCADE',
-                'constraint' => 'fk_carts_product',
+                'constraint' => 'fk_carts_offer',
             ])
             ->create();
     }

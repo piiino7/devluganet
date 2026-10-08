@@ -3,7 +3,6 @@
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/database/db_init.php';
 require __DIR__ . '/import_functions.php';
-require __DIR__ . '/app/Support/import_log.php';
 
 use App\Models\User;
 

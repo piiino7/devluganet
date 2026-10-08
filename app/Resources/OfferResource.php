@@ -17,9 +17,7 @@ class OfferResource extends Resource
                 : null,
             'product' => $this->offer->product->full_name,
             'quantity' => (float)$this->offer->quantity,
-            'prices'   => $this->offer->relationLoaded('prices')
-                ? PriceResource::collection($this->offer->prices)
-                : [],
+            'price'   => $this->offer->price,
         ];
     }
 }

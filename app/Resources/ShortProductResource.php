@@ -11,7 +11,7 @@ class ShortProductResource extends Resource
     public function toArray(): array
     {
         $offer = $this->product->offers->first();
-        $price = $offer?->prices->first();
+        $price = $offer?->price;
 
         return [
             'id'           => $this->product->id,

@@ -29,6 +29,7 @@ final class CreateProductsMigration extends AbstractMigration
             ->addColumn('article', 'string', ['limit' => 100, 'null' => true])
             ->addColumn('name', 'string', ['limit' => 500])
             ->addColumn('full_name', 'string', ['limit' => 500, 'null' => true])
+            ->addColumn('alias', 'string', ['limit' => 255, 'null'  => true])
             ->addColumn('description', 'text', ['null' => true])
             ->addColumn('kind', 'string', ['limit' => 50, 'null' => true])
             ->addColumn('nomenclature_type', 'string', ['limit' => 100, 'null' => true])

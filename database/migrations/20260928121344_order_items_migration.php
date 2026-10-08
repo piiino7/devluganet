@@ -35,6 +35,7 @@ final class OrderItemsMigration extends AbstractMigration
             ->addColumn('unit_code', 'string', ['limit' => 20, 'null' => true])
             ->addColumn('tax_rate', 'decimal', ['precision' => 5, 'scale' => 2, 'null' => true])
             ->addColumn('total', 'decimal', ['precision' => 15, 'scale' => 2, 'default' => 0, 'null' => false])
+            ->addColumn('service_date', 'date', ['null' => true])
             ->addTimestamps()
             ->addIndex(['order_id'], ['name' => 'idx_oi_order'])
             ->addIndex(['product_id'], ['name' => 'idx_oi_product'])

@@ -73,14 +73,7 @@ class ProductController extends BaseController {
             $groupId = (int)$data['groupId'];
         }
 
-        $query = Product::with([
-            'offers' => fn($q) => $q
-                ->whereHas('prices.priceType', fn($q) => $q->where('name', getenv('SITE_PRICE_TYPE_ID')))
-                ->with(['prices' => fn($q) => $q->whereHas(
-                    'priceType', fn($q) => $q->where('name', getenv('SITE_PRICE_TYPE_ID'))
-                )]),
-            'unit',
-        ])->where('is_active', true);
+        $query = Product::with(['offers', 'unit',])->where('is_active', true);
 
         if ($groupId) {
             $query->whereHas('groups', fn($q) => $q->where('product_groups.id', $groupId));
@@ -148,19 +141,7 @@ class ProductController extends BaseController {
             ])
             ->validate();
 
-        $product = Product::with([
-            'unit',
-            'taxRate',
-            'groups',
-            'offers' => fn($q) => $q
-                ->whereHas('prices.priceType', fn($q) => $q->where('name', getenv('SITE_PRICE_TYPE_ID')))
-                ->with([
-                    'package',
-                    'prices' => fn($q) => $q
-                        ->whereHas('priceType', fn($q) => $q->where('name', getenv('SITE_PRICE_TYPE_ID')))
-                        ->with('priceType'),
-                ]),
-        ])
+        $product = Product::with('unit', 'taxRate', 'groups', 'offers')
             ->where('is_active', true)
             ->find($data['productId']);
 
@@ -193,14 +174,7 @@ class ProductController extends BaseController {
             ])
             ->validate();
 
-        $offer = Offer::whereHas('prices.priceType', fn($q) => $q->where('name', getenv('SITE_PRICE_TYPE_ID')))
-            ->with([
-                'package',
-                'prices' => fn($q) => $q
-                    ->whereHas('priceType', fn($q) => $q->where('name', getenv('SITE_PRICE_TYPE_ID')))
-                    ->with('priceType'),
-            ])
-            ->find($data['offerId']);
+        $offer = Offer::find($data['offerId']);
 
         $this->json([
             'data' => [
@@ -279,7 +253,7 @@ class ProductController extends BaseController {
         $seller = AuthUser::requireUser();
 
         $items = Cart::where('seller_id', $seller->id)
-            ->with(['offer.product.unit', 'offer.product.taxRate', 'offer.prices'])
+            ->with(['offer.product.unit', 'offer.product.taxRate'])
             ->get();
 
         import_log('method ProductController->getCart() returns', [

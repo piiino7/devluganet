@@ -28,6 +28,8 @@ final class CreateOffersMigration extends AbstractMigration
             ->addColumn('product_id', 'biginteger', ['signed' => false, 'null' => true])
             ->addColumn('package_id', 'biginteger', ['signed' => false, 'null' => true])
             ->addColumn('quantity', 'decimal', ['precision' => 15, 'scale' => 3, 'default' => 0])
+            ->addColumn('price', 'decimal', ['precision' => 15, 'scale' => 2, 'null' => true])
+            ->addColumn('currency', 'string', ['limit' => 10, 'default' => 'руб.', 'null' => true])
             ->addTimestamps()
             ->addIndex(['external_id'], ['unique' => true, 'name' => 'uq_offers_external_id'])
             ->addIndex(['product_id'], ['name' => 'idx_offers_product'])

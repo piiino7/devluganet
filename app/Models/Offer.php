@@ -11,7 +11,8 @@ class Offer extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'quantity'    => 'decimal:3'
+        'quantity' => 'decimal:3',
+        'price'    => 'decimal:3',
     ];
 
     /*protected function quantity(): Attribute
@@ -29,10 +30,5 @@ class Offer extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
-    }
-
-    public function prices()
-    {
-        return $this->hasMany(Price::class);
     }
 }

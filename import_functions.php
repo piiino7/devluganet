@@ -247,7 +247,7 @@ function syncGroups(Product $product, SimpleXMLElement $node): void
         }
     }
 
-    $product->product_groups()->sync($ids);
+    $product->groups()->sync($ids);
 }
 
 function syncAttributes(Product $product, array $attrs): void
@@ -274,12 +274,6 @@ function importOffers(SimpleXMLElement $xml): void
 
     $pkg = $xml->ПакетПредложений;
 
-    if (isset($pkg->ТипыЦен)) {
-        foreach ($pkg->ТипыЦен->ТипЦены as $typeNode) {
-            savePriceType($typeNode);
-        }
-    }
-
     $package = savePackage($pkg);
 
     $offersCount     = 0;
@@ -303,22 +297,6 @@ function importOffers(SimpleXMLElement $xml): void
     ]);
 }
 
-function savePriceType(SimpleXMLElement $node): void
-{
-    $externalId = text($node, 'Ид');
-    if ($externalId === null) {
-        return;
-    }
-
-    PriceType::updateOrCreate(
-        ['external_id' => $externalId],
-        [
-            'name'         => text($node, 'Наименование') ?? '',
-            'currency'     => text($node, 'Валюта') ?? 'руб',
-            'tax_included' => (text($node, 'Налог/УчтеноВСумме') ?? 'false') === 'true' ? 1 : 0,
-        ]
-    );
-}
 
 function savePackage(SimpleXMLElement $pkg): OfferPackage
 {
@@ -353,52 +331,37 @@ function saveOffer(SimpleXMLElement $node, OfferPackage $package): bool
         return true;
     }
 
+    // Взять цену типа «Сайт»
+    $price = null;
+    $currency = 'руб.';
+
+    if (isset($node->Цены)) {
+        foreach ($node->Цены->Цена as $priceNode) {
+            $typeExt = text($priceNode, 'ИдТипаЦены');
+            if ($typeExt === getenv('SITE_PRICE_TYPE_ID')) {
+                $price    = (float)(text($priceNode, 'ЦенаЗаЕдиницу') ?? 0);
+                $currency = text($priceNode, 'Валюта') ?? 'руб.';
+                break;
+            }
+        }
+    }
+
     $offer = Offer::updateOrCreate(
         ['external_id' => $externalId],
         [
             'product_id' => $product->id,
             'package_id' => $package->id,
             'quantity'   => (float)(text($node, 'Количество') ?? 0),
+            'price'      => $price,
+            'currency'   => $currency,
         ]
     );
-
     import_log('saveOffer OK', [
         'external_id' => $externalId,
         'offer_id'    => $offer->id,
     ]);
 
-    syncPrices($offer, $node);
+
     return false;
 }
 
-function syncPrices(Offer $offer, SimpleXMLElement $node): void
-{
-    if (!isset($node->Цены)) {
-        return;
-    }
-
-    foreach ($node->Цены->Цена as $priceNode) {
-        $typeExt = text($priceNode, 'ИдТипаЦены');
-        if ($typeExt === null) {
-            continue;
-        }
-
-        $priceType = PriceType::where('external_id', $typeExt)->first();
-        if ($priceType === null) {
-            continue;
-        }
-
-        Price::updateOrCreate(
-            [
-                'offer_id'      => $offer->id,
-                'price_type_id' => $priceType->id,
-            ],
-            [
-                'price'        => (float)(text($priceNode, 'ЦенаЗаЕдиницу') ?? 0),
-                'currency'     => text($priceNode, 'Валюта') ?? 'руб',
-                'coefficient'  => (float)(text($priceNode, 'Коэффициент') ?? 1),
-                'presentation' => text($priceNode, 'Представление'),
-            ]
-        );
-    }
-}

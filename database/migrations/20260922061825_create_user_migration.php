@@ -25,10 +25,15 @@ final class CreateUserMigration extends AbstractMigration
         ]);
         $table->addColumn('id', 'biginteger', ['identity' => true, 'signed' => false])
             ->addColumn('name', 'string', ['limit' => 50])
-            ->addColumn('email', 'string', ['limit' => 150])
+            //->addColumn('email', 'string', ['limit' => 150])
             ->addColumn('password', 'string', ['limit' => 255])
+            ->addColumn('is_active', 'boolean', ['default' => true])
+            ->addColumn('deleted_at', 'datetime', ['null' => true])
             ->addTimestamps()
-            ->addIndex(['email'], ['unique' => true])
+            //->addIndex(['email'], ['unique' => true])
+            ->addIndex(['name'], ['unique' => true])
+            ->addIndex(['is_active'], ['name' => 'idx_users_is_active'])
+            ->addIndex(['deleted_at'], ['name' => 'idx_users_deleted_at'])
             ->create();
     }
 }

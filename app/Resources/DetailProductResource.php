@@ -14,11 +14,13 @@ class DetailProductResource extends Resource
             'id'                => $this->product->id,
             'name'              => $this->product->name,
             'full_name'         => $this->product->full_name,
+            'alias'             => $this->product->alias,
             'article'           => $this->product->article,
             'code'              => $this->product->code,
             'description'       => $this->product->description,
             'kind'              => $this->product->kind,
             //'nomenclature_type' => $this->product->nomenclature_type,
+            'payment_type'      => $this->product->payment_type,
             'unit'              => $this->product->unit ? [
                 'name' => $this->product->unit->name,
                 'code' => $this->product->unit->code,

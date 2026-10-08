@@ -5,14 +5,12 @@ namespace App\Controllers;
 use App\Models\Product;
 use App\Models\ProductGroup;
 use App\Models\Offer;
-use App\Models\Cart;
 
 use App\Resources\UserResource;
 use App\Resources\GroupResource;
 use App\Resources\ShortProductResource;
 use App\Resources\DetailProductResource;
 use App\Resources\OfferResource;
-use App\Resources\CartResource;
 
 use App\Support\AuthUser;
 use App\Support\HttpException;
@@ -164,6 +162,56 @@ class ProductController extends BaseController {
         ]);
     }
 
+    public function changeAlias(string $productId): void
+    {
+        $seller = AuthUser::requireUser();
+
+        $body = $this->body();
+        $body['productId'] = $productId;
+
+        $data = (new Validator($body))
+            ->rules([
+                'productId' => 'required|int',
+                'alias' => 'required|string'
+            ])
+            ->validate();
+
+        $product = Product::find($data['productId']);
+
+        if ($product === null) {
+            import_log('method ProductController->changeAlias() returns', [
+                'error' => 'Product not found',
+                'asked_by' => $seller->id,
+            ]);
+            throw HttpException::notFound('Product not found');
+        }
+
+        $product->update(['alias' => $data['alias']]);
+
+        if (!$product) {
+            import_log('updating alias failed', [
+                'error' => 'Cannot change this alias',
+                'login' => $seller->name,
+                'client_info' => $this->client,
+            ]);
+
+            throw HttpException::forbidden('Cannot change this alias');
+        }
+
+        import_log('changing alias success', [
+            'login' => $seller->name,
+            'client_info' => $this->client,
+        ]);
+
+        $this->json([
+            'data' => [
+                'status' => 'success',
+                'message' => 'alias was successfully changed',
+                'product' => (new DetailProductResource($product))->toArray(),
+            ],
+        ]);
+    }
+
     public function getOffer(string $offerId): void
     {
         $seller = AuthUser::requireUser();
@@ -179,214 +227,6 @@ class ProductController extends BaseController {
         $this->json([
             'data' => [
                 'offerResource' => (new OfferResource($offer))->toArray()
-            ],
-        ]);
-    }
-
-    public function addToCart(): void
-    {
-        $seller = AuthUser::requireUser();
-
-        $data = (new Validator($this->body()))
-            ->rules([
-                'offer_id'     => 'required|int',
-                'quantity'     => 'required|float|min:1',
-            ])
-            ->validate();
-
-        $productOffer = Offer::find((int)$data['offer_id']);
-        $cart = Cart::where('offer_id',$productOffer->id)->first();
-        $totalCartQuantity = ($cart->quantity ?? 0.00) + $data['quantity'];
-
-        if ($productOffer === null) {
-            import_log('method ProductController->addToCart() returns', [
-                'error' => 'Offer for product '. $data['offer_id'] .' not found',
-                'asked_by' => $seller->id,
-            ]);
-
-            throw HttpException::notFound('Offer not found');
-        }
-
-        $isService = $productOffer->product->kind === 'Услуга';
-
-        if (!$isService AND (float)$productOffer->quantity < (float)$totalCartQuantity) {
-            throw HttpException::validation([
-                'quantity' => ['Asking for ' . $data['quantity'] . '. Already in cart: '. ($cart->quantity ?? 0.00) .'. Not enough products on warehouse: ' . $productOffer->quantity],
-            ]);
-        }
-
-        try {
-            $item = Cart::updateOrCreate(
-                [
-                    'seller_id'  => $seller->id,
-                    'offer_id'   => $productOffer->id,
-                ],
-                [
-                    'quantity' => $isService ? 1 : $totalCartQuantity,
-                    'service_date' => $isService ? date('Y-m-d H:i:s', time()) : null,
-                ]
-            );
-
-            import_log('method ProductController->addToCart() returns', [
-                'item_in_cart' => $item->id,
-                'added_by' => $seller->id,
-            ]);
-            $this->json([
-                'data' => [
-                    'message' => 'success',
-                    'item' => (new CartResource($item))->toArray()
-                ],
-            ]);
-        } catch (\Throwable $e) {
-            import_log('method ProductController->addToCart() returns', [
-                'status'    => $e->status,
-                'message'   => $e->getMessage(),
-                'added_by' => $seller->id,
-            ]);
-
-            throw $e;
-        }
-    }
-
-    public function getCart(): void
-    {
-        $seller = AuthUser::requireUser();
-
-        $items = Cart::where('seller_id', $seller->id)
-            ->with(['offer.product.unit', 'offer.product.taxRate'])
-            ->get();
-
-        import_log('method ProductController->getCart() returns', [
-            'items' => $items->pluck('id')->toArray(),
-            'asked_by' => $seller->id,
-        ]);
-        $this->json([
-            'data' => [
-                'Cart' => CartResource::collection($items)
-            ],
-        ]);
-    }
-
-    public function removeFromCart(): void
-    {
-        $seller = AuthUser::requireUser();
-
-        $data = (new Validator($this->body()))
-            ->rules([
-                'product_id'     => 'required|int',
-                'quantity'       => 'required|int|min:1',
-            ])
-            ->validate();
-
-        $item = Cart::where('seller_id', $seller->id)
-            ->where('product_id', (int)$data['product_id'])
-            ->first();
-
-        if ($item === null) {
-            import_log('method ProductController->removeFromCart() returns', [
-                'error' => 'item not found',
-                'product_id' => $data['product_id'],
-                'removed_by' => $seller->id,
-            ]);
-
-            throw HttpException::notFound('Item ' . (int)$data['product_id'] . ' not found in cart');
-        }
-
-        $isService = $item->product->kind === 'Услуга';
-        $quantity = $isService ? 1 : $data['quantity'];
-
-        if ($item->quantity < $quantity) {
-            import_log('method ProductController->removeFromCart() returns', [
-                'error' => 'not enough quantity',
-                'product_id' => $data['product_id'],
-                'quantity_for_remove' => $quantity,
-                'quantity_in_cart' => $item->quantity,
-                'removed_by' => $seller->id,
-            ]);
-
-            throw HttpException::validation([
-                'quantity' => ['Not enough cart quantity:  '. (float)$quantity . ' to remove ' . $item->quantity]
-            ]);
-        }
-
-        try {
-            $quantityBefore = $item->quantity;
-            $affected = $item->decrement('quantity', $quantity);
-
-            if ($item->quantity === "0.000") {
-                $item->delete();
-
-                import_log('method ProductController->removeFromCart() returns', [
-                    'message' => 'decrement success, item was removed from cart',
-                    'product_id' => $data['product_id'],
-                    'removed_by' => $seller->id,
-                ]);
-                $this->json([
-                    'data' => [
-                        'message' => 'decrement success, item was removed from cart',
-                    ],
-                ]);
-            }
-
-            if ($affected === 0) {
-                import_log('method ProductController->removeFromCart() returns', [
-                    'error' => 'decrement elements from cart error',
-                    'product_id' => $data['product_id'],
-                    'removed_by' => $seller->id,
-                ]);
-
-                throw new \Exception('decrement elements from cart error');
-            }
-
-            import_log('method ProductController->removeFromCart() returns', [
-                'quantity_before_decrement' => $quantityBefore,
-                'quantity_after_decrement' => $item->quantity,
-                'product_id' => $data['product_id'],
-                'removed_by' => $seller->id,
-            ]);
-            $this->json([
-                'data' => [
-                    'message' => 'decrement success',
-                    'Cart' => (new CartResource($item))->toArray()
-                ],
-            ]);
-        } catch (\Throwable $e) {
-            import_log('method ProductController->removeFromCart() returns', [
-                'error' => $e->getMessage(),
-                'status' => $e->status,
-                'product_id' => $data['product_id'],
-                'removed_by' => $seller->id,
-            ]);
-
-            throw $e;
-        }
-    }
-
-    public function clearCart(): void
-    {
-        $seller = AuthUser::requireUser();
-
-        $exist = Cart::where('seller_id', $seller->id)
-            ->first();
-
-        if ($exist === null) {
-            $this->json([
-                'data' => [
-                    'message' => 'Cart arleady cleared',
-                ],
-            ]);
-        }
-
-        Cart::where('seller_id', $seller->id)
-            ->delete();
-
-        import_log('method ProductController->clearCart() returns', [
-            'message' => 'Clear cart success',
-            'cleared_by' => $seller->id,
-        ]);
-        $this->json([
-            'data' => [
-                'message' => 'Clear cart success',
             ],
         ]);
     }

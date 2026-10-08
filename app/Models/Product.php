@@ -9,7 +9,7 @@ class Product extends Model
 {
     protected $table = 'products';
     protected $guarded = [];
-    protected $fillable = ['external_id', 'code', 'article', 'name', 'full_name', 'alias', 'description', 'kind', 'nomenclature_type', 'unit_id', 'tax_rate_id', 'is_active'];
+    protected $fillable = ['external_id', 'code', 'article', 'name', 'full_name', 'alias', 'description', 'kind', 'nomenclature_type', 'payment_type', 'unit_id', 'tax_rate_id', 'is_active'];
 
     protected $casts = [
         'is_active' => 'boolean'

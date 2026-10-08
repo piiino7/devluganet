@@ -18,7 +18,7 @@ class RefreshTokenService
             RefreshToken::where('user_id', $user->id)
                 ->where('device_id', $device['device_id'])
                 ->whereNull('revoked_at')
-                ->update(['revoked_at' => date('Y-m-d H:i:s', time() + 900)]);
+                ->update(['revoked_at' => date('Y-m-d H:i:s', time())]);
         }
 
         $this->enforceDeviceLimit($user, 5);
@@ -139,6 +139,14 @@ class RefreshTokenService
     public function revokeAllForUser(User $user): void
     {
         RefreshToken::where('user_id', $user->id)
+            ->whereNull('revoked_at')
+            ->update(['revoked_at' => date('Y-m-d H:i:s')]);
+    }
+
+    public function revokeAllExceptThis(User $user, $deviceId): void
+    {
+        RefreshToken::where('user_id', $user->id)
+            ->whereNot('device_id', $deviceId)
             ->whereNull('revoked_at')
             ->update(['revoked_at' => date('Y-m-d H:i:s')]);
     }

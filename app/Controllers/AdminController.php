@@ -383,6 +383,65 @@ class AdminController extends BaseController
         ]);
     }
 
+    public function updateProduct(string $productId): void
+    {
+        $admin = AuthUser::requireUser();
+
+        $body = $this->body();
+        $body['product_id'] = $productId;
+
+        $data = (new Validator($body))
+            ->rules([
+                'product_id' => 'required|int',
+                'alias' => 'string',
+                'payment_type' => 'string|in:full,advance',
+                'is_active' => 'bool'
+            ])
+            ->validate();
+
+        $product = Product::find($data['productId']);
+
+        if ($product === null) {
+            import_log('method adminController->updateProduct() returns', [
+                'error' => 'Product not found',
+                'asked_by' => $admin->id,
+            ]);
+            throw HttpException::notFound('Product not found');
+        }
+
+        if ($product->payment_type === $data['payment_type'] AND $product->alias === $data['alias'] AND $product->is_active === $data['is_active']) {
+            $this->json([
+                'data' => [
+                    'message' => 'Nothing to update',
+                ],
+            ]);
+        }
+
+        $product->update($data);
+
+        if (!$product) {
+            import_log('updating product failed', [
+                'error' => 'Cannot change this product',
+                'asked_by' => $admin->id,
+            ]);
+
+            throw HttpException::badResponse('Cannot change this product');
+        }
+
+        import_log('updating product success', [
+            'message' => 'paymentType was successfully changed',
+            'product' => $product->id,
+            'changed_by' => $admin->id,
+        ]);
+
+        $this->json([
+            'data' => [
+                'message' => 'paymentType was successfully changed',
+                'product' => (new DetailProductResource($product))->toArray(),
+            ],
+        ]);
+    }
+
     public function report(): void
     {
         //TODO СДЕЛАТЬ ОТЧЁТ С ФИЛЬТРАМИ ПО ДАТЕ, СОТРУДНИКУ, НОМЕНКЛАТУРЕ

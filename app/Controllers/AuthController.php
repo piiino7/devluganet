@@ -59,8 +59,8 @@ class AuthController extends BaseController
 
             $role = $user->role()?->name;
 
-            $deviceId   = $_SERVER['HTTP_X_DEVICE_ID'];
-            $deviceName = $_SERVER['HTTP_X_DEVICE_NAME'];
+            $deviceId = $this->requireHeader('X-Device-Id');
+            $deviceName = $this->optionalHeader('X-Device-Name');
             $device = [
                 'device_id' => $deviceId,
                 'device_name' => $deviceName
@@ -109,7 +109,7 @@ class AuthController extends BaseController
             ])
             ->validate();
 
-        $deviceId   = $_SERVER['HTTP_X_DEVICE_ID'] ?? null;
+        $deviceId = $this->requireHeader('X-Device-Id');
         $oldToken = $this->refreshToken->verify($data['refresh_token'], $deviceId);
 
         $user = $oldToken->user;
@@ -149,7 +149,7 @@ class AuthController extends BaseController
             ])
             ->validate();
 
-        $deviceId   = $_SERVER['HTTP_X_DEVICE_ID'] ?? null;
+        $deviceId = $this->requireHeader('X-Device-Id');
         $refreshToken = $this->refreshToken->verify($data['refresh_token'], $deviceId);
 
         $user = $refreshToken->user;
@@ -185,6 +185,68 @@ class AuthController extends BaseController
 
         $this->json([
             'data' => "Logout all successfully",
+        ]);
+    }
+
+    public function changePassword(): void
+    {
+        $user = AuthUser::requireUser();
+
+        $data = (new Validator($this->body()))
+            ->rules([
+                'old_password' => 'required|string',
+                'new_password' => 'required|string',
+            ])
+            ->validate();
+
+        $deviceId = $this->requireHeader('X-Device-Id');
+
+        if (!$user->verifyPassword($data['old_password']) || $user->verifyPassword($data['new_password'])) {
+            import_log('changing password failed', [
+                'error' => 'Invalid credentials',
+                'login' => $data['name'],
+                'client_info' => $this->client,
+            ], $this->logfile);
+
+            throw HttpException::badRequest('Invalid credentials');
+        }
+
+        if (!$user->is_active) {
+            import_log('changing password failed', [
+                'error' => 'Account is blocked',
+                'login' => $data['name'],
+                'client_info' => $this->client,
+            ], $this->logfile);
+            throw HttpException::forbidden('Account is blocked');
+        }
+
+        $changingPassword = $user->update([
+            'password' => $data['new_password'],
+        ]);
+
+        if (!$changingPassword OR password_verify($data['old_password'], $user->password)) {
+            import_log('changing password failed', [
+                'error' => 'Cannot update this password',
+                'login' => $data['name'],
+                'client_info' => $this->client,
+            ], $this->logfile);
+
+            throw HttpException::forbidden('Cannot update this password');
+        }
+
+        $this->refreshToken->revokeAllExceptThis($user, $deviceId);
+
+        import_log('changing password success', [
+            'login' => $data['name'],
+            'client_info' => $this->client,
+        ], $this->logfile);
+
+        $this->json([
+            'data' => [
+                'status' => 'success',
+                'message' => 'password was successfully changed',
+                'user'       => (new UserResource($user))->toArray(),
+            ],
         ]);
     }
 
@@ -242,21 +304,31 @@ class AuthController extends BaseController
                 throw $e;
             }
 
-            $token = $this->jwt->issue($new_user->id, [
-                'email' => $new_user->email,
-                'role' => $role->name,
+            $deviceId   = $_SERVER['HTTP_X_DEVICE_ID'];
+            $deviceName = $_SERVER['HTTP_X_DEVICE_NAME'];
+            $device = [
+                'device_id' => $deviceId,
+                'device_name' => $deviceName
+            ];
+
+            $accessToken = $this->jwt->issue($new_user->id, [
+                'name' => $new_user->name,
+                'role' => $role,
             ]);
+            $refreshToken = $this->refreshToken->issue($new_user, $device);
 
             import_log('register success', [
                 'user' => $new_user->id,
+                'role' => $role,
                 'client_info' => $this->client,
             ], $this->logfile);
             $this->json([
                 'data' => [
-                    'token'      => $token,
+                    'access_token' => $accessToken,
+                    'refresh_token' => $refreshToken,
                     'token_type' => 'Bearer',
                     'expires_in' => date('Y-m-d H:i:s', time() + 900),
-                    'user'       => (new UserResource($new_user))->toArray(),
+                    'user'       => (new UserResource(register))->toArray(),
                 ],
             ]);
         } catch (\Throwable $error) {

@@ -434,3 +434,147 @@
 [2026-10-08 09:12:31] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
 [2026-10-08 09:12:35] method ProductController->getCart() returns {"items":[],"asked_by":2}
 [2026-10-08 09:12:41] method ProductController->getProduct() returns {"product":5,"asked_by":2}
+[2026-10-08 09:15:20] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":2}
+[2026-10-08 09:15:34] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 09:15:46] method ProductController->addToCart() returns {"item_in_cart":2,"added_by":2}
+[2026-10-08 09:15:53] method ProductController->getCart() returns {"items":[1,2],"asked_by":2}
+[2026-10-08 09:16:38] method ProductController->getCart() returns {"items":[1,2],"asked_by":2}
+[2026-10-08 09:16:38] Runtime Exception {"status":null,"message":"Call to undefined relationship [rate] on model [App\\Models\\Product]."}
+[2026-10-08 09:16:55] method ProductController->getCart() returns {"items":[1,2],"asked_by":2}
+[2026-10-08 09:17:24] method ProductController->getCart() returns {"items":[1,2],"asked_by":2}
+[2026-10-08 09:18:06] method ProductController->getCart() returns {"items":[1,2],"asked_by":2}
+[2026-10-08 09:25:00] HTTP Exception {"status":401,"message":"Invalid refresh token"}
+[2026-10-08 09:25:00] HTTP Exception {"status":401,"message":"Invalid refresh token"}
+[2026-10-08 09:48:59] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 09:49:03] method ProductController->getCart() returns {"items":[1,2],"asked_by":2}
+[2026-10-08 09:49:26] Runtime Exception {"status":null,"message":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'offer+id' in 'WHERE' (Connection: default, SQL: select * from `carts` where `seller_id` = 2 and `offer+id` = 5 limit 1)"}
+[2026-10-08 09:49:53] method ProductController->removeFromCart() returns {"error":"not enough quantity for offer in cart","offer_id":5,"quantity_for_remove":10,"quantity_in_cart":"1.000","removed_by":2}
+[2026-10-08 09:49:53] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 09:50:43] method ProductController->removeFromCart() returns {"quantity_before_decrement":"11.010","quantity_after_decrement":"10.010","product_id":null,"removed_by":2}
+[2026-10-08 09:50:46] method ProductController->getCart() returns {"items":[1,2],"asked_by":2}
+[2026-10-08 09:50:53] method ProductController->removeFromCart() returns {"error":"not enough quantity for offer in cart","offer_id":4,"quantity_for_remove":101,"quantity_in_cart":"10.010","removed_by":2}
+[2026-10-08 09:50:53] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 09:51:04] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 09:51:14] method ProductController->removeFromCart() returns {"message":"decrement success, item was removed from cart","offer_id":4,"removed_by":2}
+[2026-10-08 09:51:18] method ProductController->getCart() returns {"items":[1],"asked_by":2}
+[2026-10-08 09:51:25] method ProductController->addToCart() returns {"item_in_cart":3,"added_by":2}
+[2026-10-08 09:51:28] method ProductController->getCart() returns {"items":[1,3],"asked_by":2}
+[2026-10-08 09:52:22] method ProductController->removeFromCart() returns {"error":"not enough quantity for offer in cart","offer_id":5,"quantity_for_remove":10.01,"quantity_in_cart":"1.000","removed_by":2}
+[2026-10-08 09:52:22] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 09:52:55] method ProductController->removeFromCart() returns {"message":"decrement success, item was removed from cart","offer_id":5,"removed_by":2}
+[2026-10-08 09:52:58] method ProductController->getCart() returns {"items":[3],"asked_by":2}
+[2026-10-08 09:53:02] method ProductController->clearCart() returns {"message":"Clear cart success","cleared_by":2}
+[2026-10-08 09:53:04] method ProductController->getCart() returns {"items":[],"asked_by":2}
+[2026-10-08 10:22:15] HTTP Exception {"status":403,"message":"Forbidden"}
+[2026-10-08 10:22:44] register new employer success {"user":4,"registered_by":3}
+[2026-10-08 10:33:47] Internal Server Error {"status":null,"message":"App\\Services\\RefreshTokenService::revokeAllExceptThis(): Return value must be of type array, Illuminate\\Database\\Eloquent\\Collection returned"}
+[2026-10-08 10:36:25] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-08 10:42:18] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-08 10:42:24] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\HttpException\" not found"}
+[2026-10-08 10:42:53] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-08 10:43:28] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\HttpException\" not found"}
+[2026-10-08 10:53:21] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-08 11:11:53] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 11:12:27] method ProductController->getProduct() returns {"product":1,"asked_by":4}
+[2026-10-08 11:20:16] method ProductController->getCart() returns {"items":[],"asked_by":4}
+[2026-10-08 11:26:54] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 11:27:05] Internal Server Error {"status":null,"message":"import_log(): Argument #3 ($filename) must be of type string, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/ProductController.php on line 201"}
+[2026-10-08 11:27:40] changing alias success {"login":null,"client_info":null}
+[2026-10-08 11:28:52] changing alias success {"login":null,"client_info":null}
+[2026-10-08 11:29:02] method ProductController->getProduct() returns {"product":1,"asked_by":4}
+[2026-10-08 12:56:55] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-10-08 12:56:55] auth ok
+[2026-10-08 12:56:55] catalog mode=checkauth
+[2026-10-08 12:56:55] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-10-08 12:56:55] auth ok
+[2026-10-08 12:56:55] catalog mode=checkauth
+[2026-10-08 12:56:55] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-10-08 12:56:55] auth ok
+[2026-10-08 12:56:55] catalog mode=init
+[2026-10-08 12:56:55] === request === {"type":"catalog","mode":"file","file":"import0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-10-08 12:56:56] auth ok
+[2026-10-08 12:56:56] catalog mode=file
+[2026-10-08 12:56:56] file saved {"name":"import0_1.xml","bytes":14257,"written":14257,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml"}
+[2026-10-08 12:56:56] === request === {"type":"catalog","mode":"import","file":"import0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-10-08 12:56:56] auth ok
+[2026-10-08 12:56:56] catalog mode=import
+[2026-10-08 12:56:56] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml","size":14257}
+[2026-10-08 12:56:56] detected type: products
+[2026-10-08 12:56:56] saveProduct OK {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa","id":1,"name":"Предоставление доступа к сети Интернет"}
+[2026-10-08 12:56:56] saveProduct OK {"external_id":"4bf0107b-6b09-11f1-9962-e4b7433508aa","id":2,"name":"Абонентский терминал XDT ONT xPON T51X (GEPON\/GPON, 1xGE RJ45,SC\/UPC"}
+[2026-10-08 12:56:56] saveProduct OK {"external_id":"6c3f3034-6b09-11f1-9962-e4b7433508aa","id":3,"name":"Кабель витая пара indoor UTP cat-5 \"MaxiLink\" (CCA 4х2x0.5mm) 305 м"}
+[2026-10-08 12:56:56] saveProduct OK {"external_id":"8791b86c-6b09-11f1-9962-e4b7433508aa","id":4,"name":"Услуги изменения с тарифом"}
+[2026-10-08 12:56:56] saveProduct OK {"external_id":"8da367a8-6b09-11f1-9962-e4b7433508aa","id":5,"name":"Вызов специалиста"}
+[2026-10-08 12:56:56] saveProduct OK {"external_id":"34c91119-b1b0-11f1-996a-d2f96f1c535d","id":6,"name":"Монтаж оборудования"}
+[2026-10-08 12:56:56] importProducts done {"groups":2,"products":6}
+[2026-10-08 12:56:56] import success {"file":"import0_1.xml","seconds":0.106}
+[2026-10-08 12:56:57] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-10-08 12:56:57] auth ok
+[2026-10-08 12:56:57] catalog mode=checkauth
+[2026-10-08 12:56:57] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-10-08 12:56:57] auth ok
+[2026-10-08 12:56:57] catalog mode=init
+[2026-10-08 12:56:57] === request === {"type":"catalog","mode":"file","file":"offers0_1.xml","method":"POST","ip":"10.3.3.194","user":"operator"}
+[2026-10-08 12:56:57] auth ok
+[2026-10-08 12:56:57] catalog mode=file
+[2026-10-08 12:56:57] file saved {"name":"offers0_1.xml","bytes":8454,"written":8454,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml"}
+[2026-10-08 12:56:57] === request === {"type":"catalog","mode":"import","file":"offers0_1.xml","method":"GET","ip":"10.3.3.194","user":"operator"}
+[2026-10-08 12:56:58] auth ok
+[2026-10-08 12:56:58] catalog mode=import
+[2026-10-08 12:56:58] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml","size":8454}
+[2026-10-08 12:56:58] detected type: offers
+[2026-10-08 12:56:58] saveOffer OK {"external_id":"8da367a8-6b09-11f1-9962-e4b7433508aa","offer_id":1}
+[2026-10-08 12:56:58] saveOffer OK {"external_id":"34c91119-b1b0-11f1-996a-d2f96f1c535d","offer_id":2}
+[2026-10-08 12:56:58] saveOffer OK {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa","offer_id":3}
+[2026-10-08 12:56:58] saveOffer OK {"external_id":"4bf0107b-6b09-11f1-9962-e4b7433508aa","offer_id":4}
+[2026-10-08 12:56:58] saveOffer OK {"external_id":"8791b86c-6b09-11f1-9962-e4b7433508aa","offer_id":5}
+[2026-10-08 12:56:58] saveOffer OK {"external_id":"6c3f3034-6b09-11f1-9962-e4b7433508aa","offer_id":6}
+[2026-10-08 12:56:58] importOffers done {"offers":6,"skipped_products":0}
+[2026-10-08 12:56:58] import success {"file":"offers0_1.xml","seconds":0.031}
+[2026-10-08 13:01:13] HTTP Exception {"status":401,"message":"Invalid refresh token"}
+[2026-10-08 13:01:13] HTTP Exception {"status":401,"message":"Invalid refresh token"}
+[2026-10-08 13:11:30] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-08 13:11:30] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-08 13:12:55] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-08 13:12:55] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-08 13:16:47] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-08 13:17:17] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-08 13:17:17] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-08 13:20:05] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 13:20:16] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-08 13:20:36] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-08 13:21:22] method ProductController->getGroups() returns {"groups":[1,2],"asked_by":2}
+[2026-10-08 13:21:25] method ProductController->getProducts() returns {"groupId":1,"products":[5,6,1,4],"asked_by":2}
+[2026-10-08 13:21:27] method ProductController->getProduct() returns {"product":5,"asked_by":2}
+[2026-10-08 13:21:29] method ProductController->getProducts() returns {"groupId":null,"products":[6],"asked_by":2}
+[2026-10-08 13:21:37] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-08 13:21:42] method ProductController->getCart() returns {"items":[],"asked_by":2}
+[2026-10-08 13:21:44] method ProductController->removeFromCart() returns {"error":"item not found","offer_id":5,"removed_by":2}
+[2026-10-08 13:21:44] HTTP Exception {"status":404,"message":"Offer 5 not found in cart"}
+[2026-10-08 13:22:40] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-08 13:23:48] method ProductController->getProducts() returns {"groupId":1,"products":[5,6,1,4],"asked_by":2}
+[2026-10-08 13:23:56] method ProductController->getProduct() returns {"product":1,"asked_by":2}
+[2026-10-08 13:26:01] method ProductController->getProduct() returns {"product":1,"asked_by":2}
+[2026-10-08 13:28:02] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-08 13:32:14] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-08 13:32:31] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-08 13:33:23] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-08 13:33:52] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-08 13:36:36] method ProductController->getProducts() returns {"groupId":1,"products":[5,6,1,4],"asked_by":2}
+[2026-10-08 13:37:02] method ProductController->getGroups() returns {"groups":[1,2],"asked_by":2}
+[2026-10-08 13:37:18] method ProductController->getProducts() returns {"groupId":1,"products":[5,6,1,4],"asked_by":2}
+[2026-10-08 13:37:33] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 13:37:43] method ProductController->getProduct() returns {"product":1,"asked_by":2}
+[2026-10-08 13:38:10] method ProductController->getProducts() returns {"groupId":null,"products":[6],"asked_by":2}
+[2026-10-08 13:44:21] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 13:44:24] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 13:45:53] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 13:46:52] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-08 13:46:52] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-08 13:47:01] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-08 13:47:54] method ProductController->getProduct() returns {"product":3,"asked_by":2}
+[2026-10-08 13:47:56] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-08 13:47:57] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-08 13:47:59] method ProductController->getProduct() returns {"product":1,"asked_by":2}
+[2026-10-08 13:48:05] method ProductController->getProduct() returns {"product":4,"asked_by":2}
+[2026-10-08 13:54:03] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}

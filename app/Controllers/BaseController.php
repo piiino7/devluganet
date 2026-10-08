@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Support\HttpException;
+
 abstract class BaseController
 {
     protected function json($data, int $status = 200): void
@@ -28,5 +30,39 @@ abstract class BaseController
             $this->error('Invalid JSON', 400);
         }
         return $data;
+    }
+
+    protected function requireHeader(string $name, ?string $message = null): string
+    {
+        $value = $this->header($name);
+
+        if ($value === null || $value === '') {
+            throw HttpException::badRequest($message ?? "Missing required header: $name");
+        }
+
+        return $value;
+    }
+
+    protected function optionalHeader(string $name, ?string $default = 'unknown'): string
+    {
+        $value = $this->header($name);
+
+        if ($value === null || $value === '') {
+            $value = $default;
+        }
+
+        return $value;
+    }
+
+    protected function header(string $name): ?string
+    {
+        $key = 'HTTP_' . strtoupper(str_replace('-', '_', $name));
+
+        $value = $_SERVER[$key] ?? null;
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        return trim((string)$value);
     }
 }

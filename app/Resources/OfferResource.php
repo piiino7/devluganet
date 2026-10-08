@@ -17,7 +17,7 @@ class OfferResource extends Resource
                 : null,
             'product' => $this->offer->product->full_name,
             'quantity' => (float)$this->offer->quantity,
-            'price'   => $this->offer->price,
+            'price'   => $this->offer->price ?? 0.000,
         ];
     }
 }

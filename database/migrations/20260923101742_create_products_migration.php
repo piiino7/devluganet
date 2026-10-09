@@ -33,6 +33,7 @@ final class CreateProductsMigration extends AbstractMigration
             ->addColumn('description', 'text', ['null' => true])
             ->addColumn('kind', 'string', ['limit' => 50, 'null' => true])
             ->addColumn('nomenclature_type', 'string', ['limit' => 100, 'null' => true])
+            ->addColumn('payment_type', 'enum', ['values' => ['full', 'advance'], 'default' => 'full'])
             ->addColumn('unit_id', 'biginteger', ['signed' => false, 'null' => true])
             ->addColumn('tax_rate_id', 'biginteger', ['signed' => false, 'null' => true])
             ->addColumn('is_active', 'boolean', ['default' => true])

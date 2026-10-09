@@ -578,3 +578,241 @@
 [2026-10-08 13:47:59] method ProductController->getProduct() returns {"product":1,"asked_by":2}
 [2026-10-08 13:48:05] method ProductController->getProduct() returns {"product":4,"asked_by":2}
 [2026-10-08 13:54:03] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-09 05:38:03] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-09 05:38:03] HTTP Exception {"status":400,"message":"Missing required header: X-Device-Id"}
+[2026-10-09 06:07:58] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"operator_1c"}
+[2026-10-09 06:07:58] auth ok
+[2026-10-09 06:07:58] catalog mode=checkauth
+[2026-10-09 06:18:23] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-09 06:19:46] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-09 06:20:13] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\Product\" not found"}
+[2026-10-09 06:20:52] method adminController->updateProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-09 06:20:52] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-09 06:21:58] updating product success {"message":"paymentType was successfully changed","product":1,"changed_by":3}
+[2026-10-09 06:21:58] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\DetailProductResource\" not found"}
+[2026-10-09 06:23:31] updating product success {"message":"paymentType was successfully changed","product":1,"changed_by":3}
+[2026-10-09 06:23:51] updating product success {"message":"paymentType was successfully changed","product":1,"changed_by":3}
+[2026-10-09 06:24:10] updating product success {"message":"paymentType was successfully changed","product":1,"changed_by":3}
+[2026-10-09 06:24:47] updating product success {"message":"paymentType was successfully changed","product":1,"changed_by":3}
+[2026-10-09 06:25:01] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-09 06:25:01] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-09 06:25:08] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":3}
+[2026-10-09 06:25:25] method ProductController->getProducts() returns {"groupId":null,"products":[6],"asked_by":3}
+[2026-10-09 06:37:08] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-09 06:37:08] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":2}
+[2026-10-09 06:37:09] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 06:37:15] method ProductController->getProduct() returns {"product":6,"asked_by":2}
+[2026-10-09 06:37:18] method ProductController->getProduct() returns {"product":5,"asked_by":2}
+[2026-10-09 06:37:21] method ProductController->getProduct() returns {"product":4,"asked_by":2}
+[2026-10-09 07:49:01] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-09 07:49:07] method ProductController->getProducts() returns {"groupId":null,"products":[],"asked_by":3}
+[2026-10-09 07:49:13] method ProductController->getProducts() returns {"groupId":null,"products":[],"asked_by":3}
+[2026-10-09 07:50:02] method ProductController->getProducts() returns {"groupId":null,"products":[3],"asked_by":3}
+[2026-10-09 07:50:06] method ProductController->getProducts() returns {"groupId":null,"products":[3],"asked_by":3}
+[2026-10-09 07:51:11] method ProductController->getProducts() returns {"groupId":null,"products":[3],"asked_by":3}
+[2026-10-09 08:00:30] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":3}
+[2026-10-09 08:00:52] method ProductController->getProducts() returns {"groupId":null,"products":[],"asked_by":3}
+[2026-10-09 08:01:01] method ProductController->getProducts() returns {"groupId":null,"products":[3,6],"asked_by":3}
+[2026-10-09 08:01:15] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":3}
+[2026-10-09 08:01:21] method ProductController->getProducts() returns {"groupId":null,"products":[3,6],"asked_by":3}
+[2026-10-09 08:02:32] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-09 08:02:32] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":2}
+[2026-10-09 08:03:47] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 08:06:32] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 08:06:33] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-09 08:06:38] method ProductController->getProduct() returns {"product":3,"asked_by":2}
+[2026-10-09 08:06:38] method ProductController->getProducts() returns {"groupId":1,"products":[5,6,4],"asked_by":3}
+[2026-10-09 08:06:46] method ProductController->getProduct() returns {"product":5,"asked_by":2}
+[2026-10-09 08:06:47] method ProductController->getProduct() returns {"product":6,"asked_by":2}
+[2026-10-09 08:07:54] method ProductController->getProduct() returns {"product":4,"asked_by":2}
+[2026-10-09 08:09:25] method ProductController->getProduct() returns {"product":3,"asked_by":2}
+[2026-10-09 08:09:30] method ProductController->getProduct() returns {"product":5,"asked_by":2}
+[2026-10-09 08:09:56] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":2}
+[2026-10-09 08:09:57] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 08:10:56] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":2}
+[2026-10-09 08:10:57] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 08:11:46] method ProductController->getProduct() returns {"product":3,"asked_by":2}
+[2026-10-09 08:12:36] method ProductController->getProduct() returns {"product":6,"asked_by":2}
+[2026-10-09 08:13:23] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 08:13:24] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":2}
+[2026-10-09 08:14:59] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":3}
+[2026-10-09 08:14:59] Internal Server Error {"status":null,"message":"Method Illuminate\\Database\\Eloquent\\Collection::orderBy does not exist."}
+[2026-10-09 08:15:58] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":3}
+[2026-10-09 08:16:12] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 08:16:13] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":2}
+[2026-10-09 08:17:03] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-09 08:17:03] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-09 08:17:53] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-09 08:17:53] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-09 08:18:32] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-09 08:18:36] method ProductController->getProduct() returns {"product":2,"asked_by":3}
+[2026-10-09 08:18:38] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":2}
+[2026-10-09 08:19:00] updating product success {"message":"paymentType was successfully changed","product":1,"changed_by":3}
+[2026-10-09 08:22:19] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-09 08:22:20] method ProductController->getCart() returns {"items":[],"asked_by":2}
+[2026-10-09 08:24:54] method ProductController->getCart() returns {"items":[],"asked_by":2}
+[2026-10-09 08:24:54] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-09 08:24:56] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 08:25:00] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":2}
+[2026-10-09 08:25:08] method ProductController->getCart() returns {"items":[1],"asked_by":2}
+[2026-10-09 08:29:21] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 08:29:23] method ProductController->getCart() returns {"items":[1],"asked_by":2}
+[2026-10-09 08:29:23] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-09 08:29:33] method ProductController->addToCart() returns {"item_in_cart":2,"added_by":2}
+[2026-10-09 08:29:33] method ProductController->addToCart() returns {"item_in_cart":2,"added_by":2}
+[2026-10-09 08:29:34] method ProductController->getCart() returns {"items":[1,2],"asked_by":2}
+[2026-10-09 08:30:03] method ProductController->addToCart() returns {"item_in_cart":1,"added_by":2}
+[2026-10-09 08:30:05] method ProductController->getCart() returns {"items":[1,2],"asked_by":2}
+[2026-10-09 08:34:38] method ProductController->getProduct() returns {"product":2,"asked_by":2}
+[2026-10-09 09:33:03] === request === {"type":null,"mode":null,"file":null,"method":null,"ip":null,"user":null}
+[2026-10-09 09:34:32] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:32] auth ok
+[2026-10-09 09:34:32] catalog mode=checkauth
+[2026-10-09 09:34:45] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:45] auth ok
+[2026-10-09 09:34:45] catalog mode=checkauth
+[2026-10-09 09:34:46] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:46] auth ok
+[2026-10-09 09:34:46] catalog mode=checkauth
+[2026-10-09 09:34:46] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:46] auth ok
+[2026-10-09 09:34:46] catalog mode=init
+[2026-10-09 09:34:46] === request === {"type":"catalog","mode":"file","file":"import0_1.xml","method":"POST","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:46] auth ok
+[2026-10-09 09:34:46] catalog mode=file
+[2026-10-09 09:34:46] file saved {"name":"import0_1.xml","bytes":14257,"written":14257,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml"}
+[2026-10-09 09:34:46] === request === {"type":"catalog","mode":"import","file":"import0_1.xml","method":"GET","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:47] auth ok
+[2026-10-09 09:34:47] catalog mode=import
+[2026-10-09 09:34:47] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/import0_1.xml","size":14257}
+[2026-10-09 09:34:47] detected type: products
+[2026-10-09 09:34:47] saveProduct OK {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa","id":1,"name":"Предоставление доступа к сети Интернет"}
+[2026-10-09 09:34:47] saveProduct OK {"external_id":"4bf0107b-6b09-11f1-9962-e4b7433508aa","id":2,"name":"Абонентский терминал XDT ONT xPON T51X (GEPON\/GPON, 1xGE RJ45,SC\/UPC"}
+[2026-10-09 09:34:47] saveProduct OK {"external_id":"6c3f3034-6b09-11f1-9962-e4b7433508aa","id":3,"name":"Кабель витая пара indoor UTP cat-5 \"MaxiLink\" (CCA 4х2x0.5mm) 305 м"}
+[2026-10-09 09:34:47] saveProduct OK {"external_id":"8791b86c-6b09-11f1-9962-e4b7433508aa","id":4,"name":"Услуги изменения с тарифом"}
+[2026-10-09 09:34:47] saveProduct OK {"external_id":"8da367a8-6b09-11f1-9962-e4b7433508aa","id":5,"name":"Вызов специалиста"}
+[2026-10-09 09:34:47] saveProduct OK {"external_id":"34c91119-b1b0-11f1-996a-d2f96f1c535d","id":6,"name":"Монтаж оборудования"}
+[2026-10-09 09:34:47] importProducts done {"groups":2,"products":6}
+[2026-10-09 09:34:47] import success {"file":"import0_1.xml","seconds":0.14}
+[2026-10-09 09:34:47] === request === {"type":"catalog","mode":"checkauth","file":null,"method":"GET","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:48] auth ok
+[2026-10-09 09:34:48] catalog mode=checkauth
+[2026-10-09 09:34:48] === request === {"type":"catalog","mode":"init","file":null,"method":"GET","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:48] auth ok
+[2026-10-09 09:34:48] catalog mode=init
+[2026-10-09 09:34:48] === request === {"type":"catalog","mode":"file","file":"offers0_1.xml","method":"POST","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:48] auth ok
+[2026-10-09 09:34:48] catalog mode=file
+[2026-10-09 09:34:48] file saved {"name":"offers0_1.xml","bytes":8454,"written":8454,"path":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml"}
+[2026-10-09 09:34:48] === request === {"type":"catalog","mode":"import","file":"offers0_1.xml","method":"GET","ip":"10.3.3.194","user":"exchange_1c"}
+[2026-10-09 09:34:48] auth ok
+[2026-10-09 09:34:48] catalog mode=import
+[2026-10-09 09:34:48] load_xml {"file":"\/var\/www\/clients\/client1\/web1\/web\/1c_catalog\/offers0_1.xml","size":8454}
+[2026-10-09 09:34:48] detected type: offers
+[2026-10-09 09:34:48] saveOffer OK {"external_id":"8da367a8-6b09-11f1-9962-e4b7433508aa","offer_id":1}
+[2026-10-09 09:34:48] saveOffer OK {"external_id":"34c91119-b1b0-11f1-996a-d2f96f1c535d","offer_id":2}
+[2026-10-09 09:34:48] saveOffer OK {"external_id":"a0e65bde-6b08-11f1-9962-e4b7433508aa","offer_id":3}
+[2026-10-09 09:34:48] saveOffer OK {"external_id":"4bf0107b-6b09-11f1-9962-e4b7433508aa","offer_id":4}
+[2026-10-09 09:34:48] saveOffer OK {"external_id":"8791b86c-6b09-11f1-9962-e4b7433508aa","offer_id":5}
+[2026-10-09 09:34:48] saveOffer OK {"external_id":"6c3f3034-6b09-11f1-9962-e4b7433508aa","offer_id":6}
+[2026-10-09 09:34:48] importOffers done {"offers":6,"skipped_products":0}
+[2026-10-09 09:34:48] import success {"file":"offers0_1.xml","seconds":0.019}
+[2026-10-09 10:32:06] Internal Server Error {"status":null,"message":"Call to undefined method App\\Models\\User::role()"}
+[2026-10-09 10:34:24] method OperatorController->getSellers() returns {"sellers":[1],"asked_by":3}
+[2026-10-09 10:34:30] method OperatorController->getSeller() returns {"seller":1,"asked_by":3}
+[2026-10-09 10:34:37] method OperatorController->registerSeller() returns {"message":"success","new_seller":5,"registered_by":3}
+[2026-10-09 10:34:41] method OperatorController->getSellers() returns {"sellers":[1,5],"asked_by":3}
+[2026-10-09 10:34:46] method OperatorController->getSeller() returns {"seller":5,"asked_by":3}
+[2026-10-09 10:36:07] Internal Server Error {"status":null,"message":"import_log(): Argument #3 ($filename) must be of type string, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/OperatorController.php on line 141"}
+[2026-10-09 10:37:28] changing password failed {"error":"Invalid credentials","login":null,"client_info":null}
+[2026-10-09 10:37:28] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-09 10:38:10] changing password failed {"error":"Invalid credentials","login":null,"client_info":null}
+[2026-10-09 10:38:10] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-09 10:38:37] HTTP Exception {"status":403,"message":"Forbidden"}
+[2026-10-09 10:38:41] HTTP Exception {"status":403,"message":"Forbidden"}
+[2026-10-09 10:39:14] HTTP Exception {"status":403,"message":"Forbidden"}
+[2026-10-09 10:40:03] HTTP Exception {"status":403,"message":"Forbidden"}
+[2026-10-09 10:40:38] method OperatorController->getSeller() returns {"seller":5,"asked_by":3}
+[2026-10-09 10:40:47] method OperatorController->registerSeller() returns {"error":"Name already taken","name":"Sergey","registered_by":3}
+[2026-10-09 10:40:47] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 10:40:59] changing password failed {"error":"Invalid credentials","login":null,"client_info":null}
+[2026-10-09 10:40:59] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-09 10:49:37] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 10:50:16] Internal Server Error {"status":null,"message":"Call to a member function revokeAll() on null"}
+[2026-10-09 10:50:44] method OperatorController->changeSellerPassword() returns {"error":"Invalid credentials","seller":5,"changed_by":3}
+[2026-10-09 10:50:44] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-09 10:50:52] Internal Server Error {"status":null,"message":"Call to a member function revokeAllForUser() on null"}
+[2026-10-09 10:51:55] method OperatorController->changeSellerPassword() returns {"message":"success","seller":5,"changed_by":3}
+[2026-10-09 10:52:09] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-09 10:52:12] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-09 10:55:17] method ProductController->updateProduct() returns {"message":"success","product":1,"changed_by":3}
+[2026-10-09 10:55:32] HTTP Exception {"status":403,"message":"Forbidden"}
+[2026-10-09 10:56:20] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-09 10:56:20] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-09 10:56:49] method ProductController->getProducts() returns {"groupId":null,"products":[2,5,3,6,4],"asked_by":3}
+[2026-10-09 10:57:01] method ProductController->updateProduct() returns {"message":"success","product":1,"changed_by":3}
+[2026-10-09 10:57:03] method ProductController->getProduct() returns {"product":1,"asked_by":3}
+[2026-10-09 11:04:22] method OperatorController->changeSellerPassword() returns {"error":"Seller not found","asked_by":3}
+[2026-10-09 11:04:31] method OperatorController->changeSellerPassword() returns {"error":"Seller not found","asked_by":3}
+[2026-10-09 11:04:31] HTTP Exception {"status":404,"message":"Seller not found"}
+[2026-10-09 12:38:01] HTTP Exception {"status":403,"message":"Forbidden"}
+[2026-10-09 12:38:37] Internal Server Error {"status":null,"message":"App\\Models\\User::isSuperAdmin must return a relationship instance."}
+[2026-10-09 12:56:48] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-09 12:56:57] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 12:57:12] Internal Server Error {"status":null,"message":"syntax error, unexpected token \";\""}
+[2026-10-09 12:57:28] Internal Server Error {"status":null,"message":"App\\Resources\\UserResource::__construct(): Argument #1 ($user) must be of type App\\Models\\User, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/AdminController.php on line 299"}
+[2026-10-09 12:59:37] method AdminController->getEmployer() returns {"error":"employer not found","asked_by":6}
+[2026-10-09 12:59:37] HTTP Exception {"status":404,"message":"Employer not found"}
+[2026-10-09 13:10:36] method AdminController->registerEmployer() returns {"message":"success","user":7,"registered_by":6}
+[2026-10-09 13:10:57] method AdminController->registerEmployer() returns {"message":"success","user":8,"registered_by":6}
+[2026-10-09 13:11:22] method AdminController->updateEmployer() returns {"message":"success","updated_employer":8,"updated_by":6}
+[2026-10-09 13:11:37] method AdminController->updateEmployer() returns {"message":"success","updated_employer":7,"updated_by":6}
+[2026-10-09 13:11:54] method AdminController->updateEmployer() returns {"message":"success","updated_employer":7,"updated_by":6}
+[2026-10-09 13:11:59] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-09 13:12:26] method AdminController->updateEmployer() returns {"error":"Forbidden","updated_user":6,"updated_by":6}
+[2026-10-09 13:12:26] HTTP Exception {"status":403,"message":"Cannot update this user"}
+[2026-10-09 13:12:46] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 13:13:05] method AdminController->updateEmployer() returns {"error":"Forbidden","updated_user":6,"updated_by":2}
+[2026-10-09 13:13:05] HTTP Exception {"status":403,"message":"Cannot update this user"}
+[2026-10-09 13:13:17] method AdminController->updateEmployer() returns {"message":"success","updated_employer":3,"updated_by":2}
+[2026-10-09 13:13:36] method AdminController->updateEmployer() returns {"message":"success","updated_employer":3,"updated_by":2}
+[2026-10-09 13:13:44] method AdminController->updateEmployer() returns {"error":"Forbidden","updated_user":2,"updated_by":2}
+[2026-10-09 13:13:44] HTTP Exception {"status":403,"message":"Cannot update this user"}
+[2026-10-09 13:13:52] method AdminController->updateEmployer() returns {"error":"Forbidden","updated_user":7,"updated_by":2}
+[2026-10-09 13:13:52] HTTP Exception {"status":403,"message":"Cannot update this user"}
+[2026-10-09 13:14:16] method AdminController->updateEmployer() returns {"message":"success","updated_employer":7,"updated_by":6}
+[2026-10-09 13:14:20] method AdminController->updateEmployer() returns {"message":"success","updated_employer":7,"updated_by":6}
+[2026-10-09 13:14:29] method AdminController->updateEmployer() returns {"error":"Forbidden","updated_user":6,"updated_by":6}
+[2026-10-09 13:14:29] HTTP Exception {"status":403,"message":"Cannot update this user"}
+[2026-10-09 13:14:34] method AdminController->updateEmployer() returns {"message":"success","updated_employer":7,"updated_by":6}
+[2026-10-09 13:14:53] Internal Server Error {"status":null,"message":"Call to a member function pluck() on array"}
+[2026-10-09 13:15:33] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 13:15:38] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 13:18:49] blocking employers success {"restored_users":[7],"skipped_users":[],"restored_by":6}
+[2026-10-09 13:18:57] blocking employers success {"blocked_users":[7],"skipped_users":[],"blocked_by":6}
+[2026-10-09 13:19:09] blocking employers success {"restored_users":[8],"skipped_users":[],"restored_by":6}
+[2026-10-09 13:19:41] method AdminController->registerEmployer() returns {"message":"success","user":9,"registered_by":6}
+[2026-10-09 13:19:57] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 13:20:02] method AdminController->registerEmployer() returns {"message":"success","user":10,"registered_by":6}
+[2026-10-09 13:20:26] deleting employers success {"deleted_users":[9,10],"skipped_users":[],"deleted_by":6}
+[2026-10-09 13:22:22] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 13:22:26] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 13:24:40] blocking employers success {"blocked_users":[10],"skipped_users":[],"blocked_by":2}
+[2026-10-09 13:24:55] blocking employers success {"blocked_users":[],"skipped_users":[{"id":9,"reason":"Cannot block this user"}],"blocked_by":2}
+[2026-10-09 13:25:09] blocking employers success {"restored_users":[10],"skipped_users":[],"restored_by":2}
+[2026-10-09 13:25:23] blocking employers success {"restored_users":[],"skipped_users":[{"id":7,"reason":"Cannot restore this user"}],"restored_by":2}
+[2026-10-09 13:25:31] deleting employers success {"deleted_users":[],"skipped_users":[{"id":7,"reason":"Cannot remove this user"}],"deleted_by":2}
+[2026-10-09 13:25:41] deleting employers success {"deleted_users":[],"skipped_users":[{"id":7,"reason":"Cannot remove this user"},{"id":9,"reason":"Cannot remove this user"}],"deleted_by":2}
+[2026-10-09 13:25:53] deleting employers success {"deleted_users":[10],"skipped_users":[{"id":7,"reason":"Cannot remove this user"}],"deleted_by":2}
+[2026-10-09 13:27:00] blocking employers success {"blocked_users":[8,10],"skipped_users":[{"id":7,"reason":"Cannot block this user"},{"id":9,"reason":"Cannot block this user"}],"blocked_by":2}
+[2026-10-09 13:27:20] blocking employers success {"restored_users":[8,10],"skipped_users":[{"id":7,"reason":"Cannot restore this user"},{"id":9,"reason":"Cannot restore this user"}],"restored_by":2}
+[2026-10-09 13:27:41] method AdminController->registerEmployer() returns {"message":"success","user":11,"registered_by":6}
+[2026-10-09 13:27:46] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 13:27:57] method AdminController->updateEmployer() returns {"message":"success","updated_employer":11,"updated_by":6}
+[2026-10-09 13:28:03] method AdminController->updateEmployer() returns {"message":"success","updated_employer":11,"updated_by":6}
+[2026-10-09 13:28:09] blocking employers success {"blocked_users":[7,8,9,10],"skipped_users":[],"blocked_by":6}
+[2026-10-09 13:28:12] blocking employers success {"restored_users":[7,8,9,10],"skipped_users":[],"restored_by":6}
+[2026-10-09 13:28:18] deleting employers success {"deleted_users":[11],"skipped_users":[],"deleted_by":6}
+[2026-10-09 13:28:59] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-09 13:29:14] method AdminController->updateEmployer() returns {"error":"Forbidden","updated_user":9,"updated_by":2}
+[2026-10-09 13:29:14] HTTP Exception {"status":403,"message":"Cannot update this user"}

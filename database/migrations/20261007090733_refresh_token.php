@@ -26,8 +26,6 @@ final class RefreshToken extends AbstractMigration
         ])
             ->addColumn('id', 'biginteger', ['identity' => true, 'signed' => false])
             ->addColumn('user_id', 'biginteger', ['signed' => false])
-            ->addColumn('device_id', 'string', ['limit' => 64, 'null'  => true])
-            ->addColumn('device_name', 'string', ['limit' => 255, 'null'  => true])
             ->addColumn('token_hash', 'string', ['limit' => 64])
             ->addColumn('expires_at', 'datetime')
             ->addColumn('revoked_at', 'datetime', ['null' => true])

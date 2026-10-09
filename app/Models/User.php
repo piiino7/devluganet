@@ -12,7 +12,7 @@ class User extends Model
     use SoftDeletes;
 
     protected $table      = 'users';
-    protected $fillable   = ['name', 'password', 'is_active'];
+    protected $fillable   = ['name', 'password', 'role', 'is_active'];
     protected $hidden     = ['password'];
 
     protected $casts = [
@@ -48,16 +48,6 @@ class User extends Model
         return password_verify($plain, $this->password);
     }
 
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            Role::class,
-            'users_role',
-            'user_id',
-            'role_id')
-            ->withTimestamps();
-    }
-
     public function orders()
     {
         return $this->hasMany(Order::class);
@@ -68,18 +58,13 @@ class User extends Model
         return $this->hasMany(Cart::class, 'seller_id');
     }
 
-    public function role(): ?Role
-    {
-        return $this->roles->first();
-    }
-
-    public function hasRole(string $name): bool
-    {
-        return $this->role()?->name === $name;
-    }
-
     public function isAdmin(): bool
     {
-        return $this->role()?->name === 'admin';
+        return $this->role === 'admin';
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'superadmin';
     }
 }

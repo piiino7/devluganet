@@ -12,11 +12,15 @@ class UserPolicy
             return false;
         }
 
-        if ($target->isAdmin()) {
+        if ($target->isSuperAdmin()) {
+            return false;
+        }
+
+        if ($target->isAdmin() AND !$actor->isSuperAdmin()) {
             return false;
         }
         
-        return $actor->isAdmin();
+        return $actor->isAdmin() || $actor->isSuperAdmin();
     }
 
     public static function block(User $actor, User $target): bool

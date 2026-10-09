@@ -21,6 +21,7 @@ class DetailProductResource extends Resource
             'kind'              => $this->product->kind,
             //'nomenclature_type' => $this->product->nomenclature_type,
             'payment_type'      => $this->product->payment_type,
+            'is_active'         => $this->product->is_active,
             'unit'              => $this->product->unit ? [
                 'name' => $this->product->unit->name,
                 'code' => $this->product->unit->code,

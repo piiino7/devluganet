@@ -4,10 +4,15 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Product;
+
 use App\Resources\UserResource;
+use App\Resources\DetailProductResource;
+
 use App\Support\AuthUser;
 use App\Support\HttpException;
 use App\Support\Validator;
+
 use App\Policies\UserPolicy;
 use Illuminate\Database\Capsule\Manager as DB;
 
@@ -19,17 +24,22 @@ class AdminController extends BaseController
     public function registerEmployer(): void
     {
         $admin = AuthUser::requireUser();
+        $rules = [
+            'name' => 'required|max:255|min:5|string',
+            'password' => 'required|string|min:5',
+            'role' => 'required|string|in:seller,operator'
+        ];
+
+        if ($admin->isSuperAdmin()) {
+            $rules['role'] .= ',admin';
+        }
 
         $data = (new Validator($this->body()))
-            ->rules([
-                'name' => 'required|max:255|min:5|string',
-                'password' => 'required|string|min:5',
-                'role' => 'required|string|in:seller,operator'
-            ])
+            ->rules($rules)
             ->validate();
 
         if (User::where('name', $data['name'])->exists()) {
-            import_log('register failed', [
+            import_log('method AdminController->registerEmployer() returns', [
                 'error' => 'Name already taken',
                 'name' => $data['name'],
                 'registered_by' => $admin->id
@@ -38,31 +48,18 @@ class AdminController extends BaseController
             throw HttpException::validation(['name' => ['This name already taken']]);
         }
 
-        $role = Role::where('name', $data['role'])->first();
-        if (!$role) {
-            import_log('register failed', [
-                'error' => 'Unknown role',
-                'role' => $data['role'],
-                'registered_by' => $admin->id
-            ]);
-
-            throw HttpException::validation(['role' => ['Unknown role: ' . $data['role']]]);
-        }
-
         try {
-            $new_user = DB::connection()->transaction(function () use ($data, $role) {
+            $new_user = DB::connection()->transaction(function () use ($data) {
                 $new_user = User::create([
                     'name'     => $data['name'],
                     'password' => $data['password'],
+                    'role'     => $data['role']
                 ]);
-
-                $new_user->roles()->sync([$role->id]);
-                $new_user->setRelation('roles', collect([$role]));
 
                 return $new_user;
             });
         } catch (\Throwable $e) {
-            import_log('register new employer failed', [
+            import_log('method AdminController->registerEmployer() returns', [
                 'error' => $e->getMessage(),
                 'status' => $e->status,
                 'registered_by' => $admin->id,
@@ -71,7 +68,8 @@ class AdminController extends BaseController
             throw $e;
         }
 
-        import_log('register new employer success', [
+        import_log('method AdminController->registerEmployer() returns', [
+            'message' => 'success',
             'user' => $new_user->id,
             'registered_by' => $admin->id,
         ]);
@@ -85,7 +83,6 @@ class AdminController extends BaseController
     public function blockEmployer(): void
     {
         $admin = AuthUser::requireUser();
-        $admin->load('roles');
 
         $data = (new Validator($this->body()))
             ->rules([
@@ -95,13 +92,13 @@ class AdminController extends BaseController
             ->validate();
 
         $ids   = $data['id'];
-        $users = User::with('roles')->find($ids);
+        $users = User::find($ids);
 
         if (count($users) !== count($ids)) {
             $found   = $users->pluck('id')->all();
             $missing = array_diff($ids, $found);
 
-            import_log('blocking employers failed', [
+            import_log('method AdminController->blockEmployer() returns', [
                 'error' => 'Users not found',
                 'missing_users' => $missing,
                 'blocked_by' => $admin->id,
@@ -129,8 +126,9 @@ class AdminController extends BaseController
             $blocked[] = $user;
         }
 
-        import_log('blocking employers success', [
-            'blocked_users' => $blocked->pluck('id')->toArray(),
+        import_log('method AdminController->blockEmployer() returns', [
+            'message' => 'success',
+            'blocked_users' => collect($blocked)->pluck('id')->toArray(),
             'skipped_users' => $skipped,
             'blocked_by' => $admin->id,
         ]);
@@ -154,13 +152,13 @@ class AdminController extends BaseController
             ->validate();
 
         $ids   = $data['id'];
-        $restored_users = User::with('roles')->find($ids);
+        $restored_users = User::find($ids);
 
         if (count($restored_users) !== count($ids)) {
             $found   = $restored_users->pluck('id')->all();
             $missing = array_diff($ids, $found);
 
-            import_log('restoring employers failed', [
+            import_log('method AdminController->restoreEmployer() returns', [
                 'error' => 'Users not found',
                 'missing_users' => $missing,
                 'restored_by' => $admin->id,
@@ -188,8 +186,9 @@ class AdminController extends BaseController
             $restored[] = $user;
         }
 
-        import_log('blocking employers success', [
-            'restored_users' => $restored->pluck('id')->toArray(),
+        import_log('method AdminController->restoreEmployer() return', [
+            'message' => 'success',
+            'restored_users' => collect($restored)->pluck('id')->toArray(),
             'skipped_users' => $skipped,
             'restored_by' => $admin->id,
         ]);
@@ -213,13 +212,13 @@ class AdminController extends BaseController
             ->validate();
 
         $ids   = $data['id'];
-        $deleted_users = User::with('roles')->find($ids);
+        $deleted_users = User::find($ids);
 
         if (count($deleted_users) !== count($ids)) {
             $found   = $deleted_users->pluck('id')->all();
             $missing = array_diff($ids, $found);
 
-            import_log('deleting employers failed', [
+            import_log('method AdminController->removeEmployer() return', [
                 'error' => 'Users not found',
                 'missing_users' => $missing,
                 'deleted_by' => $admin->id,
@@ -243,14 +242,14 @@ class AdminController extends BaseController
                 continue;
             }
 
-            $user->roles()->detach();
             $user->update(['is_active' => false]);
             $user->delete(); // SoftDelete
 
             $deleted[] = $user->id;
         }
 
-        import_log('deleting employers success', [
+        import_log('method AdminController->removeEmployer() return', [
+            'message' => 'success',
             'deleted_users' => $deleted,
             'skipped_users' => $skipped,
             'deleted_by' => $admin->id,
@@ -267,7 +266,18 @@ class AdminController extends BaseController
     {
         $admin = AuthUser::requireUser();
 
-        $workers = User::whereHas('roles', fn($q) => $q->whereIn('name', ['operator', 'seller']))->get();
+        $roles = ['operator', 'seller'];
+
+        if ($admin->isSuperAdmin()) {
+            $roles[] = 'admin';
+        }
+
+        $workers = User::whereIn('role', $roles)->get();
+        import_log('method AdminController->listOfEmployers() returns', [
+            'message' => 'success',
+            '$workers' => $workers->pluck('id')->toArray(),
+            'asked_by' => $admin->id,
+        ]);
 
         $this->json([
             'data' => [
@@ -278,34 +288,6 @@ class AdminController extends BaseController
 
     public function getEmployer(string $employerId): void
     {
-        try {
-            $admin = AuthUser::requireUser();
-
-            $body = $this->body();
-            $body['id'] = $employerId;
-
-            $data = (new Validator($body))
-                ->rules([
-                    'id'    => 'required|int',
-                ])
-                ->validate();
-
-            $finded_user = User::with('roles')->find($data['id']);
-
-            $this->json([
-                'data' => [
-                    'worker' => (new UserResource($finded_user))->toArray()
-                ],
-            ]);
-        } catch (\Throwable $e) {
-            throw HttpException::validation([
-                'id' => ['User not found: ' . $data['id']],
-            ]);
-        }
-    }
-
-    public function updateEmployer(string $employerId): void
-    {
         $admin = AuthUser::requireUser();
 
         $body = $this->body();
@@ -314,18 +296,58 @@ class AdminController extends BaseController
         $data = (new Validator($body))
             ->rules([
                 'id'    => 'required|int',
-                'name' => 'max:255|min:2|string',
-                'password' => 'string|min:5',
-                'role' => 'string|in:seller,operator',
-                'is_active' => 'int|in:0,1'
             ])
             ->validate();
 
-        $updated_user = User::with('roles')->find($data['id']);
+        $finded_user = User::find($data['id']);
+
+        if ($finded_user === null) {
+            import_log('method AdminController->getEmployer() returns', [
+                'error' => 'employer not found',
+                'asked_by' => $admin->id,
+            ]);
+            throw HttpException::notFound('Employer not found');
+        }
+
+        import_log('method AdminController->getEmployer() returns', [
+            'message' => 'success',
+            'employer' => $finded_user->id,
+            'asked_by' => $admin->id,
+        ]);
+        $this->json([
+            'data' => [
+                'worker' => (new UserResource($finded_user))->toArray()
+            ],
+        ]);
+    }
+
+    public function updateEmployer(string $employerId): void
+    {
+        $admin = AuthUser::requireUser();
+
+        $rules = [
+            'id'    => 'required|int',
+            'name' => 'max:255|min:2|string',
+            'password' => 'string|min:5',
+            'role' => 'string|in:seller,operator',
+            'is_active' => 'int|in:0,1'
+        ];
+        if ($admin->isSuperAdmin()) {
+            $rules['role'] .= ',admin';
+        }
+
+        $body = $this->body();
+        $body['id'] = $employerId;
+
+        $data = (new Validator($body))
+            ->rules($rules)
+            ->validate();
+
+        $updated_user = User::find($data['id']);
 
         if (!$updated_user) {
-            import_log('updating employer failed', [
-                'error' => 'user not found',
+            import_log('method AdminController->updateEmployer() returns', [
+                'error' => 'User not found',
                 'updated_user' => $data['id'],
                 'updated_by' => $admin->id,
             ]);
@@ -334,8 +356,8 @@ class AdminController extends BaseController
         }
 
         if (!UserPolicy::update($admin, $updated_user)) {
-            import_log('updating employer failed', [
-                'error' => 'forbidden',
+            import_log('method AdminController->updateEmployer() returns', [
+                'error' => 'Forbidden',
                 'updated_user' => $updated_user->id,
                 'updated_by' => $admin->id,
             ]);
@@ -345,25 +367,14 @@ class AdminController extends BaseController
 
         try {
             DB::connection()->transaction(function () use ($updated_user, $data) {
-                $new_role = $data['role'] ?? null;
-                unset($data['role']);
-
                 if ($data !== []) {
                     $updated_user->update($data);
-                }
-
-                if ($new_role !== null) {
-                    $role = Role::where('name', $new_role)->first();
-                    if (!$role) {
-                        throw HttpException::validation(['role' => ['Unknown role: ' . $new_role]]);
-                    }
-                    $updated_user->roles()->sync([$role->id]);
                 }
 
                 $updated_user->refresh();
             });
         } catch (\Throwable $e) {
-            import_log('updating employer failed', [
+            import_log('method AdminController->updateEmployer() returns', [
                 'error' => $e->getMessage(),
                 'status' => $e->status,
                 'updated_by' => $admin->id,
@@ -372,72 +383,14 @@ class AdminController extends BaseController
             throw $e;
         }
 
-        import_log('updating employer success', [
+        import_log('method AdminController->updateEmployer() returns', [
+            'message' => 'success',
             'updated_employer' => $updated_user->id,
             'updated_by' => $admin->id,
         ]);
         $this->json([
             'data' => [
                 'updated_employer' => (new UserResource($updated_user))->toArray()
-            ],
-        ]);
-    }
-
-    public function updateProduct(string $productId): void
-    {
-        $admin = AuthUser::requireUser();
-
-        $body = $this->body();
-        $body['product_id'] = $productId;
-
-        $data = (new Validator($body))
-            ->rules([
-                'product_id' => 'required|int',
-                'alias' => 'string',
-                'payment_type' => 'string|in:full,advance',
-                'is_active' => 'bool'
-            ])
-            ->validate();
-
-        $product = Product::find($data['productId']);
-
-        if ($product === null) {
-            import_log('method adminController->updateProduct() returns', [
-                'error' => 'Product not found',
-                'asked_by' => $admin->id,
-            ]);
-            throw HttpException::notFound('Product not found');
-        }
-
-        if ($product->payment_type === $data['payment_type'] AND $product->alias === $data['alias'] AND $product->is_active === $data['is_active']) {
-            $this->json([
-                'data' => [
-                    'message' => 'Nothing to update',
-                ],
-            ]);
-        }
-
-        $product->update($data);
-
-        if (!$product) {
-            import_log('updating product failed', [
-                'error' => 'Cannot change this product',
-                'asked_by' => $admin->id,
-            ]);
-
-            throw HttpException::badResponse('Cannot change this product');
-        }
-
-        import_log('updating product success', [
-            'message' => 'paymentType was successfully changed',
-            'product' => $product->id,
-            'changed_by' => $admin->id,
-        ]);
-
-        $this->json([
-            'data' => [
-                'message' => 'paymentType was successfully changed',
-                'product' => (new DetailProductResource($product))->toArray(),
             ],
         ]);
     }
@@ -450,7 +403,6 @@ class AdminController extends BaseController
     public function me(): void
     {
         $user = AuthUser::requireUser();
-        $user->load('roles');
 
         $this->json(['data' => (new UserResource($user))->toArray()]);
     }

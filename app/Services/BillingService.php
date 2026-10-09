@@ -19,8 +19,9 @@ class BillingService
 
     /**
      * @return array{id:string, name:string, full_name?:string, inn?:string, phone?:string, email?:string}|null
+     * сделать поиск по адресу
      */
-    public function getClients(): ?array
+    /*public function findClient(string $address): ?array
     {
         $url = rtrim($this->baseUrl, '/') . '/clients';
 
@@ -55,10 +56,11 @@ class BillingService
         return [
             'clients' => $data
         ];
-    }
+    }*/
 
     /**
      * @return array{id:string, name:string, full_name?:string, inn?:string, phone?:string, email?:string}|null
+     * посмотреть какой ответ получает и как называются поля
      */
     public function getClient(string $clientId): ?array
     {
@@ -94,12 +96,7 @@ class BillingService
         }
 
         return [
-            'id'        => (string)$data['id'],
-            'name'      => (string)($data['name'] ?? ''),
-            'full_name' => $data['full_name'] ?? null,
-            'inn'       => $data['inn'] ?? null,
-            'phone'     => $data['phone'] ?? null,
-            'email'     => $data['email'] ?? null,
+            'client_id'        => (string)$data['id'],
         ];
     }
 }

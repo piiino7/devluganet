@@ -18,15 +18,7 @@ class OrderDetailResource extends Resource
             'total'       => (float)$this->order->total,
             'currency'    => $this->order->currency,
             'comment'     => $this->order->comment,
-
-            'client' => [
-                'external_id' => $this->order->client_external_id,
-                'name'        => $this->order->client_name,
-                'full_name'   => $this->order->client_full_name,
-                'inn'         => $this->order->client_inn,
-                'phone'       => $this->order->client_phone,
-                'email'       => $this->order->client_email,
-            ],
+            'client_personal_account' => $this->order->client_personal_account,
 
             'seller' => $this->order->relationLoaded('seller') && $this->order->seller
                 ? [

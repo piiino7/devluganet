@@ -31,6 +31,7 @@ class ProductController extends BaseController {
         $groups = ProductGroup::withCount('products')->orderBy('name')->get();
 
         import_log('method ProductController->getGroups() returns', [
+            'message' => 'success',
             'groups' => $groups->pluck('id')->toArray(),
             'asked_by' => $seller->id,
         ]);
@@ -56,7 +57,7 @@ class ProductController extends BaseController {
         $sort  = (string)($_GET['sort'] ?? 'name');
         $order = strtolower((string)($_GET['order'] ?? 'asc')) === 'desc' ? 'desc' : 'asc';
 
-        $allowedSort = ['name', 'article', 'code', 'id'];
+        $allowedSort = ['name', 'article', 'code'];
         if (!in_array($sort, $allowedSort, true)) {
             $sort = 'name';
         }
@@ -83,6 +84,7 @@ class ProductController extends BaseController {
                 $q->where('name', 'like', $like)
                     ->orWhere('article', 'like', $like)
                     ->orWhere('code', 'like', $like)
+                    ->orWhere('alias', 'like', $like)
                     ->orWhere('full_name', 'like', $like);
             });
         }
@@ -104,10 +106,12 @@ class ProductController extends BaseController {
             ->get();
 
         import_log('method ProductController->getProducts() returns', [
+            'message' => 'success',
             'groupId' => $groupId,
             'products' => $products->pluck('id')->toArray(),
             'asked_by' => $seller->id,
         ]);
+
         $this->json([
             'data' => [
                 'products' => ShortProductResource::collection($products),
@@ -152,62 +156,13 @@ class ProductController extends BaseController {
         }
 
         import_log('method ProductController->getProduct() returns', [
+            'message' => 'success',
             'product' => $product->id,
             'asked_by' => $seller->id,
         ]);
         $this->json([
             'data' => [
                 'product' => (new DetailProductResource($product))->toArray()
-            ],
-        ]);
-    }
-
-    public function changeAlias(string $productId): void
-    {
-        $seller = AuthUser::requireUser();
-
-        $body = $this->body();
-        $body['productId'] = $productId;
-
-        $data = (new Validator($body))
-            ->rules([
-                'productId' => 'required|int',
-                'alias' => 'required|string'
-            ])
-            ->validate();
-
-        $product = Product::find($data['productId']);
-
-        if ($product === null) {
-            import_log('method ProductController->changeAlias() returns', [
-                'error' => 'Product not found',
-                'asked_by' => $seller->id,
-            ]);
-            throw HttpException::notFound('Product not found');
-        }
-
-        $product->update(['alias' => $data['alias']]);
-
-        if (!$product) {
-            import_log('updating alias failed', [
-                'error' => 'Cannot change this alias',
-                'login' => $seller->name,
-                'client_info' => $this->client,
-            ]);
-
-            throw HttpException::forbidden('Cannot change this alias');
-        }
-
-        import_log('changing alias success', [
-            'login' => $seller->name,
-            'client_info' => $this->client,
-        ]);
-
-        $this->json([
-            'data' => [
-                'status' => 'success',
-                'message' => 'alias was successfully changed',
-                'product' => (new DetailProductResource($product))->toArray(),
             ],
         ]);
     }
@@ -224,9 +179,91 @@ class ProductController extends BaseController {
 
         $offer = Offer::find($data['offerId']);
 
+        if ($offer === null) {
+            import_log('method ProductController->getOffer() returns', [
+                'error' => 'Offer not found',
+                'asked_by' => $seller->id,
+            ]);
+            throw HttpException::notFound('Offer not found');
+        }
+
+        import_log('method ProductController->getOffer() returns', [
+            'message' => 'success',
+            'offer' => $offer->id,
+            'asked_by' => $seller->id,
+        ]);
+
         $this->json([
             'data' => [
                 'offerResource' => (new OfferResource($offer))->toArray()
+            ],
+        ]);
+    }
+
+    public function updateProduct(string $productId): void
+    {
+        $updater = AuthUser::requireUser();
+
+        /*if ($updater->role !== 'operator') {
+            import_log('method ProductController->updateProduct() returns', [
+                'error' => 'You have no rights',
+                'asked_by' => $updater->id,
+            ]);
+
+            throw HttpException::forbidden('You have no rights');
+        }*/
+
+        $body = $this->body();
+        $body['product_id'] = $productId;
+
+        $data = (new Validator($body))
+            ->rules([
+                'product_id' => 'required|int',
+                'alias' => 'string',
+                'payment_type' => 'string|in:full,advance',
+                'is_active' => 'bool'
+            ])
+            ->validate();
+
+        $product = Product::find($data['product_id']);
+
+        if ($product === null) {
+            import_log('method ProductController->updateProduct() returns', [
+                'error' => 'Product not found',
+                'asked_by' => $updater->id,
+            ]);
+            throw HttpException::notFound('Product not found');
+        }
+
+        /*if ($product->payment_type === $data['payment_type'] AND $product->alias === $data['alias'] AND $product->is_active === $data['is_active']) {
+            $this->json([
+                'data' => [
+                    'message' => 'Nothing to update',
+                ],
+            ]);Q
+        }*/ //уточнить за это
+
+        $product->update($data);
+
+        if (!$product) {
+            import_log('method ProductController->updateProduct() returns', [
+                'error' => 'Cannot change this product',
+                'asked_by' => $updater->id,
+            ]);
+
+            throw HttpException::badResponse('Cannot change this product');
+        }
+
+        import_log('method ProductController->updateProduct() returns', [
+            'message' => 'success',
+            'product' => $product->id,
+            'changed_by' => $updater->id,
+        ]);
+
+        $this->json([
+            'data' => [
+                'message' => 'product was successfully changed',
+                'product' => (new DetailProductResource($product))->toArray(),
             ],
         ]);
     }

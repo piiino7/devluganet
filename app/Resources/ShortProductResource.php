@@ -10,12 +10,13 @@ class ShortProductResource extends Resource
 
     public function toArray(): array
     {
-        $offer = $this->product->offers->first();
+        $offer = $this->product->offers()->orderBy('price', 'asc')->first();
         $price = $offer?->price;
 
         return [
             'id'           => $this->product->id,
             'name'         => $this->product->name,
+            'code'         => $this->product->code,
             'kind'         => $this->product->kind,
             'unit'         => $this->product->unit->name,
             'offer'        => $offer,

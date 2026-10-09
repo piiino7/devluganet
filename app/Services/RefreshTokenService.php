@@ -12,24 +12,15 @@ class RefreshTokenService
 {
     private const TTL_DAYS = 30;
 
-    public function issue(User $user, array $device): string
+    public function issue(User $user): string
     {
-        if ($device['device_id'] !== null) {
-            RefreshToken::where('user_id', $user->id)
-                ->where('device_id', $device['device_id'])
-                ->whereNull('revoked_at')
-                ->update(['revoked_at' => date('Y-m-d H:i:s', time())]);
-        }
-
-        $this->enforceDeviceLimit($user, 5);
-
         $plain = bin2hex(random_bytes(32));
         $hash = hash('sha256', $plain);
 
+        $this->enforceDeviceLimit($user);
+
         RefreshToken::create([
             'user_id'     => $user->id,
-            'device_id'   => $device['device_id'],
-            'device_name' => $device['device_name'],
             'token_hash'  => $hash,
             'expires_at'  => date('Y-m-d H:i:s', strtotime('+' . self::TTL_DAYS . ' days')),
             'user_agent'  => ClientInfo::userAgent(),
@@ -43,38 +34,19 @@ class RefreshTokenService
     {
         $active = RefreshToken::where('user_id', $user->id)
             ->whereNull('revoked_at')
-            ->where('expires_at', '>', date('Y-m-d H:i:s', time() + 900))
+            ->where('expires_at', '>', date('Y-m-d H:i:s', time()))
             ->orderByDesc('created_at')
             ->get();
 
         if ($active->count() >= $max) {
             $toRevoke = $active->slice($max - 1);
             foreach ($toRevoke as $token) {
-                $token->update(['revoked_at' => date('Y-m-d H:i:s', time() + 900)]);
+                $token->update(['revoked_at' => date('Y-m-d H:i:s', time())]);
             }
         }
     }
 
-    public function devices(User $user)
-    {
-        $devices = RefreshToken::where('user_id', $user->id)
-            ->whereNull('revoked_at')
-            ->where('expires_at', '>', date('Y-m-d H:i:s', time() + 900))
-            ->orderByDesc('created_at')
-            ->get()
-            ->map(fn($t) => [
-                'id'          => $t->id,
-                'device_id'   => $t->device_id,
-                'device_name' => $t->device_name,
-                'ip'          => $t->ip,
-                'user_agent'  => $t->user_agent,
-                'created_at'  => $t->created_at,
-            ]);
-
-        return $devices;
-    }
-
-    public function verify(string $plain, $deviceId): RefreshToken
+    public function verify(string $plain): RefreshToken
     {
         $hash = hash('sha256', $plain);
 
@@ -94,10 +66,6 @@ class RefreshTokenService
 
         if ($token->expires_at < date('Y-m-d H:i:s')) {
             throw HttpException::unauthorized('Refresh token expired');
-        }
-
-        if ($token->device_id !== $deviceId) {
-            throw HttpException::unauthorized('Invalid device');
         }
 
         return $token;
@@ -139,14 +107,6 @@ class RefreshTokenService
     public function revokeAllForUser(User $user): void
     {
         RefreshToken::where('user_id', $user->id)
-            ->whereNull('revoked_at')
-            ->update(['revoked_at' => date('Y-m-d H:i:s')]);
-    }
-
-    public function revokeAllExceptThis(User $user, $deviceId): void
-    {
-        RefreshToken::where('user_id', $user->id)
-            ->whereNot('device_id', $deviceId)
             ->whereNull('revoked_at')
             ->update(['revoked_at' => date('Y-m-d H:i:s')]);
     }

@@ -39,7 +39,7 @@ class AuthController extends BaseController
             $user = User::where('name', $data['name'])->first();
 
             if (!$user || !$user->verifyPassword($data['password'])) {
-                import_log('login failed', [
+                import_log('method AuthController->login() returns', [
                     'error' => 'Invalid credentials',
                     'login' => $data['name'],
                     'client_info' => $this->client,
@@ -49,7 +49,7 @@ class AuthController extends BaseController
             }
 
             if (!$user->is_active) {
-                import_log('login failed', [
+                import_log('method AuthController->login() returns', [
                     'error' => 'Account is blocked',
                     'login' => $data['name'],
                     'client_info' => $this->client,
@@ -57,22 +57,16 @@ class AuthController extends BaseController
                 throw HttpException::forbidden('Account is blocked');
             }
 
-            $role = $user->role()?->name;
-
-            $deviceId = $this->requireHeader('X-Device-Id');
-            $deviceName = $this->optionalHeader('X-Device-Name');
-            $device = [
-                'device_id' => $deviceId,
-                'device_name' => $deviceName
-            ];
+            $role = $user->role;
 
             $accessToken = $this->jwt->issue($user->id, [
                 'name' => $user->name,
                 'role' => $role,
             ]);
-            $refreshToken = $this->refreshToken->issue($user, $device);
+            $refreshToken = $this->refreshToken->issue($user);
 
-            import_log('login success', [
+            import_log('method AuthController->login() returns', [
+                'message' => 'success',
                 'user' => $user->id,
                 'role' => $role,
                 'client_info' => $this->client,
@@ -91,16 +85,6 @@ class AuthController extends BaseController
         }
     }
 
-    public function devices(): void
-    {
-        $user = AuthUser::requireUser();
-
-        $devices = $this->refreshToken->devices($user);
-        //добавить логи и проверки на ошибки
-
-        $this->json(['data' => $devices]);
-    }
-
     public function refresh(): void
     {
         $data = (new Validator($this->body()))
@@ -109,15 +93,20 @@ class AuthController extends BaseController
             ])
             ->validate();
 
-        $deviceId = $this->requireHeader('X-Device-Id');
-        $oldToken = $this->refreshToken->verify($data['refresh_token'], $deviceId);
+        $oldToken = $this->refreshToken->verify($data['refresh_token']);
 
         $user = $oldToken->user;
         if (!$user || !$user->is_active) {
+            import_log('method AuthController->login() refresh', [
+                'error' => 'Account is blocked',
+                'user' => $user->id,
+                'client_info' => $this->client,
+            ], $this->logfile);
+
             throw HttpException::forbidden('Account is blocked');
         }
 
-        $role = $user->role()?->name;
+        $role = $user->role;
 
         $accessToken  = $this->jwt->issue($user->id, [
             'name' => $user->name,
@@ -125,7 +114,8 @@ class AuthController extends BaseController
         ]);
         $refreshToken = $this->refreshToken->rotate($oldToken);
 
-        import_log('refresh success', [
+        import_log('method AuthController->login() refresh', [
+            'message' => 'success',
             'user' => $user->id,
             'role' => $role,
             'client_info' => $this->client
@@ -149,18 +139,24 @@ class AuthController extends BaseController
             ])
             ->validate();
 
-        $deviceId = $this->requireHeader('X-Device-Id');
-        $refreshToken = $this->refreshToken->verify($data['refresh_token'], $deviceId);
+        $refreshToken = $this->refreshToken->verify($data['refresh_token']);
 
         $user = $refreshToken->user;
         if (!$user || !$user->is_active) {
+            import_log('method AuthController->logout() refresh', [
+                'error' => 'Account is blocked',
+                'user' => $user->id,
+                'client_info' => $this->client,
+            ], $this->logfile);
+
             throw HttpException::forbidden('Account is blocked');
         }
 
-        $role = $user->role()?->name;
+        $role = $user->role;
 
         $this->refreshToken->revoke($data['refresh_token']);
-        import_log('logout success', [
+        import_log('method AuthController->logout() refresh', [
+            'message' => 'success',
             'user' => $user->id,
             'role' => $role,
             'client_info' => $this->client
@@ -174,10 +170,11 @@ class AuthController extends BaseController
     public function logoutAll(): void
     {
         $user = AuthUser::requireUser();
-        $role = $user->role()?->name;
+        $role = $user->role;
 
         $this->refreshToken->revokeAllForUser($user);
-        import_log('logout from all devices success', [
+        import_log('method AuthController->logoutAll() refresh', [
+            'message' => 'success',
             'user' => $user->id,
             'role' => $role,
             'client_info' => $this->client
@@ -199,10 +196,8 @@ class AuthController extends BaseController
             ])
             ->validate();
 
-        $deviceId = $this->requireHeader('X-Device-Id');
-
         if (!$user->verifyPassword($data['old_password']) || $user->verifyPassword($data['new_password'])) {
-            import_log('changing password failed', [
+            import_log('method AuthController->changePassword() refresh', [
                 'error' => 'Invalid credentials',
                 'login' => $data['name'],
                 'client_info' => $this->client,
@@ -212,9 +207,9 @@ class AuthController extends BaseController
         }
 
         if (!$user->is_active) {
-            import_log('changing password failed', [
+            import_log('method AuthController->changePassword() refresh', [
                 'error' => 'Account is blocked',
-                'login' => $data['name'],
+                'user' => $user->id,
                 'client_info' => $this->client,
             ], $this->logfile);
             throw HttpException::forbidden('Account is blocked');
@@ -225,19 +220,20 @@ class AuthController extends BaseController
         ]);
 
         if (!$changingPassword OR password_verify($data['old_password'], $user->password)) {
-            import_log('changing password failed', [
+            import_log('method AuthController->changePassword() refresh', [
                 'error' => 'Cannot update this password',
-                'login' => $data['name'],
+                'user' => $user->id,
                 'client_info' => $this->client,
             ], $this->logfile);
 
             throw HttpException::forbidden('Cannot update this password');
         }
 
-        $this->refreshToken->revokeAllExceptThis($user, $deviceId);
+        $this->refreshToken->revokeAllExceptThis($user);
 
-        import_log('changing password success', [
-            'login' => $data['name'],
+        import_log('method AuthController->changePassword() refresh', [
+            'message' => 'success',
+            'user' => $user->id,
             'client_info' => $this->client,
         ], $this->logfile);
 
@@ -339,7 +335,6 @@ class AuthController extends BaseController
     public function me(): void
     {
         $user = AuthUser::requireUser();
-        $user->load('roles');
 
         $this->json(['data' => (new UserResource($user))->toArray()]);
     }

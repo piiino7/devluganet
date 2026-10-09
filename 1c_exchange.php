@@ -15,12 +15,12 @@ import_log('=== request ===', [
     'user'   => $_SERVER['PHP_AUTH_USER'] ?? null,
 ]);
 
-$operator = User::whereHas('roles', fn($q) => $q->where('name', 'operator'))->first();
+$exchangeUser = User::where('role', 'exchange')->where('name', 'exchange_1c')->first();
 
-if (!$operator) {
-    import_log('operator_1c not found');
+if (!$exchangeUser) {
+    import_log('exchange user not found');
     http_response_code(500);
-    echo "failure\nOperator not found";
+    echo "failure\nExchange user not found";
     exit;
 }
 
@@ -34,13 +34,13 @@ if (!is_dir($DIR)) {
 $authOk = false;
 
 if (isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
-    if ($_SERVER['PHP_AUTH_USER'] === $operator->name && $operator->verifyPassword($_SERVER['PHP_AUTH_PW'])) {
+    if ($_SERVER['PHP_AUTH_USER'] === $exchangeUser->name && $exchangeUser->verifyPassword($_SERVER['PHP_AUTH_PW'])) {
         $authOk = true;
     }
 } elseif (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     if (preg_match('/^Basic\s+(.+)$/i', $_SERVER['HTTP_AUTHORIZATION'], $m)) {
         [$u, $p] = explode(':', base64_decode($m[1]), 2) + ['', ''];
-        if ($u === $operator->name && $operator->verifyPassword($p)) {
+        if ($u === $exchangeUser->name && $exchangeUser->verifyPassword($p)) {
             $authOk = true;
         }
     }

@@ -16,10 +16,7 @@ class OrderResource extends Resource
             'status'     => $this->order->status,
             'total'      => (float)$this->order->total,
             'currency'   => $this->order->currency,
-            'client'     => [
-                'external_id' => $this->order->client_external_id,
-                'name'        => $this->order->client_name,
-            ],
+            'client_personal_account' => $this->order->client_personal_account,
             'seller'     => $this->order->relationLoaded('seller') && $this->order->seller
                 ? [
                     'id'   => $this->order->seller->id,

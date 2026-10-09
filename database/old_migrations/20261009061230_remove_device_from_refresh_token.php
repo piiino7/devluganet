@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class OrderExports extends AbstractMigration
+final class RemoveDeviceFromRefreshToken extends AbstractMigration
 {
     /**
      * Change Method.
@@ -19,6 +19,9 @@ final class OrderExports extends AbstractMigration
      */
     public function change(): void
     {
-
+        $this->table('refresh_tokens')
+            ->removeColumn('device_id')
+            ->removeColumn('device_name')
+            ->update();
     }
 }

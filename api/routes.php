@@ -5,6 +5,7 @@ use App\Controllers\AuthController;
 use App\Controllers\ProductController;
 use App\Controllers\OrderController;
 use App\Controllers\CartController;
+use App\Controllers\OperatorController;
 
 /**
  * [method, path, controllerClass, action, auth]
@@ -23,37 +24,43 @@ return [
     // Авторизованные
     ['GET',    '/auth/me',           AuthController::class,      'me',                true], // — данные о себе
     ['PATCH',  '/account/password',  AuthController::class,      'changePassword',    true], // — изменить пароль
-    ['GET',    '/auth/devices',      AuthController::class,      'devices',           true], // — данные о залогиненных устройствах
     ['POST',   '/auth/logoutAll',    AuthController::class,      'logoutAll',         true], // — логаут со всех устройств
 
-    // Продажа
-    ['GET',     '/groups',                     ProductController::class,   'getGroups',    true], // — список категорий
-    ['GET',     '/groups/{groupId}/products',  ProductController::class,   'getProducts',  true], // — товары в категории (добавить пагинацию)
-    ['GET',     '/products',                   ProductController::class,   'getProducts',  true], // — все товары (фильтры, поиск, пагинация)
-    ['GET',     '/products/{productId}',       ProductController::class,   'getProduct',   true], // — один товар (подробно со всеми предложениями)
-    ['PATCH',   '/products/{productId}',       ProductController::class,   'changeAlias',  true], // — задать/поменять алиас в номенклатуре
-    ['GET',     '/offer/{offerId}',            ProductController::class,   'getOffer',     true], // — одно конкретное предложение
+    // Категории товаров/Товары/Предложения
+    ['GET',     '/groups',                     ProductController::class,   'getGroups',    ['seller', 'operator']], // — список категорий
+    ['GET',     '/groups/{groupId}/products',  ProductController::class,   'getProducts',  ['seller', 'operator']], // — товары в категории (добавить пагинацию)
+    ['GET',     '/products',                   ProductController::class,   'getProducts',  ['seller', 'operator']], // — все товары (фильтры, поиск, пагинация)
+    ['GET',     '/products/{productId}',       ProductController::class,   'getProduct',   ['seller', 'operator']], // — один товар (подробно со всеми предложениями)
+    ['PATCH',   '/products/{productId}',       ProductController::class,   'changeAlias',  ['seller', 'operator']], // — задать/поменять алиас в номенклатуре
+    ['GET',     '/offer/{offerId}',            ProductController::class,   'getOffer',     ['seller', 'operator']], // — одно конкретное предложение
 
-    // Корзина
-    ['GET',     '/cart',                       CartController::class,       'getCart',           true], // — посмотреть корзину
-    ['POST',    '/addToCart',                  CartController::class,       'addToCart',         true], // — добавить в корзину
-    ['POST',    '/removeFromCart',             CartController::class,       'removeFromCart',    true], // — удалить из корзины
-    ['DELETE',  '/cart',                       CartController::class,       'clearCart',         true], // — удалить из корзины
+    // Корзина для продавца
+    ['GET',     '/cart',                       CartController::class,       'getCart',           ['seller']], // — посмотреть корзину
+    ['POST',    '/addToCart',                  CartController::class,       'addToCart',         ['seller']], // — добавить в корзину
+    ['PATCH',   '/removeFromCart',             CartController::class,       'removeFromCart',    ['seller']], // — удалить из корзины
+    ['DELETE',  '/cart',                       CartController::class,       'clearCart',         ['seller']], // — очистить корзину
 
-    // Оформление заказа
-    //['POST',    '/order',                      OrderController::class,          'makeAnOrder',       true], // — создание заказа в БД
-    //['POST',    '/order/qr',                   OrderController::class,          'QRpayment',         true], // — создание и получение QR для оплаты
+    // Оформление заказа продавцом
+    //['POST',    '/order',                      OrderController::class,          'makeAnOrder',       ['seller']], // — создание заказа в БД
+    //['POST',    '/order/qr',                   OrderController::class,          'QRpayment',         ['seller']], // — создание и получение QR для оплаты
     //['POST',    '/webhooks/bank',              OrderController::class,          'webhook',           false], // — роут для банка
 
+    // Оператор
+    ['GET',    '/operator/sellers',                             OperatorController::class,   'getSellers',              ['operator']], // — получить всех продавцов
+    ['GET',    '/operator/sellers/{sellerId}',                  OperatorController::class,   'getSeller',               ['operator']], // — получить продавца
+    ['POST',   '/operator/sellers',                             OperatorController::class,   'registerSeller',          ['operator']], // — создать продавца
+    ['PATCH',  '/operator/changeSellerPassword/{sellerId}',     OperatorController::class,   'changeSellerPassword',    ['operator']], // — поменять продавцу пароль (возможно делать логаут)
+    ['PATCH',  '/operator/products/{productId}',                ProductController::class,    'updateProduct',           ['operator']], // — изменить товар
+    //['GET',    '/operator/sales',                               OperatorController::class,   'getSales',                ['operator']], // — все продажи
+    //['GET',    '/operator/salesReport',                         OperatorController::class,   'salesReport',             ['operator']], // — отчёт по продажам
+
     // admin
-    ['POST',        '/admin/registerEmployer',               AdminController::class,     'registerEmployer',        ['admin']], // — создать сотрудника
-    ['PATCH',       '/admin/blockEmployers',                 AdminController::class,     'blockEmployer',           ['admin']], // — заблокировать сотрудника
-    ['PATCH',       '/admin/restoreEmployers',               AdminController::class,     'restoreEmployer',         ['admin']], // — восстановить сотрудника
-    ['POST',        '/admin/deleteEmployers',                AdminController::class,     'removeEmployer',          ['admin']], // — удалить сотрудника
-    ['PATCH',       '/admin/updateEmployer/{employerId}',    AdminController::class,     'updateEmployer',          ['admin']], // — обновить сотрудника
-    ['GET',         '/admin/getEmployers',                   AdminController::class,     'listOfEmployers',         ['admin']], // — получить сотрудников
-    ['GET',         '/admin/getEmployer/{employerId}',       AdminController::class,     'getEmployer',             ['admin']], // — получить сотрудника
-    ['PATCH',       '/admin/products/{productId}',           AdminController::class,     'updateProduct',           ['admin']], // — изменить продукт
-    //['POST',  '/admin/order',                          AdminController::class,     'delete_order',         ['admin']], // — удаление заказа из БД
+    ['POST',        '/admin/registerEmployer',               AdminController::class,     'registerEmployer',        ['admin', 'superadmin']], // — создать сотрудника
+    ['PATCH',       '/admin/blockEmployers',                 AdminController::class,     'blockEmployer',           ['admin', 'superadmin']], // — заблокировать сотрудника
+    ['PATCH',       '/admin/restoreEmployers',               AdminController::class,     'restoreEmployer',         ['admin', 'superadmin']], // — восстановить сотрудника
+    ['POST',        '/admin/deleteEmployers',                AdminController::class,     'removeEmployer',          ['admin', 'superadmin']], // — удалить сотрудника
+    ['PATCH',       '/admin/updateEmployer/{employerId}',    AdminController::class,     'updateEmployer',          ['admin', 'superadmin']], // — обновить сотрудника
+    ['GET',         '/admin/getEmployers',                   AdminController::class,     'listOfEmployers',         ['admin', 'superadmin']], // — получить сотрудников
+    ['GET',         '/admin/getEmployer/{employerId}',       AdminController::class,     'getEmployer',             ['admin', 'superadmin']], // — получить сотрудника
     //['GET',     '/admin/getReport',         AdminController::class,     'report',               ['admin']],
 ];

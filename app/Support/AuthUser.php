@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use App\Models\User;
+use App\Support\HttpException;
 
 class AuthUser
 {
@@ -29,7 +30,7 @@ class AuthUser
 
     public static function roles(): array
     {
-        return (array)(self::$payload['roles'] ?? []);
+        return (array)(self::$payload['role'] ?? []);
     }
 
     public static function user(): ?User
@@ -44,10 +45,10 @@ class AuthUser
     {
         $user = self::user();
         if (!$user) {
-            throw \App\Support\HttpException::unauthorized();
+            throw HttpException::unauthorized();
         }
         if (!$user->is_active) {
-            throw \App\Support\HttpException::forbidden('Account is blocked');
+            throw HttpException::forbidden('Account is blocked');
         }
         return $user;
     }

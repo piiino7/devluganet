@@ -63,6 +63,7 @@ class CartController extends BaseController {
             );
 
             import_log('method ProductController->addToCart() returns', [
+                'message' => 'success',
                 'item_in_cart' => $item->id,
                 'added_by' => $seller->id,
             ]);
@@ -92,6 +93,7 @@ class CartController extends BaseController {
             ->get();
 
         import_log('method ProductController->getCart() returns', [
+            'message' => 'success',
             'items' => $items->pluck('id')->toArray(),
             'asked_by' => $seller->id,
         ]);
@@ -174,6 +176,7 @@ class CartController extends BaseController {
             }
 
             import_log('method ProductController->removeFromCart() returns', [
+                'message' => 'success',
                 'quantity_before_decrement' => $quantityBefore,
                 'quantity_after_decrement' => $item->quantity,
                 'product_id' => $data['product_id'],
@@ -216,7 +219,7 @@ class CartController extends BaseController {
             ->delete();
 
         import_log('method ProductController->clearCart() returns', [
-            'message' => 'Clear cart success',
+            'message' => 'success',
             'cleared_by' => $seller->id,
         ]);
         $this->json([

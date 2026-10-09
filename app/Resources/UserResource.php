@@ -15,9 +15,7 @@ class UserResource extends Resource
             'name'       => $this->user->name,
             'is_active'  => $this->user->is_active,
             'created_at' => $this->user->created_at,
-            'roles'      => $this->user->relationLoaded('roles')
-                ? RoleResource::collection($this->user->roles)
-                : null,
+            'role'       => $this->user->role
         ];
     }
 }

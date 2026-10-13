@@ -62,5 +62,6 @@ return [
     ['PATCH',       '/admin/updateEmployer/{employerId}',    AdminController::class,     'updateEmployer',          ['admin', 'superadmin']], // — обновить сотрудника
     ['GET',         '/admin/getEmployers',                   AdminController::class,     'listOfEmployers',         ['admin', 'superadmin']], // — получить сотрудников
     ['GET',         '/admin/getEmployer/{employerId}',       AdminController::class,     'getEmployer',             ['admin', 'superadmin']], // — получить сотрудника
+    ['PATCH',       '/admin/offer/{offerId}',                AdminController::class,     'updateStocks',            ['admin', 'superadmin']], // — изменить остатки
     //['GET',     '/admin/getReport',         AdminController::class,     'report',               ['admin']],
 ];

@@ -44,7 +44,7 @@ class CartController extends BaseController {
 
         $isService = $productOffer->product->kind === 'Услуга';
 
-        if (!$isService AND (float)$productOffer->quantity < (float)$totalCartQuantity) {
+        if (!$isService AND $productOffer->available() < (float)$totalCartQuantity) {
             throw HttpException::validation([
                 'quantity' => ['Asking for ' . $data['quantity'] . '. Already in cart: '. ($cart->quantity ?? 0.00) .'. Not enough products on warehouse: ' . $productOffer->quantity],
             ]);

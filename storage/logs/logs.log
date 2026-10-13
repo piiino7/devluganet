@@ -816,3 +816,10 @@
 [2026-10-09 13:28:59] HTTP Exception {"status":422,"message":"Validation failed"}
 [2026-10-09 13:29:14] method AdminController->updateEmployer() returns {"error":"Forbidden","updated_user":9,"updated_by":2}
 [2026-10-09 13:29:14] HTTP Exception {"status":403,"message":"Cannot update this user"}
+[2026-10-13 12:42:26] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[3,6],"asked_by":3}
+[2026-10-13 12:42:42] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-13 12:43:25] Runtime Exception {"status":null,"message":"Handler not found: App\\Controllers\\ProductController::updateStocks"}
+[2026-10-13 12:44:43] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-13 12:44:57] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-13 13:01:57] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-13 13:06:02] Internal Server Error {"status":null,"message":"Call to undefined method App\\Resources\\OfferResource::available()"}

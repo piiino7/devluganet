@@ -395,6 +395,65 @@ class AdminController extends BaseController
         ]);
     }
 
+    public function updateStocks(string $offerId): void
+    {
+        $admin = AuthUser::requireUser();
+        $body = $this->body();
+        $body['offerId'] = $offerId;
+
+        $data = (new Validator($body))
+            ->rules([
+                'offerId' => 'required|int',
+                'quantity'     => 'float',
+                'reserved' => 'float',
+                'min_quantity' => 'float',
+            ])
+            ->validate();
+
+        unset($data['offerId']);
+
+        $offer = Offer::find($offerId);
+
+        if (!$offer) {
+            import_log('method AdminController->updateStocks() returns', [
+                'error' => 'Offer not found',
+                'updated_offer' => $offerId,
+                'updated_by' => $admin->id,
+            ]);
+
+            throw HttpException::notFound('Offer not found');
+        }
+
+        try {
+            DB::connection()->transaction(function () use ($offer, $data) {
+                if ($data !== []) {
+                    $offer->update($data);
+                }
+
+                $offer->refresh();
+            });
+        } catch (\Throwable $e) {
+            import_log('method AdminController->updateStocks() returns', [
+                'error' => $e->getMessage(),
+                'status' => $e->status,
+                'updated_by' => $admin->id,
+            ]);
+
+            throw $e;
+        }
+
+        import_log('method AdminController->updateStocks() returns', [
+            'message' => 'success',
+            'updated_offer' => $offer->id,
+            'new_data' => $data,
+            'updated_by' => $admin->id,
+        ]);
+
+        $this->json([
+            'offer' => (new OfferResource($offer))->toArray()
+        ]);
+    }
+
     public function report(): void
     {
         //TODO СДЕЛАТЬ ОТЧЁТ С ФИЛЬТРАМИ ПО ДАТЕ, СОТРУДНИКУ, НОМЕНКЛАТУРЕ

@@ -12,6 +12,8 @@ class Offer extends Model
 
     protected $casts = [
         'quantity' => 'decimal:3',
+        'min_quantity' => 'decimal:3',
+        'reserved' => 'decimal:3',
         'price'    => 'decimal:3',
     ];
 
@@ -30,5 +32,10 @@ class Offer extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function available(): float
+    {
+        return $this->quantity - $this->reserved - $this->min_quantity;
     }
 }

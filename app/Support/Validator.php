@@ -32,6 +32,7 @@ class Validator
                     'required' => $this->checkRequired($field, $value),
                     'string'   => $this->checkString($field, $value),
                     'int'      => $this->checkInt($field, $value),
+                    'float'    => $this->checkFloat($field, $value),
                     'email'    => $this->checkEmail($field, $value),
                     'min'      => $this->checkMin($field, $value, (int)$param),
                     'max'      => $this->checkMax($field, $value, (int)$param),
@@ -83,6 +84,13 @@ class Validator
     {
         if ($v !== null && filter_var($v, FILTER_VALIDATE_INT) === false) {
             $this->addErrors($f, 'must be an integer');
+        }
+    }
+
+    private function checkFloat(string $f, mixed $v): void
+    {
+        if ($v !== null && filter_var($v, FILTER_VALIDATE_FLOAT) === false) {
+            $this->addErrors($f, 'must be an float');
         }
     }
 

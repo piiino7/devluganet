@@ -19,6 +19,7 @@ class ShortProductResource extends Resource
             'code'         => $this->product->code,
             'kind'         => $this->product->kind,
             'unit'         => $this->product->unit->name,
+            'is_active'    => $this->product->is_active,
             'offer'        => $offer,
             'price'        => $price ? (float)$price->price : null,
             'quantity'     => $offer?->quantity !== null ? (float)$offer->quantity : null,

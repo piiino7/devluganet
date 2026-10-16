@@ -7,6 +7,7 @@ use Firebase\JWT\Key;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException;
 use RuntimeException;
+use App\Support\HttpException;
 
 class JwtService
 {
@@ -55,11 +56,11 @@ class JwtService
             $decoded = JWT::decode($token, new Key($this->secret, $this->algo));
             return (array)$decoded;
         } catch (ExpiredException $e) {
-            throw new RuntimeException('Token expired', 410, $e);
+            throw new HttpException(410, 'Token expired');
         } catch (SignatureInvalidException $e) {
-            throw new RuntimeException('Invalid signature', 401, $e);
+            throw new HttpException(401, 'Invalid signature');
         } catch (\Throwable $e) {
-            throw new RuntimeException('Invalid token', 401, $e);
+            throw new HttpException(401, 'Invalid token');
         }
     }
 }

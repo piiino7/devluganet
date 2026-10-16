@@ -69,7 +69,7 @@ class OperatorController extends BaseController {
         ]);
         $this->json([
             'data' => [
-                'product' => (new UserResource($seller))->toArray()
+                'seller' => (new UserResource($seller))->toArray()
             ],
         ]);
     }
@@ -136,7 +136,6 @@ class OperatorController extends BaseController {
         $data = (new Validator($body))
             ->rules([
                 'sellerId'    => 'required|int',
-                'old_password' => 'required|string',
                 'new_password' => 'required|string',
             ])
             ->validate();
@@ -151,9 +150,9 @@ class OperatorController extends BaseController {
             throw HttpException::notFound('Seller not found');
         }
 
-        if (!$seller->verifyPassword($data['old_password']) || $seller->verifyPassword($data['new_password'])) {
+        if ($seller->verifyPassword($data['new_password'])) {
             import_log('method OperatorController->changeSellerPassword() returns', [
-                'error' => 'Invalid credentials',
+                'error' => 'Same password',
                 'seller' => $seller->id,
                 'changed_by' => $operator->id
             ]);
@@ -161,22 +160,19 @@ class OperatorController extends BaseController {
             throw HttpException::badRequest('Invalid credentials');
         }
 
-
         $changingPassword = $seller->update([
             'password' => $data['new_password'],
         ]);
 
-        if (!$changingPassword OR password_verify($data['old_password'], $seller->password)) {
+        if (!$changingPassword) {
             import_log('method OperatorController->changeSellerPassword() returns', [
                 'error' => 'Cannot update this password',
                 'seller' => $seller->id,
-                'changed_by' => $operator->id
+                'changed_by' => $operator->id,
             ]);
 
             throw HttpException::forbidden('Cannot update this password');
         }
-
-        //$this->refreshToken->revokeAllForUser($seller);
 
         import_log('method OperatorController->changeSellerPassword() returns', [
             'message' => 'success',

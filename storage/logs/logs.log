@@ -823,3 +823,304 @@
 [2026-10-13 12:44:57] HTTP Exception {"status":422,"message":"Validation failed"}
 [2026-10-13 13:01:57] Runtime Exception {"status":null,"message":"Token expired"}
 [2026-10-13 13:06:02] Internal Server Error {"status":null,"message":"Call to undefined method App\\Resources\\OfferResource::available()"}
+[2026-10-15 11:03:29] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-15 11:07:29] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-15 11:35:19] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 11:37:37] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 11:38:33] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 11:38:34] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 11:42:57] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 11:51:39] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-15 11:51:47] method AdminController->getEmployer() returns {"message":"success","employer":5,"asked_by":2}
+[2026-10-15 12:10:02] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-15 12:10:02] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:10:52] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-15 12:10:58] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:11:21] method AdminController->blockEmployer() returns {"message":"success","blocked_users":[1],"skipped_users":[],"blocked_by":2}
+[2026-10-15 12:11:26] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:15:54] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:17:52] method AdminController->restoreEmployer() return {"message":"success","restored_users":[1],"skipped_users":[],"restored_by":2}
+[2026-10-15 12:17:53] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:17:54] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:17:55] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:17:57] method AdminController->getEmployer() returns {"message":"success","employer":1,"asked_by":2}
+[2026-10-15 12:20:07] method AdminController->restoreEmployer() return {"message":"success","restored_users":[],"skipped_users":[{"id":1,"reason":"Already active"}],"restored_by":2}
+[2026-10-15 12:20:07] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:20:09] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:21:01] method AdminController->restoreEmployer() return {"message":"success","restored_users":[],"skipped_users":[{"id":1,"reason":"Already active"}],"restored_by":2}
+[2026-10-15 12:21:01] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:24:38] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:24:42] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:24:44] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:24:45] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:24:45] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:24:52] method AdminController->getEmployer() returns {"message":"success","employer":1,"asked_by":2}
+[2026-10-15 12:28:55] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-15 12:28:55] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:29:04] method AdminController->blockEmployer() returns {"message":"success","blocked_users":[3,10],"skipped_users":[],"blocked_by":2}
+[2026-10-15 12:29:04] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10],"asked_by":2}
+[2026-10-15 12:48:54] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-15 12:48:55] method AdminController->registerEmployer() returns {"message":"success","user":12,"registered_by":2}
+[2026-10-15 12:48:55] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10,12],"asked_by":2}
+[2026-10-15 12:49:59] method AdminController->getEmployer() returns {"message":"success","employer":3,"asked_by":2}
+[2026-10-15 12:51:20] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10,12],"asked_by":2}
+[2026-10-15 12:52:48] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,3,5,8,10,12],"asked_by":2}
+[2026-10-16 07:27:08] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 07:27:15] Internal Server Error {"status":null,"message":"syntax error, unexpected token \"}\""}
+[2026-10-16 07:27:37] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5],"asked_by":2}
+[2026-10-16 07:28:32] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12],"asked_by":2}
+[2026-10-16 09:08:58] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 09:09:05] method AdminController->restoreEmployer() return {"message":"success","restored_users":[3],"skipped_users":[],"restored_by":2}
+[2026-10-16 09:09:05] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 09:09:11] method AdminController->blockEmployer() returns {"message":"success","blocked_users":[3,12],"skipped_users":[],"blocked_by":2}
+[2026-10-16 09:09:11] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 09:09:12] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 09:09:24] method AdminController->listOfEmployers() returns {"message":"success","$workers":[12,10,8],"asked_by":2}
+[2026-10-16 09:09:31] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,5,3,8,10,12],"asked_by":2}
+[2026-10-16 09:09:33] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,10,12,1,5,8],"asked_by":2}
+[2026-10-16 09:09:34] method AdminController->listOfEmployers() returns {"message":"success","$workers":[8,5,1,12,10,3],"asked_by":2}
+[2026-10-16 09:09:36] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,10,12,1,5,8],"asked_by":2}
+[2026-10-16 09:09:37] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,10,12,1,5,8],"asked_by":2}
+[2026-10-16 09:11:13] HTTP Exception {"status":403,"message":"Forbidden"}
+[2026-10-16 09:12:28] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[3,6],"asked_by":2}
+[2026-10-16 09:37:02] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 09:37:02] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:38:49] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:41:11] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:41:39] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\Offer\" not found"}
+[2026-10-16 09:41:39] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:41:50] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\Offer\" not found"}
+[2026-10-16 09:41:50] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:42:49] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 09:42:55] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\Offer\" not found"}
+[2026-10-16 09:43:29] method AdminController->updateStocks() returns {"message":"success","updated_offer":4,"new_data":{"quantity":20,"reserved":10,"min_quantity":-10.5},"updated_by":2}
+[2026-10-16 09:43:29] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\OfferResource\" not found"}
+[2026-10-16 09:43:45] method AdminController->updateStocks() returns {"message":"success","updated_offer":4,"new_data":{"quantity":20,"reserved":10,"min_quantity":-10.5},"updated_by":2}
+[2026-10-16 09:43:45] Internal Server Error {"status":null,"message":"Class \"App\\Controllers\\OfferResource\" not found"}
+[2026-10-16 09:43:54] method AdminController->updateStocks() returns {"message":"success","updated_offer":4,"new_data":{"quantity":20,"reserved":10,"min_quantity":-10.5},"updated_by":2}
+[2026-10-16 09:43:58] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:44:08] method AdminController->updateStocks() returns {"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'productId' in 'SET' (Connection: default, SQL: update `offers` set `reserved` = 15, `productId` = 2, `offers`.`updated_at` = 2026-10-16 09:44:08 where `id` = 4)","status":null,"updated_by":2}
+[2026-10-16 09:44:08] Runtime Exception {"status":null,"message":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'productId' in 'SET' (Connection: default, SQL: update `offers` set `reserved` = 15, `productId` = 2, `offers`.`updated_at` = 2026-10-16 09:44:08 where `id` = 4)"}
+[2026-10-16 09:44:08] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:44:19] method AdminController->updateStocks() returns {"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'productId' in 'SET' (Connection: default, SQL: update `offers` set `reserved` = 15, `productId` = 2, `offers`.`updated_at` = 2026-10-16 09:44:19 where `id` = 4)","status":null,"updated_by":2}
+[2026-10-16 09:44:19] Runtime Exception {"status":null,"message":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'productId' in 'SET' (Connection: default, SQL: update `offers` set `reserved` = 15, `productId` = 2, `offers`.`updated_at` = 2026-10-16 09:44:19 where `id` = 4)"}
+[2026-10-16 09:44:19] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:50:03] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:50:13] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:56:35] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 09:56:36] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:56:45] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:57:50] method AdminController->updateStocks() returns {"message":"success","updated_offer":4,"new_data":{"quantity":20,"reserved":10,"min_quantity":-10.5},"updated_by":2}
+[2026-10-16 09:58:01] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:58:09] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 09:58:14] method AdminController->updateStocks() returns {"message":"success","updated_offer":4,"new_data":{"quantity":21,"reserved":10,"min_quantity":-10.5},"updated_by":2}
+[2026-10-16 09:58:21] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:58:41] method AdminController->updateStocks() returns {"message":"success","updated_offer":4,"new_data":{"quantity":21,"reserved":15,"min_quantity":5.5},"updated_by":2}
+[2026-10-16 09:58:41] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:59:03] method AdminController->updateStocks() returns {"message":"success","updated_offer":4,"new_data":{"quantity":21,"reserved":15,"min_quantity":-5},"updated_by":2}
+[2026-10-16 09:59:03] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:59:16] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[1,2,3,4,5,6],"asked_by":2}
+[2026-10-16 09:59:18] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:59:41] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[4,1,6,3,5,2],"asked_by":2}
+[2026-10-16 09:59:43] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:59:46] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":2}
+[2026-10-16 09:59:49] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 10:00:41] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[5],"asked_by":2}
+[2026-10-16 10:01:49] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 10:01:52] method ProductController->getCart() returns {"message":"success","items":[],"asked_by":5}
+[2026-10-16 10:01:52] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:02:05] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:02:05] method ProductController->getCart() returns {"message":"success","items":[],"asked_by":5}
+[2026-10-16 10:07:56] method ProductController->getCart() returns {"message":"success","items":[],"asked_by":5}
+[2026-10-16 10:07:56] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:08:02] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[1,2,3,4,5,6],"asked_by":5}
+[2026-10-16 10:08:03] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:08:08] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[4],"asked_by":5}
+[2026-10-16 10:08:30] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:08:31] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3,1,4],"asked_by":5}
+[2026-10-16 10:08:32] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3,1,4],"asked_by":5}
+[2026-10-16 10:08:41] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[],"asked_by":5}
+[2026-10-16 10:08:42] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[],"asked_by":5}
+[2026-10-16 10:08:43] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3,1,4],"asked_by":5}
+[2026-10-16 10:08:44] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[1],"asked_by":5}
+[2026-10-16 10:08:46] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2],"asked_by":5}
+[2026-10-16 10:08:47] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[3],"asked_by":5}
+[2026-10-16 10:08:48] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[4],"asked_by":5}
+[2026-10-16 10:17:13] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 10:17:13] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:18:12] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:20:46] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":5}
+[2026-10-16 10:20:48] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[5,6,1,4],"asked_by":5}
+[2026-10-16 10:22:30] method ProductController->getCart() returns {"message":"success","items":[],"asked_by":5}
+[2026-10-16 10:22:30] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:23:03] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:23:05] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 10:23:07] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[1,2,3,4,5,6],"asked_by":5}
+[2026-10-16 10:23:11] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":5}
+[2026-10-16 10:23:13] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":5}
+[2026-10-16 10:23:15] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":5}
+[2026-10-16 10:23:22] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[5,6,1,4],"asked_by":5}
+[2026-10-16 10:23:24] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[1,4,5,6],"asked_by":5}
+[2026-10-16 10:23:25] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[5,6,1,4],"asked_by":5}
+[2026-10-16 10:23:28] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[4,1,6,5],"asked_by":5}
+[2026-10-16 10:23:34] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[],"asked_by":5}
+[2026-10-16 10:23:35] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[5],"asked_by":5}
+[2026-10-16 10:25:02] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 10:30:04] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 10:30:20] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 10:30:33] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 10:31:40] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 10:31:47] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 10:33:07] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 10:33:16] method AdminController->listOfEmployers() returns {"message":"success","$workers":[1,5,3,8,10,12],"asked_by":2}
+[2026-10-16 10:33:17] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,10,12,1,5,8],"asked_by":2}
+[2026-10-16 10:33:19] method AdminController->listOfEmployers() returns {"message":"success","$workers":[8,5,1,12,10,3],"asked_by":2}
+[2026-10-16 10:33:30] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 10:38:54] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 10:38:54] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 10:39:06] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 10:39:08] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 10:42:57] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 10:47:21] Internal Server Error {"status":null,"message":"Call to undefined method App\\Services\\RefreshTokenService::revokeAllExceptThis()"}
+[2026-10-16 10:47:55] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-16 10:47:55] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-16 10:48:35] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 10:48:43] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 10:49:05] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-16 10:49:13] Internal Server Error {"status":null,"message":"Call to undefined method App\\Services\\RefreshTokenService::revokeAllExceptThis()"}
+[2026-10-16 10:49:28] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 11:05:15] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 11:05:20] HTTP Exception {"status":403,"message":"Cannot update this password"}
+[2026-10-16 11:07:36] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-16 11:08:20] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 11:08:44] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-16 11:09:47] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-16 11:10:02] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 11:10:06] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 11:24:50] method AdminController->getEmployer() returns {"message":"success","employer":5,"asked_by":2}
+[2026-10-16 11:25:31] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 11:31:04] Internal Server Error {"status":null,"message":"App\\Support\\HttpException::__construct(): Argument #3 ($errors) must be of type array, Firebase\\JWT\\ExpiredException given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Services\/JwtService.php on line 59"}
+[2026-10-16 11:31:23] Runtime Exception {"status":null,"message":"Token expired"}
+[2026-10-16 11:36:51] HTTP Exception {"status":410,"message":"Token expired"}
+[2026-10-16 11:37:15] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 11:37:57] HTTP Exception {"status":410,"message":"Token expired"}
+[2026-10-16 11:37:57] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 11:38:56] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 11:43:30] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 11:47:07] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 11:48:07] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 11:54:17] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 11:54:37] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 11:54:37] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 11:55:01] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 11:55:02] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 11:55:02] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 11:55:04] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 11:55:19] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 11:55:19] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 11:56:20] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 11:59:21] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 11:59:21] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 12:08:07] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 12:08:07] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 12:08:12] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 12:08:37] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 12:09:30] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 12:09:30] HTTP Exception {"status":401,"message":"Refresh token revoked"}
+[2026-10-16 12:15:19] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 12:15:20] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 12:17:57] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 12:18:10] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":2}
+[2026-10-16 12:18:14] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 12:33:47] HTTP Exception {"status":403,"message":"Account is blocked"}
+[2026-10-16 12:34:00] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 12:34:03] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 12:34:08] HTTP Exception {"status":403,"message":"Account is blocked"}
+[2026-10-16 12:35:48] method ProductController->updateProduct() returns {"message":"success","product":1,"changed_by":3}
+[2026-10-16 12:36:33] method ProductController->updateProduct() returns {"message":"success","product":1,"changed_by":3}
+[2026-10-16 12:41:44] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":5}
+[2026-10-16 12:41:44] method ProductController->getCart() returns {"message":"success","items":[],"asked_by":5}
+[2026-10-16 12:41:47] method ProductController->getProduct() returns {"message":"success","product":2,"asked_by":5}
+[2026-10-16 12:44:42] HTTP Exception {"status":410,"message":"Token expired"}
+[2026-10-16 12:44:42] method AdminController->listOfEmployers() returns {"message":"success","$workers":[3,5,12,10,8,1],"asked_by":2}
+[2026-10-16 12:53:03] method OperatorController->getSellers() returns {"sellers":[1,5],"asked_by":3}
+[2026-10-16 13:05:32] method OperatorController->getSellers() returns {"sellers":[1,5],"asked_by":3}
+[2026-10-16 13:05:40] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:05:43] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:05:45] method ProductController->getProduct() returns {"message":"success","product":2,"asked_by":3}
+[2026-10-16 13:08:37] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[5],"asked_by":3}
+[2026-10-16 13:09:56] method ProductController->getProduct() returns {"message":"success","product":2,"asked_by":3}
+[2026-10-16 13:11:21] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:13:11] method ProductController->getProduct() returns {"message":"success","product":2,"asked_by":3}
+[2026-10-16 13:17:22] method ProductController->getProduct() returns {"message":"success","product":2,"asked_by":3}
+[2026-10-16 13:17:28] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:19:25] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:19:56] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,3],"asked_by":3}
+[2026-10-16 13:19:57] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[5,6,1,4],"asked_by":3}
+[2026-10-16 13:20:05] method OperatorController->getSellers() returns {"sellers":[1,5],"asked_by":3}
+[2026-10-16 13:20:06] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:20:12] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:21:16] HTTP Exception {"status":410,"message":"Token expired"}
+[2026-10-16 13:21:16] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:24:24] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":1}
+[2026-10-16 13:24:24] method ProductController->getCart() returns {"message":"success","items":[],"asked_by":1}
+[2026-10-16 13:24:27] method ProductController->getProduct() returns {"message":"success","product":2,"asked_by":1}
+[2026-10-16 13:24:48] Internal Server Error {"status":null,"message":"import_log(): Argument #3 ($filename) must be of type string, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/OperatorController.php on line 177"}
+[2026-10-16 13:24:48] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:24:56] Internal Server Error {"status":null,"message":"import_log(): Argument #3 ($filename) must be of type string, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/OperatorController.php on line 177"}
+[2026-10-16 13:24:56] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:25:22] method OperatorController->changeSellerPassword() returns {"error":"Call to a member function revokeAllForUser() on null","seller":1,"changed_by":3,"client_info":null}
+[2026-10-16 13:25:22] Internal Server Error {"status":null,"message":"App\\Support\\HttpException::__construct(): Argument #1 ($status) must be of type int, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/OperatorController.php on line 184"}
+[2026-10-16 13:25:22] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:26:17] HTTP Exception {"status":401,"message":"Invalid credentials"}
+[2026-10-16 13:26:20] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":1}
+[2026-10-16 13:29:26] method OperatorController->changeSellerPassword() returns {"error":"Call to a member function revokeAllForUser() on null","seller":1,"changed_by":3}
+[2026-10-16 13:29:26] Internal Server Error {"status":null,"message":"App\\Support\\HttpException::__construct(): Argument #1 ($status) must be of type int, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/OperatorController.php on line 182"}
+[2026-10-16 13:29:26] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:30:48] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:32:01] HTTP Exception {"status":410,"message":"Token expired"}
+[2026-10-16 13:32:58] method OperatorController->changeSellerPassword() returns {"error":"Same password","seller":1,"changed_by":3}
+[2026-10-16 13:32:58] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-16 13:33:09] method OperatorController->changeSellerPassword() returns {"error":"Call to a member function revokeAllForUser() on null","seller":1,"changed_by":3}
+[2026-10-16 13:33:09] Internal Server Error {"status":null,"message":"App\\Support\\HttpException::__construct(): Argument #1 ($status) must be of type int, null given, called in \/var\/www\/clients\/client1\/web1\/web\/app\/Controllers\/OperatorController.php on line 182"}
+[2026-10-16 13:33:28] method OperatorController->changeSellerPassword() returns {"error":"Call to a member function revokeAllForUser() on null","seller":1,"changed_by":3}
+[2026-10-16 13:33:28] HTTP Exception {"status":0,"message":"Call to a member function revokeAllForUser() on null"}
+[2026-10-16 13:37:26] HTTP Exception {"status":410,"message":"Token expired"}
+[2026-10-16 13:37:26] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:37:31] method OperatorController->changeSellerPassword() returns {"message":"success","seller":1,"changed_by":3}
+[2026-10-16 13:37:31] method OperatorController->getSeller() returns {"message":"success","seller":1,"asked_by":3}
+[2026-10-16 13:37:38] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":1}
+[2026-10-16 13:37:38] method ProductController->getCart() returns {"message":"success","items":[],"asked_by":1}
+[2026-10-16 13:37:55] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-16 13:37:55] HTTP Exception {"status":400,"message":"Invalid credentials"}
+[2026-10-16 13:38:37] method ProductController->getProduct() returns {"message":"success","product":1,"asked_by":5}
+[2026-10-16 13:38:50] method OperatorController->getSellers() returns {"sellers":[1,5],"asked_by":3}
+[2026-10-16 13:38:54] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:39:17] method ProductController->getProduct() returns {"message":"success","product":2,"asked_by":3}
+[2026-10-16 13:39:59] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:40:58] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:41:14] HTTP Exception {"status":422,"message":"Validation failed"}
+[2026-10-16 13:41:14] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:42:07] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:42:15] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:42:25] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:42:45] method ProductController->updateProduct() returns {"message":"success","product":2,"changed_by":3}
+[2026-10-16 13:42:45] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:44:59] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:45:02] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-16 13:45:02] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-16 13:45:02] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-16 13:45:02] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-16 13:45:10] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-16 13:45:10] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-16 13:45:10] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-16 13:45:10] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-16 13:45:35] method ProductController->getProduct() returns {"error":"Product not found","asked_by":3}
+[2026-10-16 13:45:35] HTTP Exception {"status":404,"message":"Product not found"}
+[2026-10-16 13:47:17] method ProductController->getProduct() returns {"message":"success","product":2,"asked_by":3}
+[2026-10-16 13:47:21] method OperatorController->getSellers() returns {"sellers":[1,5],"asked_by":3}
+[2026-10-16 13:47:23] method ProductController->getProducts() returns {"message":"success","groupId":null,"products":[2,5,3,6,1,4],"asked_by":3}
+[2026-10-16 13:48:13] method OperatorController->registerSeller() returns {"message":"success","new_seller":13,"registered_by":3}
+[2026-10-16 13:48:13] method OperatorController->getSellers() returns {"sellers":[1,5,13],"asked_by":3}
+[2026-10-16 13:48:15] method OperatorController->getSellers() returns {"sellers":[1,5,13],"asked_by":3}
+[2026-10-16 13:48:18] method OperatorController->getSeller() returns {"message":"success","seller":13,"asked_by":3}

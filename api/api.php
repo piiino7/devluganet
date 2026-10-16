@@ -23,7 +23,7 @@ header('Cache-Control: no-store, no-cache, must-revalidate');
 // CORS
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Device-Id, X-Device-Name');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
@@ -107,21 +107,6 @@ try {
     echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
 
-} catch (RuntimeException $e) {
-    http_response_code($e->status);
-    import_log('Runtime Exception', [
-        'status'    => $e->status,
-        'message'   => $e->getMessage(),
-    ]);
-    $payload = ['error' => [
-        'code' => $e->getCode(),
-        'message' => $e->getMessage()
-    ]];
-    if ($e->errors !== []) {
-        $payload['error']['errors'] = $e->errors;
-    }
-    echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    exit;
 } catch (\Throwable $e) {
     //http_response_code(500);
     import_log('Internal Server Error', [

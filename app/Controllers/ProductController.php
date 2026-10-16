@@ -45,7 +45,7 @@ class ProductController extends BaseController {
 
     public function getProducts(?string $groupId = null): void
     {
-        $seller = AuthUser::requireUser();
+        $worker = AuthUser::requireUser();
 
         $page  = max(1, (int)($_GET['page'] ?? 1));
         $limit = min(100, max(1, (int)($_GET['limit'] ?? 20)));
@@ -72,7 +72,11 @@ class ProductController extends BaseController {
             $groupId = (int)$data['groupId'];
         }
 
-        $query = Product::with(['offers', 'unit',])->where('is_active', true);
+        $query = Product::with(['offers', 'unit',]);
+
+        if ($worker->role === 'seller') {
+            $query->where('is_active', true);
+        }
 
         if ($groupId) {
             $query->whereHas('groups', fn($q) => $q->where('product_groups.id', $groupId));
@@ -109,7 +113,7 @@ class ProductController extends BaseController {
             'message' => 'success',
             'groupId' => $groupId,
             'products' => $products->pluck('id')->toArray(),
-            'asked_by' => $seller->id,
+            'asked_by' => $worker->id,
         ]);
 
         $this->json([
@@ -135,7 +139,7 @@ class ProductController extends BaseController {
 
     public function getProduct(string $productId): void
     {
-        $seller = AuthUser::requireUser();
+        $worker = AuthUser::requireUser();
 
         $data = (new Validator(['productId' => $productId]))
             ->rules([
@@ -143,14 +147,15 @@ class ProductController extends BaseController {
             ])
             ->validate();
 
-        $product = Product::with('unit', 'taxRate', 'groups', 'offers')
-            ->where('is_active', true)
-            ->find($data['productId']);
+        $query = Product::with('unit', 'taxRate', 'groups', 'offers');
+        if ($worker->role === 'seller') $query->where('is_active', true);
+
+        $product = $query->find($data['productId']);
 
         if ($product === null) {
             import_log('method ProductController->getProduct() returns', [
                 'error' => 'Product not found',
-                'asked_by' => $seller->id,
+                'asked_by' => $worker->id,
             ]);
             throw HttpException::notFound('Product not found');
         }
@@ -158,7 +163,7 @@ class ProductController extends BaseController {
         import_log('method ProductController->getProduct() returns', [
             'message' => 'success',
             'product' => $product->id,
-            'asked_by' => $seller->id,
+            'asked_by' => $worker->id,
         ]);
         $this->json([
             'data' => [
@@ -204,15 +209,6 @@ class ProductController extends BaseController {
     {
         $updater = AuthUser::requireUser();
 
-        /*if ($updater->role !== 'operator') {
-            import_log('method ProductController->updateProduct() returns', [
-                'error' => 'You have no rights',
-                'asked_by' => $updater->id,
-            ]);
-
-            throw HttpException::forbidden('You have no rights');
-        }*/
-
         $body = $this->body();
         $body['product_id'] = $productId;
 
@@ -221,7 +217,8 @@ class ProductController extends BaseController {
                 'product_id' => 'required|int',
                 'alias' => 'string',
                 'payment_type' => 'string|in:full,advance',
-                'is_active' => 'bool'
+                'is_active' => 'bool',
+                'price' => 'float'
             ])
             ->validate();
 
@@ -240,19 +237,29 @@ class ProductController extends BaseController {
                 'data' => [
                     'message' => 'Nothing to update',
                 ],
-            ]);Q
+            ]);
         }*/ //уточнить за это
 
-        $product->update($data);
+        DB::connection()->transaction(function () use ($data, $product, $updater) {
+            if (isset($data['price'])) {
+                $offer = $product->offers->first();
+                $offer->update([
+                    'price' => $data['price']
+                ]);
+                unset($data['price']);
+            }
 
-        if (!$product) {
-            import_log('method ProductController->updateProduct() returns', [
-                'error' => 'Cannot change this product',
-                'asked_by' => $updater->id,
-            ]);
+            $product->update($data);
 
-            throw HttpException::badResponse('Cannot change this product');
-        }
+            if (!$product) {
+                import_log('method ProductController->updateProduct() returns', [
+                    'error' => 'Cannot change this product',
+                    'asked_by' => $updater->id,
+                ]);
+
+                throw HttpException::badResponse('Cannot change this product');
+            }
+        });
 
         import_log('method ProductController->updateProduct() returns', [
             'message' => 'success',

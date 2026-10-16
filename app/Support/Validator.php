@@ -17,6 +17,8 @@ class Validator
      */
     public function rules(array $rules): self
     {
+        $this->allowedFields = array_keys($rules);
+
         foreach ($rules as $field => $ruleString) {
             if (str_contains($field, '.*')) {
                 $this->checkWildcard($field, $ruleString);
@@ -51,7 +53,7 @@ class Validator
         if ($this->errors !== []) {
             throw HttpException::validation($this->errors);
         }
-        return $this->data;
+        return array_intersect_key($this->data, array_flip($this->allowedFields));
     }
 
     public function errors(): array

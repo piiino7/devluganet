@@ -28,8 +28,8 @@ return [
 
     // Категории товаров/Товары/Предложения
     ['GET',     '/groups',                     ProductController::class,   'getGroups',    ['seller', 'operator']], // — список категорий
-    ['GET',     '/groups/{groupId}/products',  ProductController::class,   'getProducts',  ['seller', 'operator']], // — товары в категории (добавить пагинацию)
-    ['GET',     '/products',                   ProductController::class,   'getProducts',  ['seller', 'operator']], // — все товары (фильтры, поиск, пагинация)
+    ['GET',     '/groups/{groupId}/products',  ProductController::class,   'getProducts',  ['seller', 'operator', 'admin', 'superadmin']], // — товары в категории (добавить пагинацию)
+    ['GET',     '/products',                   ProductController::class,   'getProducts',  ['seller', 'operator', 'admin', 'superadmin']], // — все товары (фильтры, поиск, пагинация)
     ['GET',     '/products/{productId}',       ProductController::class,   'getProduct',   ['seller', 'operator']], // — один товар (подробно со всеми предложениями)
     ['PATCH',   '/products/{productId}',       ProductController::class,   'changeAlias',  ['seller', 'operator']], // — задать/поменять алиас в номенклатуре
     ['GET',     '/offer/{offerId}',            ProductController::class,   'getOffer',     ['seller', 'operator']], // — одно конкретное предложение

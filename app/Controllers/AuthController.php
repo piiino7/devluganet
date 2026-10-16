@@ -97,7 +97,7 @@ class AuthController extends BaseController
 
         $user = $oldToken->user;
         if (!$user || !$user->is_active) {
-            import_log('method AuthController->login() refresh', [
+            import_log('method AuthController->login() returns', [
                 'error' => 'Account is blocked',
                 'user' => $user->id,
                 'client_info' => $this->client,
@@ -114,7 +114,7 @@ class AuthController extends BaseController
         ]);
         $refreshToken = $this->refreshToken->rotate($oldToken);
 
-        import_log('method AuthController->login() refresh', [
+        import_log('method AuthController->login() returns', [
             'message' => 'success',
             'user' => $user->id,
             'role' => $role,
@@ -143,7 +143,7 @@ class AuthController extends BaseController
 
         $user = $refreshToken->user;
         if (!$user || !$user->is_active) {
-            import_log('method AuthController->logout() refresh', [
+            import_log('method AuthController->logout() returns', [
                 'error' => 'Account is blocked',
                 'user' => $user->id,
                 'client_info' => $this->client,
@@ -155,7 +155,7 @@ class AuthController extends BaseController
         $role = $user->role;
 
         $this->refreshToken->revoke($data['refresh_token']);
-        import_log('method AuthController->logout() refresh', [
+        import_log('method AuthController->logout() returns', [
             'message' => 'success',
             'user' => $user->id,
             'role' => $role,
@@ -173,7 +173,7 @@ class AuthController extends BaseController
         $role = $user->role;
 
         $this->refreshToken->revokeAllForUser($user);
-        import_log('method AuthController->logoutAll() refresh', [
+        import_log('method AuthController->logoutAll() returns', [
             'message' => 'success',
             'user' => $user->id,
             'role' => $role,
@@ -196,18 +196,8 @@ class AuthController extends BaseController
             ])
             ->validate();
 
-        if (!$user->verifyPassword($data['old_password']) || $user->verifyPassword($data['new_password'])) {
-            import_log('method AuthController->changePassword() refresh', [
-                'error' => 'Invalid credentials',
-                'login' => $data['name'],
-                'client_info' => $this->client,
-            ], $this->logfile);
-
-            throw HttpException::badRequest('Invalid credentials');
-        }
-
         if (!$user->is_active) {
-            import_log('method AuthController->changePassword() refresh', [
+            import_log('method AuthController->changePassword() returns', [
                 'error' => 'Account is blocked',
                 'user' => $user->id,
                 'client_info' => $this->client,
@@ -215,23 +205,39 @@ class AuthController extends BaseController
             throw HttpException::forbidden('Account is blocked');
         }
 
-        $changingPassword = $user->update([
-            'password' => $data['new_password'],
-        ]);
-
-        if (!$changingPassword OR password_verify($data['old_password'], $user->password)) {
-            import_log('method AuthController->changePassword() refresh', [
-                'error' => 'Cannot update this password',
+        if (!$user->verifyPassword($data['old_password']) || $user->verifyPassword($data['new_password'])) {
+            import_log('method AuthController->changePassword() returns', [
+                'error' => 'Invalid credentials',
                 'user' => $user->id,
                 'client_info' => $this->client,
             ], $this->logfile);
 
-            throw HttpException::forbidden('Cannot update this password');
+            throw HttpException::badRequest('Invalid credentials');
         }
 
-        $this->refreshToken->revokeAllExceptThis($user);
+        try {
+            DB::connection()->transaction(function () use ($data, $user) {
+                $changingPassword = $user->update([
+                    'password' => $data['new_password'],
+                ]);
 
-        import_log('method AuthController->changePassword() refresh', [
+                if (!$changingPassword) {
+                    throw HttpException::forbidden('Cannot update this password');
+                }
+
+                $this->refreshToken->revokeAllForUser($user);
+            });
+        } catch (\Throwable $e) {
+            import_log('method AuthController->changePassword() returns', [
+                'error' => $e->getMessage(),
+                'user' => $user->id,
+                'client_info' => $this->client,
+            ], $this->logfile);
+
+            throw new HttpException($e->getCode(), $e->getMessage());
+        }
+
+        import_log('method AuthController->changePassword() returns', [
             'message' => 'success',
             'user' => $user->id,
             'client_info' => $this->client,

@@ -5,9 +5,11 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Product;
+use App\Models\Offer;
 
 use App\Resources\UserResource;
 use App\Resources\DetailProductResource;
+use App\Resources\OfferResource;
 
 use App\Support\AuthUser;
 use App\Support\HttpException;
@@ -266,13 +268,44 @@ class AdminController extends BaseController
     {
         $admin = AuthUser::requireUser();
 
+        $page  = max(1, (int)($_GET['page'] ?? 1));
+        $limit = min(100, max(1, (int)($_GET['limit'] ?? 20)));
+
+        $search  = trim((string)($_GET['search'] ?? ''));
+
+        $sort  = (string)($_GET['sort'] ?? 'name');
+        $order = strtolower((string)($_GET['order'] ?? 'asc')) === 'desc' ? 'desc' : 'asc';
+
+        $allowedSort = ['name', 'role', 'is_active'];
+        if (!in_array($sort, $allowedSort, true)) {
+            $sort = 'name';
+        }
+
         $roles = ['operator', 'seller'];
 
         if ($admin->isSuperAdmin()) {
             $roles[] = 'admin';
         }
 
-        $workers = User::whereIn('role', $roles)->get();
+        $query = User::whereIn('role', $roles);
+
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $like = '%' . $search . '%';
+                $q->where('name', 'like', $like)
+                    ->orWhere('role', 'like', $like)
+                    ->orWhere('is_active', 'like', $like);
+            });
+        }
+
+        $total = (clone $query)->count();
+
+        $workers = $query
+            ->orderBy($sort, $order)
+            ->limit($limit)
+            ->offset(($page - 1) * $limit)
+            ->get();
+
         import_log('method AdminController->listOfEmployers() returns', [
             'message' => 'success',
             '$workers' => $workers->pluck('id')->toArray(),
@@ -282,6 +315,17 @@ class AdminController extends BaseController
         $this->json([
             'data' => [
                 'all_workers' => UserResource::collection($workers)
+            ],
+            'meta' => [
+                'total' => $total,
+                'page'  => $page,
+                'limit' => $limit,
+                'pages' => (int)ceil($total / $limit),
+                'filters' => [
+                    'search'  => $search !== '' ? $search : null,
+                    'sort'    => $sort,
+                    'order'   => $order,
+                ],
             ],
         ]);
     }
@@ -404,7 +448,7 @@ class AdminController extends BaseController
         $data = (new Validator($body))
             ->rules([
                 'offerId' => 'required|int',
-                'quantity'     => 'float',
+                'quantity' => 'float',
                 'reserved' => 'float',
                 'min_quantity' => 'float',
             ])
@@ -427,7 +471,7 @@ class AdminController extends BaseController
         try {
             DB::connection()->transaction(function () use ($offer, $data) {
                 if ($data !== []) {
-                    $offer->update($data);
+                    $offer->update($data); // Возможно переделать чтоб не было уязвимости
                 }
 
                 $offer->refresh();
